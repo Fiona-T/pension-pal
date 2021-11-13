@@ -61,6 +61,24 @@ The target audience are employees of any age, working in Ireland (pension featur
 ## User Experience (UX)
 ---
 ### User stories
+- As a visiting user, I can learn what the site is about, so I can decide whether to sign up to the site
+- As a site user, I can navigate the site so that I can find the page I want to go to 
+- As a registered user, I can sign into my account so that I can access my jobs and pension information
+- As a registered user, I can sign out of my account when finished, so that I know I am signed out securely
+- As a registered user, I can re-set my password so that I can gain access to my account if I forgot my password
+- As a new user, I can sign up for an account so that I can start recording my jobs and pensions details
+- As a registered user, I can record details of a job so that I can build up my employment history records
+- As a registered user, I can see all the jobs I have added so that I can get the overall picture of my work history
+- As a registered user, I can edit a job so that I can correct the previously recorded information
+- As a registered user, I can delete a job so that I can remove it from my records if I added it in error 
+- As a registered user, I can record the details of a pension so that I can have the pension recorded on my account
+- As a registered user, I can view the pensions I have added so that I can see all my pension details in one place
+- As a registered user, I can edit a pension I previously added, so that I can correct or update the previously recorded information
+- As a registered user, I can delete a pension I previously added, so that I can remove it from my records if I added it in error 
+- As a site user, I can access external resources relating to pensions, so that I can find out more information 
+- As a site user, I can find the PensionPal social media accounts, so that I can follow them on social media to keep up to date
+- As the website owner, I can maintain a list of pension providers and their websites, so that users can select the pension provider when adding or editing a pension in My Pensions page
+
 ### Design
 ### Wireframes
 
