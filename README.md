@@ -104,6 +104,130 @@ The target audience are employees of any age, working in Ireland (pension featur
 ## Features
 ---
 ### Existing Features
+- #### Header
+  * Top of every page, contains website name on the left, Sign Up and Sign In links on the right.
+  * When a user is logged in, the header changes as follows:
+    * user name is shown
+    * navigation links change to My Jobs, My Pensions, Sign Out
+  * Website name links back to the home page
+  * Fixed to the top of the page so that navigation links are always available to the user
+  * Navigation links collapse to hamburger on smaller screens
+- #### Footer
+  * Bottom of every page, not fixed (so as not to take up too much screen space on smaller screens) but sticks to bottom of screen even if not enough content to push it down
+  * Contains Useful links and Social Links
+  * Userful links: link to The Pensions Authority, Revenue and Citizens Information websites
+  * Social links: Instagram, Facebook and Twitter pages for PensionPal
+  * All these links are external and open in a new window
+- #### Home page
+  * Three sections: Landing, Summary and Details
+  * Landing section
+    * Hero image, tagline and three buttons for the most important actions: Learn More (for users who are new to the site), Sign Up, Sign In for existing users
+  * Summary section
+    * 3 cards giving a high level summary of what the website can achieve for the user. Each one is an icon along with a short sentence.
+  * Details section
+    * the Learn More link in the Landing section brings the user here
+    * This section is designed to give a new user all the information they need to 1)learn the purpose of the website, 2)why they should use it (the benefits to them) and 3)how they can use it.
+    * This information is outlined in the three headings
+      * What is PensionPal
+      * Why Use PensionPal
+      * How to Use PensionPal
+- #### Sign Up page
+  * Sign up form for new user with the following fields, all mandatory
+    * Username
+    * Email address
+    * Password
+    * Confirm Password
+  * Sign up button to submit the form
+  * Redirects to the Sign In page once the form is submitted
+  * Note at the top of the form directing people who have already registered to the sign in page
+- #### Sign In page
+  * Sign in form for existing user with the following fields, all mandatory
+      * Username
+      * Password
+  * Sign In button to submit the form
+  * Redirects to the My Jobs page once the form is submitted
+  * Forgot password section with email address field and Send button
+  * Note at the top of the form directing people who have not yet registered as a user to the sign up page
+- #### My Jobs page
+  * Two sections: Add Job and Your Jobs
+  * Add Job
+    * Button called Add Job which directs user to a new page
+    * Text underneath explaining to add the job/employment first, then if there is a pension attached to the job, to add this in the My Pensions page
+    * Add Job page contains a form with the following mandatory fields: Company name, Date of joining, Date of leaving, Full-time or part-time
+    * Add Job button to submit the form
+    * Redirect to a success page confirming the employment/job has been added, reminding the user to add the pension details now, and advising where to view/edit/delete the job details 
+  * Your Jobs
+    * a series of cards displaying the details of all the jobs/employments the user has added to date
+    * if there are none, then a note confirming this
+    * each card contains
+      * card header: Company name
+      * card body: date of joining and leaving service, full/part-time
+      * card footer: Edit and Delete buttons
+    * Edit Employment page displays when the Edit button is clicked
+      * Form containing the following mandatory fields, pre-populated with the existing information: Company name, Date of joining, Date of leaving, Full-time or part-time
+      * Confirm changes button to submit the form, redirects to the My Jobs page
+      * Cancel button brings the user back to the My Jobs page
+    * Delete Employment modal displays when the Delete button is clicked
+      * Warning message to the user, advising that this can't be un-done and will also result in deletion of any Pensions attached to the employment
+      * Cancel button brings the user back to the My Jobs page
+      * Delete Job button to confirm deletion of the employment and redirects back to the My Jobs page
+- #### My Pensions page
+  * Two sections: Add Pension and Your Pensions
+  * Add Pension
+    * Button called Add Pension which directs user to a new page
+    * Text underneath reminding to add the job/employment first in case they have not done this. As the pension is attached to the employment.
+    * Add Pension page contains a form with the following fields:
+      * Choose Employment: dropdown list of employments added by the user, mandatory
+      * Pension Scheme name: text, mandatory
+      * Policy or scheme number, mandatory
+      * Member number, optional
+      * Type of pension: dropdown list, mandatory
+      * Date joined pension scheme: date, mandatory
+      * Salary at date of leaving service: text, mandatory
+      * Is there a Pension Adjustment Order on the pension: tick box, defaults to un-ticked
+      * Were you a 20% director in this employment: tick box, defaults to un-ticked
+      * Pension provider: dropdown list, mandatory
+      * Pension value: text, mandatory
+      * Upload recent statement: file upload, optional
+      * Additonal notes: textarea, optional
+      * Add Pension button to submit the form
+      * Redirects to a success page confirming the pension has been added, and advising where to view/edit/delete the pension details
+  * Your Pensions
+    * a series of cards displaying the summary details of all the pensions the user has added to date
+    * if there are none, then a note confirming this
+    * each card contains
+      * card header: Pension type and Company name
+      * card body: pension value
+      * card footer: View Details, Edit and Delete buttons
+    * Pension Details page displays when the View Details button is clicked
+      * Displays the following information, which is from the Employment and the Pension tables:
+        * Pension type and Company name
+        * Pension scheme name
+        * Policy/scheme number
+        * Member number (if provided)
+        * Date joined pension scheme
+        * Date of joining service
+        * Date of leaving service
+        * Salary at date of leaving service
+        * Pension Adjustment Order (displays Yes or No)
+        * 20% director in this employment (displays Yes or No)
+        * Full-time or part-time employment
+        * Pension provider
+        * Pension provider website
+        * Pension value
+        * Link to file that was uploaded by user (if provided)
+        * Your notes: the notes from Additional Notes section, if provided
+      * Edit and Delete buttons underneath the pension details
+      * Link at the top of the back to go Back to My Pensions
+    * Edit Pension page displays when the Edit button is clicked
+      * Form containing the same fields as the Add Pension form, pre-populated with the existing information
+      * Confirm changes button to submit the form, redirects to the My Pensions page
+      * Cancel button brings the user back to the My Pensions page
+    * Delete Pension modal displays when the Delete button is clicked
+      * Warning message to the user, advising that this can't be un-done
+      * Cancel button brings the user back to the My Pensions page
+      * Delete Pension button to confirm deletion of the pension and redirects back to the My Pensions page
+
 ### Future Features 
 
 ## Content Requirements
