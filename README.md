@@ -81,6 +81,25 @@ The target audience are employees of any age, working in Ireland (pension featur
 
 ### Design
 ### Wireframes
+#### Desktop/Tablet
+- [Home page](docs/wireframes/home-desktop.png)
+- [My Jobs](docs/wireframes/my-jobs-desktop.png)
+- [Edit, Delete a Job](docs/wireframes/edit-delete-job-desktop.png)
+- [My Pensions](docs/wireframes/my-pensions-desktop.png)
+- [View, Edit, Delete a Pension](docs/wireframes/view-edit-delete-pension-desktop.png)
+- [Sign Up](docs/wireframes/sign-up-desktop.png)
+- [Sign In](docs/wireframes/sign-in-desktop.png)
+
+#### Mobile
+- [Home page](docs/wireframes/home-mobile.png)
+- [My Jobs](docs/wireframes/my-jobs-mobile.png)
+- [Edit, Delete a Job](docs/wireframes/edit-delete-job-mobile.png)
+- [My Pensions](docs/wireframes/my-pensions-mobile.png)
+- [View, Edit, Delete a Pension](docs/wireframes/view-edit-delete-pension-mobile.png)
+- [Sign Up](docs/wireframes/sign-up-mobile.png)
+- [Sign In](docs/wireframes/sign-in-mobile.png)
+
+[View all wireframes in pdf here.](docs/wireframes/wireframes-all.pdf)
 
 ## Features
 ---
