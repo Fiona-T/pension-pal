@@ -244,6 +244,48 @@ The target audience are employees of any age, working in Ireland (pension featur
 
 ### Database Schema
 ---
+The dataset for this project consists of the information entered by each registered user on their employments and attached pensions.
+
+Some of the factors taken into account when creating the data model:
+- a user can only view details of the Job and Pension records they entered, they cannot view records of other users, therefore:
+  * The user who created the record must be recorded on each Job record and Pension record
+  * User will be a Foregin Key (one to many relationship) in the Job model and Pension model
+- Each Pension record must have an associated employment/job, and can only be linked to one employment/job in this iteration of the project (later iterations may include functionality to add more than one employment to a pension, see [Future Features](#future-features)). An Employment/Job can be linked to more than one pension
+  * Job/Employment is a Foreign Key (one to many relationship) in the Pension model.
+- The Pension records will be displayed as a series of cards in the My Pensions page, with summary details on the card. The user can click on View Details to view the complete details. 
+  * Therefore a slug will be used to generate the url when viewing the full detail of a pension record
+- The user can upload a file as part of a Pension record. Since the live project will be deployed on Heroku which has ephemeral file storage, these files will be hosted on Cloudinary for persistent file storage
+  * CloudinaryField will be used in the Pension model to store the url for the hosted file 
+- Pension provider name will be recorded as part of each Pension record. 
+  * To ensure consistency, and to allow the pension provider website to be pre-populated instead of the user having to enter it on the Add Pension form, the list of pension providers and their associated website url will be contained in a separate PensionProvider table managed by the website owner
+  * Pension provider name will be a Foreign Key (one to many relationship) in the Pension model
+* All custom models will use the Django default primary key of auto-incrementing id
+
+The data is organised using the following models:
+
+- User
+  * using the Django built in User model
+  * records are created in this table via the Sign Up form on the frontend
+- Job
+![diagram for Job table](docs/erd/job.png)
+  * records are created, edited and deleted by a registered user from the frontend
+  * created via the Add Job button and form from My Jobs page
+  * edited via the Edit Job form accessed using the Edit button
+  * deleted via the Delete record modal accessed using the Delete button
+  * records are viewed on the My Jobs page
+  * some details from the employment record are used when viewing the Pension details on My Pensions page
+- Pension
+![diagram for Pension table](docs/erd/pension.png)
+  * records are created, edited and deleted by a registered user from the frontend
+  * created via the Add Pension button and form from My Pensions page
+  * edited via the Edit Pension form accessed using the Edit button
+  * deleted via the Delete record modal accessed using the Delete button
+  * records are viewed on the My Pensions page
+- PensionProvider
+![diagram for PensionProvider table](docs/erd/provider.png)
+  * records are created, edited and deleted via the Admin panel by the website owner and cannot be edited by a regular user
+  * data in this model is viewed as part of the Pension view
+
 ## Technology
 ---
 ### Languages
