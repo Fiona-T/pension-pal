@@ -20,6 +20,7 @@ PensionPal is a website for users in Ireland to record details of their working 
   * [Future Features](#future-features)
 - [Content Requirements](#content-requirements)
 - [Database Schema](#database-schema)
+- [Project Structure](#project-structure)
 - [Technology](#technology)
   * [Languages](#languages)
   * [Frameworks, Libraries, Programmes and Tools](#frameworks-libraries-programmes-and-tools)
@@ -285,6 +286,21 @@ The data is organised using the following models:
 ![diagram for PensionProvider table](docs/erd/provider.png)
   * records are created, edited and deleted via the Admin panel by the website owner and cannot be edited by a regular user
   * data in this model is viewed as part of the Pension view
+
+## Project structure
+---
+The project is developed using the Django framework and will be split into three apps within the Django project:
+- Pages
+  * Will display the Home page (and any other general pages that may be added in the future). 
+  * This app does not have a model as it does not require any database information, this is a static page displaying information. 
+- Jobs
+  * To handle creating, viewing, editing and deleting jobs/employments by a registered user. 
+  * This app will use the Job model outlined above to hold the job/employment information created by users
+- Pensions
+  * To handle creating, viewing, editing and deleting pensions by a registered user. 
+  * This app will use the Pension model described above to hold the pension information created by users
+  * This app depends on the Jobs app, as it requires information from the Job model for creating/editing of a pension record and for viewing pension details
+  * This app will also use the PensionProvider model
 
 ## Technology
 ---
