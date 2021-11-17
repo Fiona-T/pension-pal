@@ -334,9 +334,21 @@ The repository can be forked on GitHub, this creates a copy of the repository th
 2. Locate the relevant repository on GitHub. [This is the repository for PensionPal](https://github.com/Fiona-T/pension-pal).
 3. At the top right of the repository (under your avatar) locate the Fork button and click this button
 4. You should now have a copy of the repository in your own GitHub account, to which you can make changes
-5. To run the project locally, you will need to create an `env.py` file with the environment variables and install the requirements from the `requiresments.txt` file using `pip3 install -r requirements.txt`
+5. To run the project locally, you will need to create an `env.py` file with the environment variables and install the requirements from the `requirements.txt` file using `pip3 install -r requirements.txt`
 
 ### Cloning the GitHub Repository
+You can make a clone of the repository which will create a local copy on your own computer. Again you can make changes to this local copy that will not affect the original repository. Follow these steps to clone the PensionPal repository. 
+1. Login to [GitHub](https://github.com/) and locate the repository as before
+2. Click the button called Code, located to the left of the green Gitpod button
+3. Under HTTPS copy the link provided (in this case https://github.com/Fiona-T/pension-pal.git) 
+4. Go to Gitpod or whichever IDE you are using and open the Terminal
+5. Change the current working directory to the location where you want the cloned directory to be made
+6. Type `git clone` followed by the url you copied in step 3:
+`git clone https://github.com/Fiona-T/pension-pal.git`
+7. Press Enter to create the local clone
+8. To run the project locally, you will need to create an `env.py` file with the environment variables and install the dependencies from the `requirements.txt` file using `pip3 install -r requirements.txt`
+
+You can refer to the [GitHub documentation](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) for more detailed information on the above process.
 
 ## Credits
 ---
