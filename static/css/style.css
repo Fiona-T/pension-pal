@@ -1,14 +1,14 @@
 /* ---------------------------------------- General */
+html, body {
+    height: 100%;
+}
+
 body {
     font-family: 'Montserrat', sans-serif;
 }
 
 a {
     text-decoration: none;
-}
-
-.light-text {
-    font-weight: 300;
 }
 
 /* ---------------------------------------- Header */
@@ -47,12 +47,17 @@ a {
 }
 
 /* ---------------------------------------- Footer */
-
+/* 
+sticky with 100vh combined with 100% on body and html for sticky footer 
+from: https://css-tricks.com/a-clever-sticky-footer-technique/
+*/
 footer {
     background-color: #020638;
     color: #FAF9F6;
     font-size: 0.9rem;
     line-height: 1.5rem;
+    position: sticky;
+    top: 100vh;
 }
 
 .sm-heading {
@@ -72,4 +77,9 @@ footer {
 
 footer i {
     font-size: 1.2rem;
+}
+
+.footnote {
+    font-size: 0.8rem;
+    font-weight: 300;
 }
