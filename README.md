@@ -329,6 +329,13 @@ Gitpod was used as the development environment, with GitHub for version control 
 
 ### Deployment to Heroku
 ### Forking the GitHub Repository
+The repository can be forked on GitHub, this creates a copy of the repository that can be viewed or amended without affecting the original repository. This can be done using the following steps:
+1. Login to [GitHub](https://github.com/) 
+2. Locate the relevant repository on GitHub. [This is the repository for PensionPal](https://github.com/Fiona-T/pension-pal).
+3. At the top right of the repository (under your avatar) locate the Fork button and click this button
+4. You should now have a copy of the repository in your own GitHub account, to which you can make changes
+5. To run the project locally, you will need to create an `env.py` file with the environment variables and install the requirements from the `requiresments.txt` file using `pip3 install -r requirements.txt`
+
 ### Cloning the GitHub Repository
 
 ## Credits
