@@ -27,9 +27,8 @@
         <nav class="navbar navbar-expand-sm py-2 py-lg-3 px-md-2">
             <div class="container-lg">
                 <a class="navbar-brand logo" href="{% url 'home' %}">PensionPal</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarNavItems" aria-controls="navbarNavItems"
-                    aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavItems"
+                    aria-controls="navbarNavItems" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavItems">
@@ -50,6 +49,28 @@
         <!-- specific page content goes here -->
         {% endblock content %}
     </main>
-    
+    <footer>
+        <!-- container for footer grid - two rows -->
+        <div class="container-lg text-center">
+            <!-- row to hold useful info links and social links -->
+            <div class="row">
+                <!-- useful links section-->
+                <div class="col-12 col-md-6">
+                    useful links
+                </div>
+                <!-- social media links section-->
+                <div class="col-12 col-md-6">
+                    social media links
+                </div>
+            </div>
+            <!-- row for copyright info -->
+            <div class="row">
+                <div class="col">
+                    <p>&copy <a href="https://github.com/Fiona-T" target="blank">Fiona Tracey</a> 2021. Site created for educational purposes.</p>
+                </div>
+            </div>
+        </div>
+        
+    </footer>
 </body>
 </html>
