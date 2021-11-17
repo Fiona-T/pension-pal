@@ -1,5 +1,14 @@
+/* ---------------------------------------- General */
 body {
     font-family: 'Montserrat', sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+.light-text {
+    font-weight: 300;
 }
 
 /* ---------------------------------------- Header */
@@ -35,4 +44,32 @@ body {
 .navbar-toggler:focus {
     box-shadow: 0 0 0 .1rem;
     color: #FF00FF;
+}
+
+/* ---------------------------------------- Footer */
+
+footer {
+    background-color: #020638;
+    color: #FAF9F6;
+    font-size: 0.9rem;
+    line-height: 1.5rem;
+}
+
+.sm-heading {
+    color: #FF00FF;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.footer-link {
+    color: #FAF9F6;
+}
+
+.footer-link:hover, .footer-link:active {
+    color: #ff00ff;
+    text-decoration: underline;
+}
+
+footer i {
+    font-size: 1.2rem;
 }
