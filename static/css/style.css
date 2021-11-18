@@ -46,6 +46,16 @@ a {
     color: #FF00FF;
 }
 
+.hero-image {
+	background-image: url(../images/woman-files-computer-hero.png);
+	height: 100vh;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+    transition: all .5s ease-in-out;
+}
+
+
 /* ---------------------------------------- Footer */
 /* 
 sticky with 100vh combined with 100% on body and html for sticky footer 

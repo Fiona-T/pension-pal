@@ -100,9 +100,18 @@
             <!-- row for copyright info -->
             <div class="row footnote">
                 <div class="col">
-                    <p>&copy <a href="https://github.com/Fiona-T" target="_blank" rel="noopener"
-                            class="footer-link">Fiona Tracey</a> 2021.
-                        Site created for educational purposes.</p>
+                    <p>
+                        <span>&copy <a href="https://github.com/Fiona-T" target="_blank" rel="noopener"
+                                class="footer-link">Fiona Tracey</a> 2021. Site created for educational purposes.
+                        </span>
+                        <!-- include credit for home page image, when on home page -->
+                        {% if request.path == '/' %}
+                        <span>
+                            Cover image by <a href="https://www.vecteezy.com/free-vector/computer" target="_blank"
+                                rel="noopener" class="footer-link">Vecteezy</a>
+                        </span>
+                        {% endif %}
+                    </p>
                 </div>
             </div>
         </div>
