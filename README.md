@@ -358,6 +358,7 @@ You can refer to the [GitHub documentation](https://docs.github.com/en/github/cr
 
 ### Content
 ### Media
+- The background hero image for the home page was sourced from [Vecteezy](https://www.vecteezy.com/vector-art/1428520-online-training-woman-using-laptop-for-cloud-computing) and edited slightly by the developer. The image is credited in the website footer, in line with Vecteezy attribution requirements.
 
 ## Acknowledgements
 ---
