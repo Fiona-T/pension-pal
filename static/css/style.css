@@ -82,7 +82,7 @@ h2 {
 
 /* overlay on hero-image behind the callout text */
 .overlay {
-    background-color: rgba(50, 44, 83, 0.6);
+    background-color: rgba(50, 44, 83, 0.7);
     height: 100vh;
     width: 100%;
     display: flex;
@@ -91,19 +91,28 @@ h2 {
     align-items: center;
 }
 
+/* subheading text */
 .callout {
-    font-weight: 500;
-    color: #020638;
+    font-weight: 600;
 }
 
+.highlight {
+    background-color: #FAF9F6;
+}
+
+/* headline text */
 .callout h1 {
     font-weight: 700;
-    color: white;
+    color: #FAF9F6;
 }
 
 .btn-callout {
     background-color: #ff00ff;
-    color: #131967;
+    padding: 0.8rem 1.2rem;
+    font-size: 1.4rem;
+    border-radius: 0.1rem;
+    display: inline-block;
+    margin-top: 1rem;
 }
 
 .btn-callout:hover, .btn-callout:focus {
