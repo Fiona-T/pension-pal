@@ -13,6 +13,17 @@ a {
     text-decoration: none;
 }
 
+main a {
+    font-weight: 500;
+    color: inherit;
+    text-decoration: underline #ff00ff double;
+}
+
+main a:hover, main a:focus {
+    font-weight: 600;
+    color: inherit;
+}
+
 h2 {
     font-weight: 700;
     font-size: 2.2rem;
