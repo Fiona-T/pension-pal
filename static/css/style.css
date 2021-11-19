@@ -3,6 +3,10 @@ html, body {
     height: 100%;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: 'Montserrat', sans-serif;
     background-color: #fff;
@@ -72,6 +76,38 @@ h2 {
 	background-repeat: no-repeat;
 	background-size: cover;
     transition: all .5s ease-in-out;
+    margin: 0;
+    padding: 0;
+}
+
+/* overlay on hero-image behind the callout text */
+.overlay {
+    background-color: rgba(50, 44, 83, 0.6);
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.callout {
+    font-weight: 500;
+    color: #020638;
+}
+
+.callout h1 {
+    font-weight: 700;
+    color: white;
+}
+
+.btn-callout {
+    background-color: #ff00ff;
+    color: #131967;
+}
+
+.btn-callout:hover, .btn-callout:focus {
+    color: white;
 }
 
 .home-bg {
