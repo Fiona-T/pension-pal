@@ -51,6 +51,8 @@ The initial iteration of PensionPal allows users to record employments, and reco
 
 The target audience are employees of any age, working in Ireland (pension features differ in different countries, and the information to be recorded is specifically based on Irish pensions). Employees who are not part of a pension scheme are still part of the target market, because they can still record their employment details (which can be used at a later date to determine eligibility for the State Pension Contributory), and it may also help them to learn some information about pensions so that they might set one up.
 
+Of particular interest within the target market are women, who traditionally participate less in the pension system; and younger people, who are traditionally not as aware of pensions as older workers. 
+
 ### User’s goals:
 - Users want to be able to record details of their employments, and the pension (if any) attached to their employment
 - Users want to be able to add more records over time, as they start and finish different jobs, with different pensions attached
@@ -81,6 +83,16 @@ The target audience are employees of any age, working in Ireland (pension featur
 - As the website owner, I can maintain a list of pension providers and their websites, so that users can select the pension provider when adding or editing a pension in My Pensions page
 
 ### Design
+The design deliberately steers clear from the usual look for financial product websites, which typically tend towards using blue or red. Since PensionPal is a new concept that doesn't exist in the Irish market, the branding reflects this and uses colours not normally associated with financial matters or pensions. 
+
+This design decision serves three functions: 
+1) to stand out in the market from other financial products, 
+2) to appeal to the younger section of the target market, 
+3) to reinforce the perception of the ease of use of PensionPal, away from the traditional concept of pensions being difficult and confusing!
+
+#### Colour
+#### Typography
+
 ### Wireframes
 #### Desktop/Tablet
 - [Home page](docs/wireframes/home-desktop.png)
