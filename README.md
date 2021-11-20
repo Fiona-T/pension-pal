@@ -90,7 +90,21 @@ This design decision serves three functions:
 2) to appeal to the younger section of the target market, 
 3) to reinforce the perception of the ease of use of PensionPal, away from the traditional concept of pensions being difficult and confusing!
 
-#### Colour
+- #### Colour scheme
+The website uses shades of deep purple/blue, with accents of a vivid fuschia pink as a contrasting pop of colour.
+
+Colour palette:
+![website colour scheme](docs/colour-scheme.png)
+
+- Midnight blue `#131967` is used for the header and is the main text colour 
+- Fuschia `#ff00ff` is the brand colour and is used for the logo and menu items in the header. It is also used as an accent colour througout the site for button backgrounds, link underlines, footer headings, etc.
+- Oxford Blue `020638`, a complementary darker shade of Midnight blue, is used for the footer background
+- Baby Powder `faf9f6` is an off-white used for text that appears on darker backgrounds
+- Space Cadet `#322c53` is used for the overlay on the hero-image, to provide a darker background and sufficient contrast for the hero text
+- Orchid Pink `#facdd7` is used for the full width background for the home page banner under the hero text
+
+The colour combinations have all been checked for accessibility using the [WCAG Contrast Checker tool](https://chrome.google.com/webstore/detail/wcag-color-contrast-check/plnahcmalebffmaghcpcmpaciebdhgdf?hl=en) to meet at least level AA. 
+
 #### Typography
 
 ### Wireframes
