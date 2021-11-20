@@ -105,7 +105,8 @@ Colour palette:
 
 The colour combinations have all been checked for accessibility using the [WCAG Contrast Checker tool](https://chrome.google.com/webstore/detail/wcag-color-contrast-check/plnahcmalebffmaghcpcmpaciebdhgdf?hl=en) to meet at least level AA. 
 
-#### Typography
+- #### Typography
+Montserrat is used throughout the entire website, with the different weights used to distinguish the headings, body text, etc. This is a clean, sans serif typeface which fits well with the style for this project. It is relatively rounded and is very readable, making it an appropriate choice for the body text. The heavier weights work well for the headings, since the design of this typeface was inspired by old signage and posters. 
 
 ### Wireframes
 #### Desktop/Tablet
