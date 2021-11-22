@@ -8,3 +8,8 @@ from django.views import generic
 class HomePage(generic.TemplateView):
     """Home Page view - static page, no model"""
     template_name = 'index.html'
+
+
+class MyJobs(generic.TemplateView):
+    """My Jobs page view """
+    template_name = 'my-jobs.html'
