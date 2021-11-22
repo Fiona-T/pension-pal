@@ -54,8 +54,8 @@ INSTALLED_APPS = [
 # for allauth
 SITE_ID = 1
 
-# allauth - after login or logout, redirect to home page for now
-LOGIN_REDIRECT_URL = '/'
+# allauth - on login, redirect to My Jobs page, on logout redirect to Home page
+LOGIN_REDIRECT_URL = '/jobs'
 LOGOUT_REDIRECT_URL = '/'
 
 ACCOUNT_EMAIL_VERIFICATION = 'none'
