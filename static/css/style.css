@@ -13,6 +13,17 @@ body {
     color: #131967;
 }
 
+/* remove default focus outline and replace with brand colour border */
+:focus {
+	outline: none;
+	border: 0.1rem solid #ff00ff;
+}
+
+/* add back outline for form checkbox as border doesn't work with checkbox */
+input[type="checkbox"]:focus {
+	outline: 0.05rem solid #ff00ff;
+}
+
 a {
     text-decoration: none;
 }
@@ -26,6 +37,17 @@ main a {
 main a:hover, main a:focus {
     font-weight: 600;
     color: inherit;
+}
+
+/* base styles for buttons (and links styled as buttons) */
+.btn-brand {
+    background-color: #ff00ff;
+    border-radius: 0.1rem;
+    color: #131967;
+}
+
+.btn:hover, .btn:focus, .btn:active {
+    color: white;
 }
 
 h2 {
@@ -107,10 +129,8 @@ h2 {
 }
 
 .btn-callout {
-    background-color: #ff00ff;
     padding: 0.8rem 1.2rem;
     font-size: 1.4rem;
-    border-radius: 0.1rem;
     display: inline-block;
     margin-top: 1rem;
 }
@@ -136,6 +156,37 @@ h2 {
 .details-icon {
     font-size: 2rem;
     color: #ff00ff;
+}
+
+/* ---------------------------------------- AllAuth Forms */
+/* heavier font-weight for labels */
+label {
+    font-weight: 500;
+}
+
+/* display input fields full width and underneath labels, brand color border */
+input:not([type="checkbox"]) {
+	display: block;
+	border: 0.05rem solid #131967;
+	width: 100%;
+	padding: 0.5rem;
+	margin-bottom: 0.5rem;
+}
+
+/* full width button to match width of inputs */
+form button {
+    width: 100%;
+}
+
+input:hover, input:focus, input:active {
+    border: 0.05rem solid #ff00ff;
+}
+
+/* submit button - colour + override box-shadow when button is focused */
+.btn-check:focus+.btn, .btn:focus {
+    border: none;
+    background-color: #131967;
+    box-shadow: none;
 }
 
 /* ---------------------------------------- Footer */
