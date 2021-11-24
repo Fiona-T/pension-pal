@@ -10,6 +10,6 @@ class HomePage(generic.TemplateView):
     template_name = 'index.html'
 
 
-class MyJobs(generic.TemplateView):
-    """My Jobs page view """
-    template_name = 'my-jobs.html'
+# class MyJobs(generic.TemplateView):
+#     """My Jobs page view """
+#     template_name = 'my-jobs.html'
