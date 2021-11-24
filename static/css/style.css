@@ -90,6 +90,11 @@ h2 {
     color: #FF00FF;
 }
 
+/* user name in header */
+.logged-in {
+    color: #FAF9F6;
+}
+
 /* ---------------------------------------- Home page */
 .hero-image {
 	background-image: url(../images/woman-files-computer-hero.png);

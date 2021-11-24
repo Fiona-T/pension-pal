@@ -1,4 +1,5 @@
 {% load static %}
+{% load account %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -56,6 +57,13 @@
                         {% endif %}
                     </ul>
                 </div>
+                <!-- show the username if the user is logged in -->
+                {% if user.is_authenticated %}
+                <div class="logged-in ms-md-2">
+                    <i class="bi bi-person-circle" role="img" aria-label="Logged in username"></i>
+                    <span>{% user_display user %}</span>
+                </div>
+                {% endif %}
             </div>
         </nav>
     </header>
