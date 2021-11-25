@@ -50,9 +50,26 @@ main a:hover, main a:focus {
     color: white;
 }
 
+/* button with icon and text */
+.btn-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* icon inside buttons */
+.icon-btn {
+    font-size: 2rem;
+    margin-right: 0.5rem;
+}
+
 h2 {
     font-weight: 700;
     font-size: 2.2rem;
+}
+
+h1 {
+    font-weight: 700;
 }
 
 /* ---------------------------------------- Header */
