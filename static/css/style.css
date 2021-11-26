@@ -63,6 +63,12 @@ main a:hover, main a:focus {
     margin-right: 0.5rem;
 }
 
+/* smaller icon inside buttons */
+.icon-btn-sm {
+    font-size: 1.2rem;
+    margin-right: 0.6rem;
+}
+
 h2 {
     font-weight: 700;
     font-size: 2.2rem;
@@ -182,6 +188,47 @@ h1 {
 .details-icon {
     font-size: 2rem;
     color: #ff00ff;
+}
+
+/* ---------------------------------------- Jobs/Pensions pages */
+
+/* styles for the cards displaying the Jobs/Pension details in Jobs/Pensions list */
+
+/* over-ride Bootstrap border color + radius */
+.card {
+    border-color: rgba(19,25,103, 0.2);
+    border-radius: .1rem;
+}
+
+/* font style and border bottom for card titles */
+.card-title {
+    padding-bottom: 1rem;
+    border-bottom: 0.1rem dotted #131967;
+}
+
+.card-label {
+    font-weight: 500;
+    margin-right: 0.5rem;
+}
+
+/* small icons inside the cards beside labels */
+.card-icon {
+    font-size: 1rem;
+    margin-right: 0.5rem;
+    color: #ff00ff;
+}
+
+/* over-ride Bootstrap border color */
+.card-footer {
+    background-color: #fff;
+    border: none;
+    margin-bottom: 0.5rem;
+}
+
+/* buttons inside the cards */
+.btn-card {
+    font-size: .9rem;
+    margin: 0 0.1rem;
 }
 
 /* ---------------------------------------- AllAuth Forms */
