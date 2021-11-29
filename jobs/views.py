@@ -20,7 +20,7 @@ class MyJobs(LoginRequiredMixin, generic.ListView):
         return Job.objects.filter(added_by=self.request.user)
 
 
-class AddJob(View):
+class AddJob(LoginRequiredMixin, View):
     """ Add Job view handles the form to add a new job """
     def get(self, request):
         """ Get request - displays the form to add a job """
