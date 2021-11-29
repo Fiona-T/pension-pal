@@ -1,8 +1,9 @@
 """Views for the 'jobs' app (create, view, edit, delete jobs)"""
 from django.shortcuts import render
-from django.views import generic
+from django.views import generic, View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Job
+from .forms import AddJobForm
 
 
 class MyJobs(LoginRequiredMixin, generic.ListView):
@@ -17,3 +18,16 @@ class MyJobs(LoginRequiredMixin, generic.ListView):
     def get_queryset(self):
         """filter the objects by the current user"""
         return Job.objects.filter(added_by=self.request.user)
+
+
+class AddJob(View):
+    """ Add Job view handles the form to add a new job """
+    def get(self, request):
+        """ Get request - displays the form to add a job """
+        return render(
+            request,
+            'add-job.html',
+            {
+                'form': AddJobForm()
+            }
+        )
