@@ -1,5 +1,5 @@
 """Views for the 'jobs' app (create, view, edit, delete jobs)"""
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import generic, View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Job
@@ -31,3 +31,23 @@ class AddJob(View):
                 'form': AddJobForm()
             }
         )
+
+    def post(self, request):
+        """
+        Submit form data, redirect to success page if valid,
+        else display the form again
+        """
+        form = AddJobForm(data=request.POST)
+        if form.is_valid():
+            form.instance.added_by = request.user
+            form.save()
+            return redirect('my_jobs')
+        else:
+            form = AddJobForm()
+            return render(
+                request,
+                'add-job.html',
+                {
+                    'form': AddJobForm()
+                }
+            )
