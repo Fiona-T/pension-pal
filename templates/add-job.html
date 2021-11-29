@@ -7,7 +7,7 @@
             <div class="col-12 col-sm-8 col-lg-6 mx-auto pt-2">
                 <section>
                     <h1 class="mb-4">Add a Job</h1>
-                    <form action="" mthod="POST">
+                    <form action="" method="POST">
                         {% csrf_token %}
                         {{ form.as_p }}
                         <a href="{% url 'my_jobs' %}" class="btn btn-brand btn-icon btn-card">Cancel</a>
