@@ -231,6 +231,34 @@ h1 {
     margin: 0 0.1rem;
 }
 
+/* ----------- Create, Edit forms on Jobs/Pensions pages */
+
+/* submit/cancel buttons/links in the forms */
+.btn-form {
+    width: 45%;
+}
+
+/* dropdown box - apply same styles as rest of form inputs */
+.user-form select {
+    display: block;
+	border: 0.05rem solid #131967;
+	width: 100%;
+	padding: 0.5rem;
+	margin-bottom: 0.5rem;
+    color: #131967;
+}
+
+/* django helptext, display block so can use neg margin, bring closer to input above it */
+.helptext {
+    font-size: 85%;
+    display: block;
+    margin-top: -0.4rem;
+}
+
+/* .user-form option {
+    color: #131967;
+} */
+
 /* ---------------------------------------- AllAuth Forms */
 /* heavier font-weight for labels */
 label {
