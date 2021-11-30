@@ -382,6 +382,8 @@ You can refer to the [GitHub documentation](https://docs.github.com/en/github/cr
 ### Code
 - To change the colour of the bootstrap menu icon, I used one of the approaches outlined in [this discussion on Stack Overflow](https://stackoverflow.com/questions/42586729/how-can-i-change-the-bootstrap-4-navbar-button-icon-color), which was to locate the svg `background-image` url and then amend the `rgba` value inside it
 - The code for the sticky footer is from [this post on CSS Tricks](https://css-tricks.com/a-clever-sticky-footer-technique/)
+- Guidance on how to filter the objects returned from the model by the user (so to display only the Jobs that were added by that user), by over-riding the `get_queryset() method` in the `ListView` generic `View` was found [in the Django docs](https://docs.djangoproject.com/en/3.2/topics/class-based-views/generic-display/)
+- Guidance on testing `Views` that require a user to be logged in was found [in this tutorial from Mozilla](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Testing)
 
 ### Content
 ### Media
