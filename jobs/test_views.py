@@ -90,3 +90,24 @@ class TestAddJobView(TestCase):
         self.assertEqual(str(response.context['user']), 'fred')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'add-job.html')
+
+    def test_can_add_job(self):
+        """
+        login the test user, get jobs url and check length of job_list is
+        zero initially. Then do POST request on add job url, with test job
+        check redirects to the correct success url after adding
+        check that length of job_list is now 1
+        """
+        self.client.login(username='fred', password='secret1234')
+        response = self.client.get('/jobs/')
+        self.assertEqual(len(response.context['job_list']), 0)
+        response = self.client.post('/jobs/add/', {
+            'added_by': 'user',
+            'employer_name': 'Test Company',
+            'start_date': '2020-01-01',
+            'finish_date': '2020-12-01',
+            'full_or_part_time': 1,
+        })
+        self.assertRedirects(response, '/jobs/')
+        response = self.client.get('/jobs/')
+        self.assertEqual(len(response.context['job_list']), 1)
