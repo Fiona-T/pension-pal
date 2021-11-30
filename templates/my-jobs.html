@@ -16,6 +16,8 @@
                 <h1 class="mb-4">Your Jobs</h1>
                 <!-- row containing colums, each with cards showing job details -->
                 <div class="row">
+                    <!-- if the job list context is not empty -->
+                    {% if job_list %}
                     <!-- for each job passed in from MyJobs ListView, display the details in a card, with edit and delete buttons -->
                     {% for job in job_list %}
                     <div class="col-12 col-sm-10 col-md-6 col-lg-4">
@@ -38,6 +40,12 @@
                         </div>
                     </div>
                     {% endfor %}
+                    <!-- if the job list context is empty, i.e. user does not have any jobs recorded -->
+                    {% else %}
+                    <p>You do not currently have any jobs recorded.</p>
+                    <p><a href="{% url 'add_job' %}">Get started by adding a job now</a>, or use the Add Job button at
+                        the top of this page.</p>
+                    {% endif %}
                 </div>
             </section>
         </div>
