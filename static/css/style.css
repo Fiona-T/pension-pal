@@ -46,6 +46,12 @@ main a:hover, main a:focus {
     color: #131967;
 }
 
+.btn-brand-dark {
+    background-color: #131967;
+    border-radius: 0.1rem;
+    color: #ff00ff;
+}
+
 .btn:hover, .btn:focus, .btn:active {
     color: white;
 }
