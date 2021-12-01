@@ -54,5 +54,10 @@ class AddJob(LoginRequiredMixin, View):
 
 
 class AddJobSuccess(LoginRequiredMixin, generic.TemplateView):
-    """Renders the success page after submitting the AddJobForm """
+    """
+    Renders the success page after submitting the AddJobForm
+    If not logged in, redirects to login page, then to jobs page as normal
+    after loggin in (doesn't redirect back to success page after login)
+    """
     template_name = 'add-job-success.html'
+    redirect_field_name = None
