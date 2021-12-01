@@ -41,7 +41,7 @@ class AddJob(LoginRequiredMixin, View):
         if form.is_valid():
             form.instance.added_by = request.user
             form.save()
-            return redirect('my_jobs')
+            return redirect('add_job_success')
         else:
             form = AddJobForm()
             return render(
@@ -51,3 +51,8 @@ class AddJob(LoginRequiredMixin, View):
                     'form': AddJobForm()
                 }
             )
+
+
+class AddJobSuccess(LoginRequiredMixin, generic.TemplateView):
+    """Renders the success page after submitting the AddJobForm """
+    template_name = 'add-job-success.html'
