@@ -14,6 +14,16 @@ class TestAddJobForm(TestCase):
             'Finish date should be after the start date.'
             )
 
+    def test_widget_exists_on_date_fields_(self):
+        """Test that the two date fields have DateInput widget attached """
+        form = AddJobForm()
+        self.assertEqual(
+            form.fields['finish_date'].widget.__class__.__name__, 'DateInput'
+            )
+        self.assertEqual(
+            form.fields['start_date'].widget.__class__.__name__, 'DateInput'
+            )
+
     def test_all_fields_are_required(self):
         """
         Create a form without any details filled in, check that it is not valid
