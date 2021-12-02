@@ -79,3 +79,24 @@ class EditJob(LoginRequiredMixin, View):
                 'form': AddJobForm(instance=job)
             }
         )
+
+    def post(self, request, job_id):
+        """
+        Gets the job by the id (passed in via the url)
+        Submit form data, redirect to my-jobs page if valid,
+        else display the form again on edit-job page
+        """
+        job = get_object_or_404(Job, id=job_id)
+        form = AddJobForm(data=request.POST, instance=job)
+        if form.is_valid():
+            form.save()
+            return redirect('my_jobs')
+        else:
+            form = AddJobForm()
+            return render(
+                request,
+                'edit-job.html',
+                {
+                    'form': AddJobForm(instance=job)
+                }
+            )
