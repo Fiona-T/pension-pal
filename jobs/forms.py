@@ -20,8 +20,8 @@ class AddJobForm(forms.ModelForm):
         widgets = {
             'start_date': forms.DateInput(
                 format=('%d/%m/%Y'),
-                attrs={'class': 'form-control', 'type': 'date'}),
+                attrs={'type': 'date'}),
             'finish_date': forms.DateInput(
                 format=('%d/%m/%Y'),
-                attrs={'class': 'form-control', 'type': 'date'}),
+                attrs={'type': 'date'}),
             }
