@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- container for page contents -->
+    <div class="container py-5 px-4">
+        <!-- row with one column -->
+        <div class="row py-5">
+            <div class="col-12 col-sm-8 col-lg-6 mx-auto pt-2">
+                <section>
+                    <!-- Edit Job section and form -->
+                    <h1 class="mb-4">Edit Job Details</h1>
+                    <p>Make the changes to the job details below, then press the <strong>Confirm Changes button</strong> to save the
+                        changes:</p>
+                    <form action="" method="POST" class="user-form">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <div class="d-flex justify-content-between mt-5">
+                            <a href="{% url 'my_jobs' %}" class="btn btn-brand btn-icon btn-card btn-form">Cancel</a>
+                            <button class="btn btn-brand btn-icon btn-card btn-form" type="submit">Confirm
+                                Changes</button>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
