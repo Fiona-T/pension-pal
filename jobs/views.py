@@ -1,5 +1,5 @@
 """Views for the 'jobs' app (create, view, edit, delete jobs)"""
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic, View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Job
@@ -61,3 +61,21 @@ class AddJobSuccess(LoginRequiredMixin, generic.TemplateView):
     """
     template_name = 'add-job-success.html'
     redirect_field_name = None
+
+
+class EditJob(LoginRequiredMixin, View):
+    """View for displaying and posting form to edit an existing job"""
+
+    def get(self, request, job_id):
+        """
+        Gets the job by the id (passed in via the url)
+        Returns the template with the form, populated with existing data
+        """
+        job = get_object_or_404(Job, id=job_id)
+        return render(
+            request,
+            'edit-job.html',
+            {
+                'form': AddJobForm(instance=job)
+            }
+        )
