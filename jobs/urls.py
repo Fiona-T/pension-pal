@@ -6,4 +6,5 @@ urlpatterns = [
     path('', views.MyJobs.as_view(), name='my_jobs'),
     path('add/', views.AddJob.as_view(), name='add_job'),
     path('success/', views.AddJobSuccess.as_view(), name='add_job_success'),
+    path('edit/<job_id>', views.EditJob.as_view(), name='edit_job'),
 ]
