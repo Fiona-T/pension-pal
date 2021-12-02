@@ -2,5 +2,10 @@
 from django.contrib import admin
 from .models import Job
 
-# Register your models here.
-admin.site.register(Job)
+
+class JobAdmin(admin.ModelAdmin):
+    """Admin panel set up for Job model - show the id field"""
+    readonly_fields = ('id',)
+
+
+admin.site.register(Job, JobAdmin)
