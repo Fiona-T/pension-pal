@@ -343,6 +343,14 @@ This will most likely be split into its own file once completed.
 ### Other Manual Testing
 ### Automated Testing
 ### Fixed Bugs
+The following bugs were encountered during development and during testing.
+
+- **Issue: Edit Job Form not showing the existing data on the form for start date and finish date**
+![Edit Job Form dates bug](docs/bugs/edit-from-dates-bug.png)
+The error in the Console stated: `the specified value "06/09/2020" does not conform to the required format, "yyy-MM-dd"`
+> Solution:
+Amended the `widgets` setting in the `AddJobForm` in `forms.py`, for the `DateInput format` from `%d/%m/%Y` to `%Y-%m-%d` so that it matches the format expected, as [explained in this post on Stackoverflow](https://stackoverflow.com/questions/66504151/django-update-form-does-not-conform-to-the-required-format-yyyy-mm-dd). The front end still displays the desired format of dd/mm/yyyy (for Irish users) because the `LANGUAGE_CODE` had been set to `en_gb` in `settings.py`. 
+
 ### Supported Screens and Browsers
 
 ## Deployment
