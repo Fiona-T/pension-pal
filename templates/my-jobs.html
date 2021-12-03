@@ -20,7 +20,7 @@
     </div>
 </section>
 <!-- 2nd section: Details of the jobs added by the user -->
-<section class="py-5 px-4">
+<section class="py-5 px-4" id="your-jobs">
     <div class="container">
         <div class="row py-3">
             <h1 class="mb-4">Your Jobs</h1>
@@ -57,10 +57,10 @@
                         <!-- if there are previous pages, arrow to go to first page, arrow to go to previous page -->
                         {% if page_obj.has_previous %}
                         <li>
-                            <a href="?page=1" class="page-link m-1" aria-label="Go to first page">&larrb;</a>
+                            <a href="?page=1#your-jobs" class="page-link m-1" aria-label="Go to first page">&larrb;</a>
                         </li>
                         <li>
-                            <a href="?page={{ page_obj.previous_page_number }}" class="page-link m-1"
+                            <a href="?page={{ page_obj.previous_page_number }}#your-jobs" class="page-link m-1"
                                 aria-label="Go to previous page">&lt;</a>
                         </li>
                         {% endif %}
@@ -69,11 +69,11 @@
                         <!-- if there is a next page, arrow to go to next page, arrow to go to last page -->
                         {% if page_obj.has_next %}
                         <li>
-                            <a href="?page={{ page_obj.next_page_number }}" class="page-link m-1"
+                            <a href="?page={{ page_obj.next_page_number }}#your-jobs" class="page-link m-1"
                                 aria-label="Go to next page">&gt;</a>
                         </li>
                         <li>
-                            <a href="?page={{ page_obj.paginator.num_pages }}" class="page-link m-1"
+                            <a href="?page={{ page_obj.paginator.num_pages }}#your-jobs" class="page-link m-1"
                                 aria-label="Go to last page">&rarrb;</a>
                         </li>
                         {% endif %}
