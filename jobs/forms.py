@@ -8,7 +8,8 @@ class AddJobForm(forms.ModelForm):
     class Meta:
         """
         Based on Job model, all fields except added by.Helptext for finish date
-        Widget for date fields to show format to user, include the date picker
+        Widget for date fields to show format to user & include the date picker
+        Date format set to yyyy-mm-dd, format displayed to user is dd/mm/yyyy
         """
         model = Job
         fields = [
@@ -19,9 +20,9 @@ class AddJobForm(forms.ModelForm):
             }
         widgets = {
             'start_date': forms.DateInput(
-                format=('%d/%m/%Y'),
+                format=('%Y-%m-%d'),
                 attrs={'type': 'date'}),
             'finish_date': forms.DateInput(
-                format=('%d/%m/%Y'),
+                format=('%Y-%m-%d'),
                 attrs={'type': 'date'}),
             }
