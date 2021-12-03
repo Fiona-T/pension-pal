@@ -128,6 +128,12 @@ h1 {
     color: #FAF9F6;
 }
 
+/* active pages in main header */
+.active {
+    border: 0.01rem solid #ff00ff;
+    border-bottom: 0.4rem solid #ff00ff;
+}
+
 /* ---------------------------------------- Home page */
 .hero-image {
 	background-image: url(../images/woman-files-computer-hero.png);
