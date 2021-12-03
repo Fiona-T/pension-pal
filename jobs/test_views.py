@@ -6,10 +6,12 @@ from .models import Job
 
 class TestMyJobsListView(TestCase):
     """ To test the MyJobs listview """
-    def setUp(self):
+    @classmethod
+    def setUpTestData(cls):
         """
         Create two test users. Create test job records, half added_by user1 and
         half added by user2. So that listview filtered by user can be tested
+        10 jobs per user to check the pagination
         """
         test_user1 = User.objects.create_user(
             username='fred',
@@ -22,7 +24,7 @@ class TestMyJobsListView(TestCase):
         test_user1.save()
         test_user2.save()
 
-        number_of_jobs = 10
+        number_of_jobs = 20
         for job in range(number_of_jobs):
             added_by_user = test_user1 if job % 2 else test_user2
             Job.objects.create(
@@ -62,6 +64,14 @@ class TestMyJobsListView(TestCase):
         self.assertTrue('job_list' in response.context)
         for job in response.context['job_list']:
             self.assertEqual(response.context['user'], job.added_by)
+
+    def test_paginated_by_6(self):
+        """Check results are paginated, with 6 per page"""
+        self.client.login(username='jane', password='secret1234567')
+        response = self.client.get('/jobs/')
+        self.assertTrue('is_paginated' in response.context)
+        self.assertTrue(response.context['is_paginated'] is True)
+        self.assertEqual(len(response.context['job_list']), 6)
 
 
 class TestAddJobView(TestCase):
