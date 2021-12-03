@@ -139,3 +139,71 @@ class TestAddJobSuccessView(TestCase):
         self.assertEqual(str(response.context['user']), 'fred')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'add-job-success.html')
+
+
+class TestEditJobView(TestCase):
+    """Tests for the EditJob view"""
+    def setUp(self):
+        """Create a test user and a job record"""
+        test_user1 = User.objects.create_user(
+            username='fred',
+            password='secret1234',
+        )
+        test_user1.save()
+
+        Job.objects.create(
+            added_by=test_user1,
+            employer_name='Test Company',
+            start_date='2020-01-01',
+            finish_date='2020-12-01',
+            full_or_part_time=1,
+        )
+
+    def test_redirects_if_not_logged_in(self):
+        """User is redirected to correct page if not logged in"""
+        response = self.client.get('/jobs/edit/1')
+        self.assertRedirects(response, '/accounts/login/?next=/jobs/edit/1')
+
+    def test_correct_url_and_template_for_logged_in_user_own_job(self):
+        """
+        Login the test user, get the url for edit-job page, using id of 1
+        (this will be the id of the job added in set up)
+        check the user is logged in, that the response is 200 (i.e. successful)
+        and check the correct template is used
+        """
+        self.client.login(username='fred', password='secret1234')
+        response = self.client.get('/jobs/edit/1')
+        self.assertEqual(str(response.context['user']), 'fred')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'edit-job.html')
+
+    def test_can_edit_own_job_detail(self):
+        """
+        Login test user, go to edit url, post to edit url with updates to name
+        and full/parttime fields. Check redirects to my-jobs page after form.
+        Get the job record, check that the two fields have the updated details.
+        """
+        self.client.login(username='fred', password='secret1234')
+        response = self.client.get('/jobs/edit/1')
+        response = self.client.post('/jobs/edit/1', {
+            'added_by': 'user',
+            'employer_name': 'Test Company Changed Name',
+            'start_date': '2020-01-01',
+            'finish_date': '2020-12-01',
+            'full_or_part_time': 0,
+            })
+        self.assertRedirects(response, '/jobs/')
+        updated_job = Job.objects.get(id=1)
+        self.assertEqual(
+            updated_job.employer_name, 'Test Company Changed Name'
+            )
+        self.assertEqual(updated_job.full_or_part_time, 0)
+
+    def test_404_returned_logged_in_but_invalid_job_id(self):
+        """
+        Logged in user gets 404 response trying to access edit page using
+        an invalid job id, i.e one which does not exist
+        """
+        self.client.login(username='fred', password='secret1234')
+        response = self.client.get('/jobs/edit/5')
+        self.assertEqual(response.status_code, 404)
