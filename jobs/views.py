@@ -8,12 +8,13 @@ from .forms import AddJobForm
 
 class MyJobs(LoginRequiredMixin, generic.ListView):
     """
-    My Jobs page view, displays list of jobs added by user
+    My Jobs page view, displays list of jobs added by user, 6 jobs per page
     If user not logged in, redirects to login page, then to jobs once signed in
     handled by the LoginRequiredMixin
     """
     model = Job
     template_name = 'my-jobs.html'
+    paginate_by = 6
 
     def get_queryset(self):
         """filter the objects by the current user"""
