@@ -237,6 +237,35 @@ h1 {
     margin: 0 0.1rem;
 }
 
+/* ----------- Pagination for Jobs/Pensions list */
+/* over-ride colours of Bootstrap class */
+.page-link {
+    color: #131967;
+    background-color: #fff;
+    border: 1px solid #131967;
+}
+
+/* set hover and focus colours on Bootstrap class */
+.page-link:hover {
+    color: #020638;
+    background-color: #ff00ff;
+    border-color: #ff00ff;
+}
+
+.page-link:focus {
+    color: #020638;
+    background-color: #ff00ff;
+}
+
+/* set different colour for current page number, remove hover colour */
+.current-page {
+    border-color: #ff00ff;
+}
+
+.current-page:hover {
+    background-color: #fff;
+}
+
 /* ----------- Create, Edit forms on Jobs/Pensions pages */
 
 /* submit/cancel buttons/links in the forms */
