@@ -37,21 +37,24 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavItems">
                     <ul class="navbar-nav ms-auto mb-2 mb-md-0">
+                        <!-- active class added to the current url, or the top level url for jobs, pensions -->
                         {% if user.is_authenticated %}
-                        <li class="nav-item">
+                        <!-- these links only shown to logged in users -->
+                        <li class="nav-item {% if 'jobs' in request.path %}active{% endif %}">
                             <a class="nav-link" href="{% url 'my_jobs' %}">My Jobs</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item {% if 'pensions' in request.path %}active{% endif %}">
                             <a class="nav-link" href="#">My Pensions</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item {% if request.path == '/accounts/logout/' %}active{% endif %}">
                             <a class="nav-link" href="{% url 'account_logout' %}">Sign Out</a>
                         </li>
                         {% else %}
-                        <li class="nav-item">
+                        <!-- links shown when user not logged in -->
+                        <li class="nav-item {% if request.path == '/accounts/login/' %}active{% endif %}">
                             <a class="nav-link" href="{% url 'account_login' %}">Sign In</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item {% if request.path == '/accounts/signup/' %}active{% endif %}">
                             <a class="nav-link" href="{% url 'account_signup' %}">Sign Up</a>
                         </li>
                         {% endif %}
