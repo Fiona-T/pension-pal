@@ -76,7 +76,8 @@ class TestMyJobsListView(TestCase):
 
 class TestAddJobView(TestCase):
     """ To test the AddJob view """
-    def setUp(self):
+    @classmethod
+    def setUpTestData(cls):
         """ Create a test user """
         test_user = User.objects.create_user(
             username='fred',
@@ -125,7 +126,8 @@ class TestAddJobView(TestCase):
 
 class TestAddJobSuccessView(TestCase):
     """ To test the AddJobSuccess view """
-    def setUp(self):
+    @classmethod
+    def setUpTestData(cls):
         """ Create a test user """
         test_user = User.objects.create_user(
             username='fred',
@@ -153,7 +155,8 @@ class TestAddJobSuccessView(TestCase):
 
 class TestEditJobView(TestCase):
     """Tests for the EditJob view"""
-    def setUp(self):
+    @classmethod
+    def setUp(cls):
         """Create a test user and a job record"""
         test_user1 = User.objects.create_user(
             username='fred',
