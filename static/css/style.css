@@ -129,7 +129,7 @@ h1 {
 }
 
 /* active pages in main header */
-.active {
+.active-main {
     border: 0.01rem solid #ff00ff;
     border-bottom: 0.4rem solid #ff00ff;
 }
