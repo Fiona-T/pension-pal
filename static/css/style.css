@@ -204,7 +204,23 @@ h1 {
 
 /* ---------------------------------------- Jobs/Pensions pages */
 
-/* styles for the cards displaying the Jobs/Pension details in Jobs/Pensions list */
+/* ----------- Breadcrumb navigation */
+.breadcrumb-item a {
+    text-decoration: none;
+}
+
+/* change the Bootstrap default divider between items */
+.breadcrumb-item+.breadcrumb-item::before {
+    color: #ff00ff;
+    content: var(--bs-breadcrumb-divider, ">");
+}
+
+/* change the Bootstrap default active item colour */
+.breadcrumb-item.active {
+    color: #ff00ff;
+}
+
+/* ----------- cards in Jobs/Pensions list */
 
 /* over-ride Bootstrap border color + radius */
 .card {

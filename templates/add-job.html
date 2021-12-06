@@ -3,6 +3,17 @@
 {% block content %}
 <!-- container for page contents -->
     <div class="container py-5 px-4">
+        <!--Breadcrumb navigation-->
+        <div class="row pt-5">
+            <nav aria-label="Breadcrumb navigation">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'my_jobs' %}">My Jobs</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">Add a Job</li>
+                </ul>
+            </nav>
+        </div>
         <!-- row with one column -->
         <div class="row py-5">
             <div class="col-12 col-sm-8 col-lg-6 mx-auto pt-2">
