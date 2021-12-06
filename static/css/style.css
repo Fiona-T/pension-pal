@@ -220,6 +220,10 @@ h1 {
     color: #ff00ff;
 }
 
+.breadcrumb-item {
+    font-size: 88%;
+}
+
 /* ----------- cards in Jobs/Pensions list */
 
 /* over-ride Bootstrap border color + radius */
