@@ -220,3 +220,38 @@ class TestEditJobView(TestCase):
         self.client.login(username='fred', password='secret1234')
         response = self.client.get('/jobs/edit/5')
         self.assertEqual(response.status_code, 404)
+
+
+class TestDeleteJobView(TestCase):
+    """Tests for the Delete Job View"""
+    @classmethod
+    def setUp(cls):
+        """Create a test user and a job record"""
+        test_user1 = User.objects.create_user(
+            username='fred',
+            password='secret1234',
+        )
+        test_user1.save()
+
+        Job.objects.create(
+            added_by=test_user1,
+            employer_name='Test Company to delete',
+            start_date='2020-01-01',
+            finish_date='2020-12-01',
+            full_or_part_time=1,
+        )
+
+    def test_can_delete_job(self):
+        """
+        Login the test user, go to jobs page, job_list length should be 1
+        Post the delete request with the job ide created above
+        Check page redirects back to jobs page, and that length of jobs list
+        is now 0 since the record created in set up was deleted.
+        """
+        self.client.login(username='fred', password='secret1234')
+        response = self.client.get('/jobs/')
+        self.assertEqual(len(response.context['job_list']), 1)
+        response = self.client.post('/jobs/delete/1')
+        self.assertRedirects(response, '/jobs/')
+        response = self.client.get('/jobs/')
+        self.assertEqual(len(response.context['job_list']), 0)
