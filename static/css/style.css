@@ -63,6 +63,11 @@ main a:hover, main a:focus {
     justify-content: center;
 }
 
+/* remove border from secondary buttons (Bootstrap class) */
+.btn-secondary {
+    border: none;
+}
+
 /* icon inside buttons */
 .icon-btn {
     font-size: 2rem;
@@ -314,6 +319,42 @@ h1 {
     font-size: 85%;
     display: block;
     margin-top: -0.4rem;
+}
+
+/* ----------- Delete Job/Pension modal */
+
+/* amend Bootstrap default border radius */
+.modal-content {
+    border-radius: 0.1rem;
+}
+
+/* amend Bootstrap default border radius, add brand color */
+.modal-header {
+    border-radius: 0.1rem;
+    background: #ff00ff;
+    padding: 1rem 1.5rem;
+}
+
+/* adjust Bootstrap default padding */
+.modal-body {
+    padding: 1.5rem;
+}
+
+/* details of the records being deleted - smaller font */
+.modal-details {
+    font-size: 90%;
+    margin-bottom: 1rem;
+}
+
+.modal-details p {
+    margin-bottom: 0.3rem;
+}
+
+/* remove Bootstrap default border, adjust padding */
+.modal-footer {
+    border: none;
+    padding-top: 0;
+    padding-bottom: 1.5rem;
 }
 
 /* ---------------------------------------- AllAuth Forms */
