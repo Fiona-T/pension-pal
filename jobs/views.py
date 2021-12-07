@@ -103,7 +103,7 @@ class EditJob(LoginRequiredMixin, View):
             )
 
 
-class DeleteJob(View):
+class DeleteJob(LoginRequiredMixin, View):
     """Handles deleting a job from delete job modal on my-jobs"""
     def post(self, request, job_id):
         """
