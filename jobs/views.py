@@ -101,3 +101,15 @@ class EditJob(LoginRequiredMixin, View):
                     'form': AddJobForm(instance=job)
                 }
             )
+
+
+class DeleteJob(View):
+    """Handles deleting a job from delete job modal on my-jobs"""
+    def post(self, request, job_id):
+        """
+        Gets job sent via delete job form button, deletes the job
+        Returns to the my-jobs page
+        """
+        job = get_object_or_404(Job, id=job_id)
+        job.delete()
+        return redirect('my_jobs')
