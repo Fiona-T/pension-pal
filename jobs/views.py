@@ -2,6 +2,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic, View
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import Http404
 from .models import Job
 from .forms import AddJobForm
 
@@ -70,16 +71,21 @@ class EditJob(LoginRequiredMixin, View):
     def get(self, request, job_id):
         """
         Gets the job by the id (passed in via the url)
+        Check if the user matches the user who added the job
         Returns the template with the form, populated with existing data
+        Or raises Http404 error if the user doesn't match
         """
         job = get_object_or_404(Job, id=job_id)
-        return render(
-            request,
-            'edit-job.html',
-            {
-                'form': AddJobForm(instance=job)
-            }
-        )
+        if request.user == job.added_by:
+            return render(
+                request,
+                'edit-job.html',
+                {
+                    'form': AddJobForm(instance=job)
+                }
+            )
+        else:
+            raise Http404
 
     def post(self, request, job_id):
         """
