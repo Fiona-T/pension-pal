@@ -162,7 +162,12 @@ class TestEditJobView(TestCase):
             username='fred',
             password='secret1234',
         )
+        test_user2 = User.objects.create_user(
+            username='jane',
+            password='secret1234567',
+        )
         test_user1.save()
+        test_user2.save()
 
         Job.objects.create(
             added_by=test_user1,
@@ -219,6 +224,17 @@ class TestEditJobView(TestCase):
         """
         self.client.login(username='fred', password='secret1234')
         response = self.client.get('/jobs/edit/5')
+        self.assertEqual(response.status_code, 404)
+
+    def test_cannot_access_edit_page_for_other_user_job(self):
+        """
+        Logged in user who did not create the job gets 404 response when
+        trying to access the edit page with job id not created by them
+        """
+        self.client.login(username='jane', password='secret1234567')
+        response = self.client.get('/jobs/')
+        self.assertEqual(str(response.context['user']), 'jane')
+        response = self.client.get('/jobs/edit/1')
         self.assertEqual(response.status_code, 404)
 
 
