@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'cloudinary',
     'pages',
     'jobs',
+    'pensions',
 ]
 
 # for allauth
