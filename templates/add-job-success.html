@@ -21,8 +21,8 @@
         <div class="row py-5">
             <h1 class="mb-4">Job Added!</h1>
             <p>The Job/Employment has been successfully added to your My Jobs page.</p>
-            <p>If there is a Pension attached to this Job, then you should now add the Pension details from <a
-                    href="#">the My Pensions page</a>.</p>
+            <p>If there is a Pension attached to this Job, then <strong>you should now add the Pension details</strong>
+                from <a href="{% url 'my_pensions' %}">the My Pensions page</a>.</p>
             <p>Otherwise, you can <a href="{% url 'my_jobs' %}">go to the My Jobs page</a> to view your records.</p>
             <p>If you need to make any changes to this record, or any of your Job records, you can do this on <a
                     href="{% url 'my_jobs' %}">the My Jobs page</a> also.</p>
