@@ -44,7 +44,7 @@
                             <a class="nav-link" href="{% url 'my_jobs' %}">My Jobs</a>
                         </li>
                         <li class="nav-item {% if 'pensions' in request.path %}active-main{% endif %}">
-                            <a class="nav-link" href="#">My Pensions</a>
+                            <a class="nav-link" href="{% url 'my_pensions' %}">My Pensions</a>
                         </li>
                         <li class="nav-item {% if request.path == '/accounts/logout/' %}active-main{% endif %}">
                             <a class="nav-link" href="{% url 'account_logout' %}">Sign Out</a>
