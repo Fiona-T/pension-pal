@@ -24,9 +24,40 @@
     <div class="container">
         <div class="row py-3">
             <h1 class="mb-4">Your Pensions</h1>
-            <!-- row will contain columns with cards showing pension summary details -->
-            <div class="row">
-                <p>Pensions added will be shown here</p>
+            <!-- row containing columns with cards showing pension summary details -->
+            <div class="row">   
+                {% if pension_list %}
+                <!-- if the pension list context is not empty -->
+                {% for pension in pension_list %}
+                <!-- for each pension passed in from MyPensions ListView, display summary details in a card, with edit and delete buttons -->
+                <div class="col-12 col-sm-10 col-md-6 col-lg-4">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h4 class="card-title">{{ pension.scheme_name }}</h4>
+                            <p class="card-text"><i class="bi bi-building card-icon" aria-hidden="true"></i><span
+                                    class="card-label"> Job:</span> {{ pension.employment }}</p>
+                            <p class="card-text"><i class="bi bi-piggy-bank card-icon" aria-hidden="true"></i><span
+                                    class="card-label"> Value:</span> {{ pension.value }}</p>
+                        </div>
+                        <div class="card-footer d-flex justify-content-center">
+                            <a href="#" class="btn btn-brand btn-icon btn-card"><i class="bi bi-eyeglasses icon-btn-sm"
+                                    aria-hidden="true"></i> View Details</a>
+                        </div>
+                        <div class="card-footer d-flex justify-content-around">
+                            <a href="#" class="btn btn-brand btn-icon btn-card"><i class="bi bi-pencil icon-btn-sm"
+                                    aria-hidden="true"></i> Edit</a>
+                            <a href="#" data-bs-toggle="modal" class="btn btn-brand btn-icon btn-card"><i class="bi bi-trash icon-btn-sm"
+                                    aria-hidden="true"></i> Delete</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <!-- if the pension list context is empty, i.e. user does not have any pensions recorded -->
+                <p>You do not currently have any pensions recorded.</p>
+                <p><a href="{% url 'add_pension' %}">Get started by adding a pension now</a>, or use the Add Pension button at
+                    the top of this page.</p>
+                {% endif %}
             </div>
         </div>
     </div>
