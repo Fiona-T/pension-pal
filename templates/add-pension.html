@@ -8,7 +8,7 @@
             <nav aria-label="Breadcrumb navigation">
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <a href="{% url 'my_pensions' %}">My Jobs</a>
+                        <a href="{% url 'my_pensions' %}">My Pensions</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">Add Pension</li>
                 </ul>
@@ -25,7 +25,8 @@
                     <p><em>All fields must be completed!</em></p>
                     <!-- Add Pension form -->
                     <form action="" method="POST" class="user-form">
-
+                        {% csrf_token %}
+                        {{ form.as_p }}
                         <div class="d-flex justify-content-between mt-5">
                             <a href="{% url 'my_pensions' %}"
                                 class="btn btn-brand btn-icon btn-card btn-form">Cancel</a>
