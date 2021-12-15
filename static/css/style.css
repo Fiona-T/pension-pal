@@ -321,6 +321,22 @@ h1 {
     margin-top: -0.4rem;
 }
 
+/* restrict width of textarea on form, disable resize */
+.user-form textarea {
+    display: block;
+    width: 100%;
+    resize: none;
+}
+
+.user-form input[type="checkbox"] {
+    display: inline;
+}
+
+/* labels for the above inputs, display inline so checkbox on same line as input */
+label[for="id_pao"], label[for="id_director"] {
+    display: inline;
+}
+
 /* ----------- Delete Job/Pension modal */
 
 /* amend Bootstrap default border radius */
