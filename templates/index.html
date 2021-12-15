@@ -74,15 +74,15 @@
             <!-- First row -->
             <div class="row">
                 <h2>How to Use PensionPal?</h2>
-                <p>It couldn’t be easier! <a href="#">Sign Up for an account</a>, then get started adding your Employments
+                <p>It couldn’t be easier! <a href="{% url 'account_signup' %}">Sign Up for an account</a>, then get started adding your Employments
                     and associated Pensions.</p>
             </div>
             <!-- second row has 3 columns - icon plus text -->
             <div class="row">
                 <div class="col-12 col-lg-4">
                     <p class="details-container"><i class="bi bi-check2-circle details-icon pe-3"
-                            aria-hidden="true"></i><span>Add the Employment first: from the <a href="#">My Jobs
-                                page</a>, click Add Employment</span></p>
+                            aria-hidden="true"></i><span>Add the Employment first: from the <a
+                                href="{% url 'my_jobs' %}">My Jobs page</a>, click Add Employment</span></p>
                 </div>
                 <div class="col-12 col-lg-4">
                     <p class="details-container"><i class="bi bi-check2-circle details-icon pe-3"
@@ -91,8 +91,8 @@
                 </div>
                 <div class="col-12 col-lg-4">
                     <p class="details-container"><i class="bi bi-check2-circle details-icon pe-3"
-                            aria-hidden="true"></i><span>To attach a Pension to the Employment, go to the <a href="#">My
-                                Pensions page</a> and Add Pension</span></p>
+                            aria-hidden="true"></i><span>To attach a Pension to the Employment, go to the <a
+                                href="{% url 'my_pensions' %}">My Pensions page</a> and Add Pension</span></p>
                 </div>
             </div>
             <!-- Third row -->
