@@ -1,10 +1,21 @@
 """Form for 'pensions' app to create/edit a Pension"""
 from django import forms
-from .models import Pension
+from jobs.models import Job
+from .models import Pension, Provider
 
 
 class PensionForm(forms.ModelForm):
     """frontend form for user to add or edit a Pension record"""
+    # set the selected choice at top of list for <select> elements
+    employment = forms.ModelChoiceField(
+        queryset=Job.objects.all(),
+        empty_label="Choose Job the pension relates to"
+        )
+    pension_provider = forms.ModelChoiceField(
+        queryset=Provider.objects.all(),
+        empty_label="Choose pension provider"
+        )
+
     class Meta:
         """
         Based on Pension model, all fields except added by.
@@ -29,9 +40,8 @@ class PensionForm(forms.ModelForm):
             'notes',
             ]
         labels = {
-            'employment': 'Choose Employment the pension relates to',
             'salary': 'Salary at date of leaving service',
-            'pao': 'Is there a Pension Adjustment Order (PAO)on the pension?',
+            'pao': 'Is there a Pension Adjustment Order (PAO) on the pension?',
             'director': 'Were you a 20% director in this employment?',
             'value': 'Current value of pension scheme',
             'file': 'Upload recent statement',
@@ -43,5 +53,6 @@ class PensionForm(forms.ModelForm):
                 attrs={'type': 'date'}),
         }
         help_texts = {
-            'file': 'Upload your most recent annual benefit statement, or any other relevant file.',
+            'file': 'Upload your most recent annual benefit statement, '
+            'or any other relevant file.',
             }
