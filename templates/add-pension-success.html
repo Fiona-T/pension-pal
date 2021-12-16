@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- success page after Adding a Pension via Pension form -->
+<section class="py-5 px-4">
+    <div class="container">
+        <!--Breadcrumb navigation-->
+        <div class="row pt-5">
+            <nav aria-label="Breadcrumb navigation">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'my_pensions' %}">My Pensions</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'add_pension' %}">Add Pension</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">Add Pension Success</li>
+                </ul>
+            </nav>
+        </div>
+        <div class="row py-5">
+            <h1 class="mb-4">Pension Added!</h1>
+            <p>The Pension has been successfully added to your <a href="{% url 'my_pensions' %}">My Pensions page</a>
+                and you can view all of your pensions records there.</p>
+            <p>If you need to make any changes to this record, or any of your Pension records, you can do this on <a
+                    href="{% url 'my_pensions' %}">the My Pensions page</a> also.</p>
+            <p>Or, if you added a record in error you can delete Pension records from <a
+                    href="{% url 'my_pensions' %}">the My Pensions page</a>.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}
