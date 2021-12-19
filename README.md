@@ -350,6 +350,13 @@ The following bugs were encountered during development and during testing.
 The error in the Console stated: `the specified value "06/09/2020" does not conform to the required format, "yyy-MM-dd"`
 > Solution:
 Amended the `widgets` setting in the `AddJobForm` in `forms.py`, for the `DateInput format` from `%d/%m/%Y` to `%Y-%m-%d` so that it matches the format expected, as [explained in this post on Stackoverflow](https://stackoverflow.com/questions/66504151/django-update-form-does-not-conform-to-the-required-format-yyyy-mm-dd). The front end still displays the desired format of dd/mm/yyyy (for Irish users) because the `LANGUAGE_CODE` had been set to `en_gb` in `settings.py`. 
+- **Issue: Add Pension Form 'employment' field displaying all employments not just those belonging to that user**
+![Pension Form 'employment' field bug](docs/bugs/add-pension-form-employment-bug.png)
+When the Add Pension form was displayed to the user, it is displaying all Employments from the Job table, but these need to be filtered to only show the records added to the Job table by that user. 
+> Solution: Followed the advice in this [post on Stack Overflow](https://stackoverflow.com/questions/15608784/django-filter-the-queryset-of-modelchoicefield/15608899): Instead of amending the `forms.py`, added the below to the `AddPension` view in `views.py` so that the field contains just the `Job` records added by the current user. 
+```
+form.fields['employment'].queryset = Job.objects.filter(added_by=request.user)
+```
 
 ### Supported Screens and Browsers
 
