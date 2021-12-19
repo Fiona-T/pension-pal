@@ -1,5 +1,5 @@
 """Views for the pensions app"""
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import generic, View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from jobs.models import Job
@@ -36,6 +36,29 @@ class AddPension(LoginRequiredMixin, View):
                 "form": form
             }
         )
+
+    def post(self, request):
+        """
+        Submit form data, redirect to success page if valid,
+        else display form again (again with employment dropdown for that user)
+        """
+        form = PensionForm(data=request.POST)
+        if form.is_valid():
+            form.instance.added_by = request.user
+            form.save()
+            return redirect('add_pension_success')
+        else:
+            form = PensionForm()
+            form.fields['employment'].queryset = Job.objects.filter(
+                added_by=request.user
+                )
+            return render(
+                request,
+                'add-pension.html',
+                {
+                    'form': form
+                }
+            )
 
 
 class AddPensionSuccess(LoginRequiredMixin, generic.TemplateView):
