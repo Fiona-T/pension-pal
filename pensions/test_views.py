@@ -94,3 +94,32 @@ class TestMyPensionsListView(TestCase):
         self.assertTrue('is_paginated' in response.context)
         self.assertTrue(response.context['is_paginated'] is True)
         self.assertEqual(len(response.context['pension_list']), 6)
+
+
+class TestAddPensionSuccessView(TestCase):
+    """ To test the AddPensionSuccess view """
+    @classmethod
+    def setUpTestData(cls):
+        """ Create a test user """
+        test_user = User.objects.create_user(
+            username='Tester',
+            password='topsecret1234',
+        )
+        test_user.save()
+
+    def test_redirects_if_not_logged_in(self):
+        """ Test that user is redirected to correct page if not logged in """
+        response = self.client.get('/pensions/success/')
+        self.assertRedirects(response, '/accounts/login/')
+
+    def test_correct_url_and_template_for_logged_in_user(self):
+        """
+        login the test user, get the url for add-pension-success page
+        check the user is logged in, that the response is 200 (i.e. successful)
+        and check the correct template is used
+        """
+        self.client.login(username='Tester', password='topsecret1234')
+        response = self.client.get('/pensions/success/')
+        self.assertEqual(str(response.context['user']), 'Tester')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'add-pension-success.html')
