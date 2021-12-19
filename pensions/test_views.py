@@ -123,3 +123,77 @@ class TestAddPensionSuccessView(TestCase):
         self.assertEqual(str(response.context['user']), 'Tester')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'add-pension-success.html')
+
+
+class TestAddPensionView(TestCase):
+    """ To test the AddPension view """
+    @classmethod
+    def setUpTestData(cls):
+        """
+        Create a test user.
+        Create job and provider, needed as foreign keys in Pension
+        """
+        test_user = User.objects.create_user(
+            username='Tester',
+            password='topsecret1234',
+        )
+        test_user.save()
+
+        Job.objects.create(
+            added_by=User.objects.get(username='Tester'),
+            employer_name='Test Company',
+            start_date='2020-01-01',
+            finish_date='2020-12-01',
+            full_or_part_time=1,
+            )
+
+        Provider.objects.create(
+            provider_name='A Pension Provider',
+            website='wwww.awebsite.ie',
+            status=1,
+        )
+
+    def test_redirects_if_not_logged_in(self):
+        """ Test that user is redirected to correct page if not logged in """
+        response = self.client.get('/pensions/add/')
+        self.assertRedirects(response, '/accounts/login/?next=/pensions/add/')
+
+    def test_correct_url_and_template_for_logged_in_user(self):
+        """
+        login the test user, get the url for add-pension page
+        check the user is logged in, that the response is 200 (i.e. successful)
+        and check the correct template is used
+        """
+        self.client.login(username='Tester', password='topsecret1234')
+        response = self.client.get('/pensions/add/')
+        self.assertEqual(str(response.context['user']), 'Tester')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'add-pension.html')
+
+    def test_can_add_pension(self):
+        """
+        login the test user, get pensions url, check length of pension_list is
+        0 initially. Then do POST request on add pension url, with test pension
+        data, including ids from foreign key fields
+        Check redirects to the correct success url after adding
+        Check that length of pension_list is now 1
+        """
+        self.client.login(username='Tester', password='topsecret1234')
+        response = self.client.get('/pensions/')
+        self.assertEqual(len(response.context['pension_list']), 0)
+        response = self.client.post('/pensions/add/', {
+            'added_by': 'Tester',
+            'employment': str(1),
+            'scheme_name': "Test Company Pension Scheme",
+            'policy_number': '876934B',
+            'pension_type': 1,
+            'date_joined_scheme': '2020-01-01',
+            'salary': 50000,
+            'pao': False,
+            'director': True,
+            'pension_provider': str(1),
+            'value': 36789,
+        })
+        self.assertRedirects(response, '/pensions/success/')
+        response = self.client.get('/pensions/')
+        self.assertEqual(len(response.context['pension_list']), 1)
