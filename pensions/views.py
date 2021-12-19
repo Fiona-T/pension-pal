@@ -36,3 +36,13 @@ class AddPension(LoginRequiredMixin, View):
                 "form": form
             }
         )
+
+
+class AddPensionSuccess(LoginRequiredMixin, generic.TemplateView):
+    """
+    Renders the success page after submitting the PensionForm from add-pension
+    If not logged in, redirects to login page, then to my-jobs page
+    after logging in (doesn't redirect back to success page after login)
+    """
+    template_name = 'add-pension-success.html'
+    redirect_field_name = None
