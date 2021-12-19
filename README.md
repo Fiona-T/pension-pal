@@ -350,12 +350,25 @@ The following bugs were encountered during development and during testing.
 The error in the Console stated: `the specified value "06/09/2020" does not conform to the required format, "yyy-MM-dd"`
 > Solution:
 Amended the `widgets` setting in the `AddJobForm` in `forms.py`, for the `DateInput format` from `%d/%m/%Y` to `%Y-%m-%d` so that it matches the format expected, as [explained in this post on Stackoverflow](https://stackoverflow.com/questions/66504151/django-update-form-does-not-conform-to-the-required-format-yyyy-mm-dd). The front end still displays the desired format of dd/mm/yyyy (for Irish users) because the `LANGUAGE_CODE` had been set to `en_gb` in `settings.py`. 
-- **Issue: Add Pension Form 'employment' field displaying all employments not just those belonging to that user**
+- **Issue: `Add Pension Form` 'employment' field displaying all employments not just those belonging to that user**
 ![Pension Form 'employment' field bug](docs/bugs/add-pension-form-employment-bug.png)
 When the Add Pension form was displayed to the user, it is displaying all Employments from the Job table, but these need to be filtered to only show the records added to the Job table by that user. 
 > Solution: Followed the advice in this [post on Stack Overflow](https://stackoverflow.com/questions/15608784/django-filter-the-queryset-of-modelchoicefield/15608899): Instead of amending the `forms.py`, added the below to the `AddPension` view in `views.py` so that the field contains just the `Job` records added by the current user. 
-```
+```python
 form.fields['employment'].queryset = Job.objects.filter(added_by=request.user)
+```
+- **Issue: Testing the `AddPension View`, form would not post due to incorrect data in 'employment' and 'pension_provider' fields**
+![Pension Form 'employment' field bug](docs/bugs/add-pension-view-test-post-bug.png)
+When testing the POST part of the `AddPension` View, the test was failing because the page was not redirecting as expected. This was because some of the form data was not valid, so the form was not posting and the page only redirects when the form is valid. 
+> Solution: The issue was because of invalid data on the 'employment' and 'pension_provider' fields, which are foreign keys in the Pension model (from Job and Provider models respectively). When passing the data to post the test form, I had been passing in the relevant values from the test Job and Provider records, like the below:
+```python
+'employment': 'Test Company',
+'pension_provider': 'A Pension Provider',
+```
+However, since these are foreign keys I needed to use their id instead of the actual values, as outlined in this [post on Stack Overflow](https://stackoverflow.com/questions/37393788/django-testing-a-form-is-valid-when-it-contains-a-modelchoicefield). Amended the data being passed to post the form to reference the id (which was 1 in both cases), like below, the tests then passed as the page redirected after posting the form:
+```python
+'employment': str(1),
+'pension_provider': str(1),
 ```
 
 ### Supported Screens and Browsers
