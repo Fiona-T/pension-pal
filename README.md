@@ -416,6 +416,8 @@ You can refer to the [GitHub documentation](https://docs.github.com/en/github/cr
 - For setting the format of the date input to forms on the frontend, and including a datepicker, guidance was found in [this post on Stack Overflow](https://stackoverflow.com/questions/49440853/django-2-0-modelform-datefield-not-displaying-as-a-widget) as well as [this post from Stack Overflow](https://stackoverflow.com/questions/33021652/django-modelform-not-validating-correctly-with-custom-date-format). As described in the [Fixed Bugs](#fixed-bugs) section, with this set up, the Edit Job Form was not displaying the existing dates on the form because of a conflict with the expected date settings, so I amended the `DateInput format` used in the `widgets` setting in the form, as [explained in this post on Stack Overflow](https://stackoverflow.com/questions/66504151/django-update-form-does-not-conform-to-the-required-format-yyyy-mm-dd)
 - How to show the id field in the Django admin panel was found [in this Stack Overflow post](https://stackoverflow.com/questions/47138660/show-object-id-primary-key-in-django-admin-object-page)
 - Approach to use for pagination is from [the Django docs](https://docs.djangoproject.com/en/3.2/topics/pagination/)
+- Guidance on how to create a link to go back to the previous page (for the Cancel button on the Sign Out page) was found on [Stack Overflow](https://stackoverflow.com/questions/8814472/how-to-make-an-html-back-link) and [W3 Schools](https://www.w3schools.com/jsref/obj_history.asp)
+- Used the guidance in [the Django docs](https://docs.djangoproject.com/en/4.0/ref/forms/fields/#django.forms.ModelChoiceField) to add a note for the user at the top of the `select` dropdown menus on the `PensionForm` 
 
 ### Content
 ### Media
