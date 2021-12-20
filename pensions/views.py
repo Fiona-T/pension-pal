@@ -122,3 +122,15 @@ class EditPension(LoginRequiredMixin, View):
                     'form': form
                 }
             )
+
+
+class DeletePension(LoginRequiredMixin, View):
+    """Handles deleting a pension from delete pension modal on my-pensions"""
+    def post(self, request, pension_id):
+        """
+        Gets pension sent via delete pension form button, deletes the pension
+        Returns to the my-pensions page
+        """
+        pension = get_object_or_404(Pension, id=pension_id)
+        pension.delete()
+        return redirect('my_pensions')
