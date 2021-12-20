@@ -9,7 +9,7 @@ class Job(models.Model):
     """ Model for Job records that user adds from frontend form """
     added_by = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='jobs')
-    employer_name = models.CharField(max_length=200)
+    employer_name = models.CharField(max_length=40)
     start_date = models.DateField()
     finish_date = models.DateField()
     full_or_part_time = models.IntegerField(choices=FULL_OR_PART, default=0)
