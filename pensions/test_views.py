@@ -328,3 +328,62 @@ class TestEditPensionView(TestCase):
         self.assertEqual(str(response.context['user']), 'jane')
         response = self.client.get('/pensions/edit/1')
         self.assertEqual(response.status_code, 404)
+
+
+class TestDeletePensionView(TestCase):
+    """Tests for the Delete Pension View"""
+    @classmethod
+    def setUp(cls):
+        """
+        Create a test user.
+        Create provider and job records, needed as foreign keys in Pension
+        Create a pension record.
+        """
+        test_user = User.objects.create_user(
+            username='Tester',
+            password='topsecret1234',
+            )
+        test_user.save()
+
+        Job.objects.create(
+            added_by=User.objects.get(username='Tester'),
+            employer_name='Test Company',
+            start_date='2020-01-01',
+            finish_date='2020-12-01',
+            full_or_part_time=1,
+            )
+
+        Provider.objects.create(
+            provider_name='A Pension Provider',
+            website='wwww.awebsite.ie',
+            status=1,
+            )
+
+        Pension.objects.create(
+            added_by=test_user,
+            employment=Job.objects.get(id=1),
+            scheme_name='Test pension scheme',
+            policy_number='12345',
+            pension_type=1,
+            date_joined_scheme='2020-01-01',
+            salary=10000,
+            pao=True,
+            director=True,
+            pension_provider=Provider.objects.get(id=1),
+            value=1000,
+            )
+
+    def test_can_delete_pension(self):
+        """
+        Login the test user, go to pensions page, pension_list length should
+        be 1. Post the delete request with the pension id created above.
+        Check page redirects back to pensions page, and that length of pension
+        list is now 0 since the record created in set up was deleted.
+        """
+        self.client.login(username='Tester', password='topsecret1234')
+        response = self.client.get('/pensions/')
+        self.assertEqual(len(response.context['pension_list']), 1)
+        response = self.client.post('/pensions/delete/1')
+        self.assertRedirects(response, '/pensions/')
+        response = self.client.get('/pensions/')
+        self.assertEqual(len(response.context['pension_list']), 0)
