@@ -1,7 +1,8 @@
 """Views for the pensions app"""
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic, View
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import Http404
 from jobs.models import Job
 from .forms import PensionForm
 from .models import Pension
@@ -69,3 +70,31 @@ class AddPensionSuccess(LoginRequiredMixin, generic.TemplateView):
     """
     template_name = 'add-pension-success.html'
     redirect_field_name = None
+
+
+class EditPension(LoginRequiredMixin, View):
+    """View for getting Edit Pension form and Posting completed form"""
+
+    def get(self, request, pension_id):
+        """
+        Gets the pension by the id (passed in via the url)
+        Check if the user matches the user who added the pension
+        Returns the template with the form, populated with existing data
+        and the Jobs added by user (for 'employment' field)
+        Or raises Http404 error if the user doesn't match
+        """
+        pension = get_object_or_404(Pension, id=pension_id)
+        if request.user == pension.added_by:
+            form = PensionForm(instance=pension)
+            form.fields['employment'].queryset = Job.objects.filter(
+                added_by=request.user
+                )
+            return render(
+                request,
+                'edit-pension.html',
+                {
+                    'form': form
+                }
+            )
+        else:
+            raise Http404
