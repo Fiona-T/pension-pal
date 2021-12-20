@@ -5,7 +5,19 @@ from . import views
 urlpatterns = [
     path('', views.MyPensions.as_view(), name='my_pensions'),
     path('add/', views.AddPension.as_view(), name='add_pension'),
-    path('success/', views.AddPensionSuccess.as_view(), name='add_pension_success'),
-    path('edit/<pension_id>', views.EditPension.as_view(), name='edit_pension'),
-    path('delete/<pension_id>', views.DeletePension.as_view(), name='delete_pension')
+    path(
+        'success/',
+        views.AddPensionSuccess.as_view(),
+        name='add_pension_success'
+        ),
+    path(
+        'edit/<pension_id>',
+        views.EditPension.as_view(),
+        name='edit_pension'
+        ),
+    path(
+        'delete/<pension_id>',
+        views.DeletePension.as_view(),
+        name='delete_pension'
+        ),
 ]
