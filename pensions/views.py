@@ -98,3 +98,27 @@ class EditPension(LoginRequiredMixin, View):
             )
         else:
             raise Http404
+
+    def post(self, request, pension_id):
+        """
+        Gets the pension by the id (passed in via the url)
+        Submit form data, redirect to my-pensions page if valid,
+        else display the form again on edit-pension page
+        """
+        pension = get_object_or_404(Pension, id=pension_id)
+        form = PensionForm(data=request.POST, instance=pension)
+        if form.is_valid():
+            form.save()
+            return redirect('my_pensions')
+        else:
+            form = PensionForm(instance=pension)
+            form.fields['employment'].queryset = Job.objects.filter(
+                added_by=request.user
+                )
+            return render(
+                request,
+                'edit-pension.html',
+                {
+                    'form': form
+                }
+            )
