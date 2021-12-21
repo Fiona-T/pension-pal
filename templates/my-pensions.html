@@ -101,6 +101,38 @@
                 </div>
                 <!-- end of Delete Pension modal -->
                 {% endfor %}
+                {% if is_paginated %}
+                <!-- pagination navigation -->
+                <nav class="pt-3" aria-label="Page navigation for Your Pensions list">
+                    <ul class="pagination justify-content-center">
+                        {% if page_obj.has_previous %}
+                        <!-- if there are previous pages, arrow to go to first page, arrow to go to previous page -->
+                        <li>
+                            <a href="?page=1#your-pensions" class="page-link m-1"
+                                aria-label="Go to first page">&larrb;</a>
+                        </li>
+                        <li>
+                            <a href="?page={{ page_obj.previous_page_number }}#your-pensions" class="page-link m-1"
+                                aria-label="Go to previous page">&lt;</a>
+                        </li>
+                        {% endif %}
+                        <!-- current page number -->
+                        <li class="page-link current-page m-1">{{ page_obj.number }}</li>
+                        {% if page_obj.has_next %}
+                        <!-- if there is a next page, arrow to go to next page, arrow to go to last page -->
+                        <li>
+                            <a href="?page={{ page_obj.next_page_number }}#your-pensions" class="page-link m-1"
+                                aria-label="Go to next page">&gt;</a>
+                        </li>
+                        <li>
+                            <a href="?page={{ page_obj.paginator.num_pages }}#your-pensions" class="page-link m-1"
+                                aria-label="Go to last page">&rarrb;</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+                <!-- end of pagination navigation-->
+                {% endif %}
                 {% else %}
                 <!-- if the pension list context is empty, i.e. user does not have any pensions recorded -->
                 <p>You do not currently have any pensions recorded.</p>
