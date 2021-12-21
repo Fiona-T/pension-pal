@@ -39,16 +39,19 @@
                             <p class="card-text"><i class="bi bi-piggy-bank card-icon" aria-hidden="true"></i><span
                                     class="card-label"> Value:</span> € {{ pension.value }}</p>
                         </div>
-                        <div class="card-footer d-flex justify-content-center">
-                            <a href="#" class="btn btn-brand btn-icon btn-card"><i class="bi bi-eyeglasses icon-btn-sm"
-                                    aria-hidden="true"></i> View Details</a>
-                        </div>
-                        <div class="card-footer d-flex justify-content-around">
-                            <a href="{% url 'edit_pension' pension.id %}" class="btn btn-brand btn-icon btn-card"><i
-                                    class="bi bi-pencil icon-btn-sm" aria-hidden="true"></i> Edit</a>
-                            <a href="#deleteModal{{ pension.id }}" data-bs-toggle="modal"
-                                class="btn btn-brand btn-icon btn-card"><i class="bi bi-trash icon-btn-sm"
-                                    aria-hidden="true"></i> Delete</a>
+                        <div class="card-footer">
+                            <div class="d-flex justify-content-center mb-3">
+                                <a href="#" class="btn btn-brand btn-icon btn-card btn-card-full"><i
+                                        class="bi bi-eyeglasses icon-btn-sm" aria-hidden="true"></i> View Full
+                                    Details</a>
+                            </div>
+                            <div class="d-flex justify-content-between mb-1">
+                                <a href="{% url 'edit_pension' pension.id %}" class="btn btn-brand btn-icon btn-card"><i
+                                        class="bi bi-pencil icon-btn-sm" aria-hidden="true"></i> Edit</a>
+                                <a href="#deleteModal{{ pension.id }}" data-bs-toggle="modal"
+                                    class="btn btn-brand btn-icon btn-card"><i class="bi bi-trash icon-btn-sm"
+                                        aria-hidden="true"></i> Delete</a>
+                            </div>
                         </div>
                     </div>
                 </div>
