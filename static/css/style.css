@@ -29,9 +29,8 @@ a {
 }
 
 main a {
-    font-weight: 500;
     color: inherit;
-    text-decoration: underline #ff00ff double;
+    border-bottom: 0.125rem solid #ff00ff;
 }
 
 main a:hover, main a:focus {
@@ -233,8 +232,8 @@ h1 {
 
 /* over-ride Bootstrap border color + radius */
 .card {
-    border-color: rgba(19,25,103, 0.2);
     border-radius: .1rem;
+    border-color: #ff00ff;
 }
 
 /* font style and border bottom for card titles */
@@ -266,6 +265,19 @@ h1 {
 .btn-card {
     font-size: .9rem;
     margin: 0 0.1rem;
+    width: 45%;
+    background-color: #fff;
+    border: 0.1rem solid #131967;
+}
+
+/* full witdth button inside cards */
+.btn-card-full {
+    width: 100%;
+}
+
+/* hover style for buttons in cards */
+.btn-card:hover, .btn-card:focus, .btn-card:active {
+    background-color: #131967;
 }
 
 /* ----------- Pagination for Jobs/Pensions list */
