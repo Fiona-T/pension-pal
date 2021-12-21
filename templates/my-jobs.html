@@ -30,7 +30,7 @@
                 {% if job_list %}
                 <!-- for each job passed in from MyJobs ListView, display the details in a card, with edit and delete buttons -->
                 {% for job in job_list %}
-                <div class="col-12 col-sm-10 col-md-6 col-lg-4">
+                <div class="col-12 col-sm-10 col-md-6 col-lg-4 card-group">
                     <div class="card mb-4">
                         <div class="card-body">
                             <h4 class="card-title">{{ job.employer_name }}</h4>
