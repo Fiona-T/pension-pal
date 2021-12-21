@@ -20,4 +20,8 @@ urlpatterns = [
         views.DeletePension.as_view(),
         name='delete_pension'
         ),
+    path(
+        'view-details/<pension_id>',
+        views.PensionDetails.as_view(),
+        name='view_pension'),
 ]
