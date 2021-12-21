@@ -5,7 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404
 from jobs.models import Job
 from .forms import PensionForm
-from .models import Pension
+from .models import Pension, Provider
 
 
 class MyPensions(LoginRequiredMixin, generic.ListView):
@@ -17,6 +17,27 @@ class MyPensions(LoginRequiredMixin, generic.ListView):
     def get_queryset(self):
         """filter the objects by the current user"""
         return Pension.objects.filter(added_by=self.request.user)
+
+
+class PensionDetails(LoginRequiredMixin, View):
+    """Display full pension details including linked Job + Provider details"""
+    def get(self, request, pension_id):
+        """
+        get the pension by the id passed via url, get the linked job + pension
+        provider by their ids, pass these as context and render the template
+        """
+        pension = get_object_or_404(Pension, id=pension_id)
+        job = get_object_or_404(Job, id=pension.employment_id)
+        provider = get_object_or_404(Provider, id=pension.pension_provider_id)
+        return render(
+            request,
+            "view-pension.html",
+            {
+                'pension': pension,
+                'job': job,
+                'provider': provider,
+            }
+        )
 
 
 class AddPension(LoginRequiredMixin, View):
@@ -34,7 +55,7 @@ class AddPension(LoginRequiredMixin, View):
             request,
             'add-pension.html',
             {
-                "form": form
+                'form': form
             }
         )
 
