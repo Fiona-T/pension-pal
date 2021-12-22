@@ -86,13 +86,13 @@
                             </div>
                             <!-- Delete Pension modal footer, with button to cancel, and form with button to submit deletion request -->
                             <div class="modal-footer d-flex justify-content-around">
-                                <button type="button" class="btn btn-brand btn-icon btn-card btn-secondary mb-2"
+                                <button type="button" class="btn btn-brand btn-icon btn-secondary mb-2 w-50"
                                     data-bs-dismiss="modal"><i class="bi bi-x-circle icon-btn-sm"
                                         aria-hidden="true"></i>Cancel</button>
                                 <form class="d-inline" action="{% url 'delete_pension' pension.id %}" method="POST">
                                     {% csrf_token %}
                                     <button type="submit" value="{{ pension.id }}" name="pension_id"
-                                        class="btn btn-brand btn-icon btn-card mb-2"><i class="bi bi-trash icon-btn-sm"
+                                        class="btn btn-brand btn-icon mb-2"><i class="bi bi-trash icon-btn-sm"
                                             aria-hidden="true"></i>Delete Pension</button>
                                 </form>
                             </div>

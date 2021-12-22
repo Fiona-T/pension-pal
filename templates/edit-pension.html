@@ -27,10 +27,8 @@
                         {% csrf_token %}
                         {{ form.as_p }}
                         <div class="d-flex justify-content-between mt-5">
-                            <a href="{% url 'my_pensions' %}"
-                                class="btn btn-brand btn-icon btn-card btn-form">Cancel</a>
-                            <button class="btn btn-brand btn-icon btn-card btn-form" type="submit">Confirm
-                                Changes</button>
+                            <a href="{% url 'my_pensions' %}" class="btn btn-brand btn-icon btn-form">Cancel</a>
+                            <button class="btn btn-brand btn-icon btn-form" type="submit">Confirm Changes</button>
                         </div>
                     </form>
                 </section>
