@@ -64,7 +64,7 @@ class AddPension(LoginRequiredMixin, View):
         Submit form data, redirect to success page if valid,
         else display form again (again with employment dropdown for that user)
         """
-        form = PensionForm(data=request.POST)
+        form = PensionForm(request.POST, request.FILES)
         if form.is_valid():
             form.instance.added_by = request.user
             form.save()
@@ -127,7 +127,7 @@ class EditPension(LoginRequiredMixin, View):
         else display the form again on edit-pension page
         """
         pension = get_object_or_404(Pension, id=pension_id)
-        form = PensionForm(data=request.POST, instance=pension)
+        form = PensionForm(request.POST, request.FILES, instance=pension)
         if form.is_valid():
             form.save()
             return redirect('my_pensions')
