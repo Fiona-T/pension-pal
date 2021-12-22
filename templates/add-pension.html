@@ -24,7 +24,7 @@
                         changes:</p>
                     <p><em>All fields must be completed!</em></p>
                     <!-- Add Pension form -->
-                    <form action="" method="POST" class="user-form">
+                    <form action="" method="POST" class="user-form" enctype="multipart/form-data">
                         {% csrf_token %}
                         {{ form.as_p }}
                         <div class="d-flex justify-content-between mt-5">
