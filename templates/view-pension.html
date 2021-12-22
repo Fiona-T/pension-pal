@@ -60,8 +60,14 @@
                                     rel="noopener">{{ provider.website }}</a></p>
                             <p class="card-text"><i class="bi bi-piggy-bank card-icon" aria-hidden="true"></i><span
                                     class="card-label"> Pension value:</span> € {{ pension.value }}</p>
-                            <p class="card-text"><i class="bi bi-file-earmark card-icon" aria-hidden="true"></i><span
-                                    class="card-label"> View file:</span> </p>
+                            <p class="card-text"><i class="bi bi-file-earmark card-icon" aria-hidden="true"></i>
+                                <span class="card-label"> View file:</span>
+                                {% if pension.file %}
+                                <a href="{{ pension.file.url }}">{{ pension.file }}</a>
+                                {% else %}
+                                <span>No file uploaded</span>
+                                {% endif %}
+                            </p>
                             <p class="card-text"><i class="bi bi-chat-left-text card-icon" aria-hidden="true"></i><span
                                     class="card-label"> Your notes:</span> {{ pension.notes }}</p>
                         </div>
