@@ -25,19 +25,23 @@ class PensionDetails(LoginRequiredMixin, View):
         """
         get the pension by the id passed via url, get the linked job + pension
         provider by their ids, pass these as context and render the template
+        If the user did not add this pension record, then raise Http404 error
         """
         pension = get_object_or_404(Pension, id=pension_id)
         job = get_object_or_404(Job, id=pension.employment_id)
         provider = get_object_or_404(Provider, id=pension.pension_provider_id)
-        return render(
-            request,
-            "view-pension.html",
-            {
-                'pension': pension,
-                'job': job,
-                'provider': provider,
-            }
-        )
+        if request.user == pension.added_by:
+            return render(
+                request,
+                "view-pension.html",
+                {
+                    'pension': pension,
+                    'job': job,
+                    'provider': provider,
+                }
+            )
+        else:
+            raise Http404
 
 
 class AddPension(LoginRequiredMixin, View):
