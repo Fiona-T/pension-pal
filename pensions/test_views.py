@@ -387,3 +387,76 @@ class TestDeletePensionView(TestCase):
         self.assertRedirects(response, '/pensions/')
         response = self.client.get('/pensions/')
         self.assertEqual(len(response.context['pension_list']), 0)
+
+
+class TestPensionDetailsView(TestCase):
+    """Tests for the Pension Details View"""
+    @classmethod
+    def setUp(cls):
+        """
+        Create a test user.
+        Create provider and job records, needed as foreign keys in Pension
+        Create a pension record.
+        """
+        test_user = User.objects.create_user(
+            username='Tester',
+            password='topsecret1234',
+            )
+        test_user.save()
+
+        Job.objects.create(
+            added_by=User.objects.get(username='Tester'),
+            employer_name='Test Company',
+            start_date='2020-01-01',
+            finish_date='2020-12-01',
+            full_or_part_time=1,
+            )
+
+        Provider.objects.create(
+            provider_name='A Pension Provider',
+            website='wwww.awebsite.ie',
+            status=1,
+            )
+
+        Pension.objects.create(
+            added_by=test_user,
+            employment=Job.objects.get(id=1),
+            scheme_name='Test pension scheme',
+            policy_number='12345',
+            pension_type=1,
+            date_joined_scheme='2020-01-01',
+            salary=10000,
+            pao=True,
+            director=True,
+            pension_provider=Provider.objects.get(id=1),
+            value=1000,
+            )
+
+    def test_redirects_if_not_logged_in(self):
+        """User is redirected to correct page if not logged in"""
+        response = self.client.get('/pensions/view-details/1')
+        self.assertRedirects(
+            response, '/accounts/login/?next=/pensions/view-details/1'
+            )
+
+    def test_correct_url_and_template_for_logged_in_user_own_pensions(self):
+        """
+        Login the test user, get the url for voew-details page, using id of 1
+        (this will be the id of the pension added in set up)
+        check the user is logged in, that the response is 200 (i.e. successful)
+        and check the correct template is used
+        """
+        self.client.login(username='Tester', password='topsecret1234')
+        response = self.client.get('/pensions/view-details/1')
+        self.assertEqual(str(response.context['user']), 'Tester')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'view-pension.html')
+
+    def test_404_returned_logged_in_but_invalid_pension_id(self):
+        """
+        Logged in user gets 404 response trying to access view-details page
+        using an invalid pension id, i.e one which does not exist
+        """
+        self.client.login(username='Tester', password='topsecret1234')
+        response = self.client.get('/pensions/view-details/5')
+        self.assertEqual(response.status_code, 404)
