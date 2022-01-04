@@ -48,20 +48,26 @@ class AddPension(LoginRequiredMixin, View):
     """Add pension view - display form on get request, post form on post req"""
     def get(self, request):
         """
-        Display the Pension form.
-        Restrict 'employment' field dropdown to jobs added by this user
+        Get the jobs added by the user, and if these exist then:
+        Display the Pension form, restricting the 'employment' field dropdown
+        to jobs added by this user.
+        If user has no job records, then just return the html page (template
+        displays a message informing the user they must add a Job first).
         """
-        form = PensionForm()
-        form.fields['employment'].queryset = Job.objects.filter(
-            added_by=request.user
+        if Job.objects.filter(added_by=self.request.user):
+            form = PensionForm()
+            form.fields['employment'].queryset = Job.objects.filter(
+                added_by=request.user
+                )
+            return render(
+                request,
+                'add-pension.html',
+                {
+                    'form': form
+                }
             )
-        return render(
-            request,
-            'add-pension.html',
-            {
-                'form': form
-            }
-        )
+        else:
+            return render(request, 'add-pension.html',)
 
     def post(self, request):
         """
