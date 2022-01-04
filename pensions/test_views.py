@@ -394,15 +394,21 @@ class TestPensionDetailsView(TestCase):
     @classmethod
     def setUp(cls):
         """
-        Create a test user.
+        Create two test users.
         Create provider and job records, needed as foreign keys in Pension
-        Create a pension record.
+        Create a pension record. All records created by test_user1, so can
+        test that only user who created the record can view it.
         """
-        test_user = User.objects.create_user(
+        test_user1 = User.objects.create_user(
             username='Tester',
             password='topsecret1234',
             )
-        test_user.save()
+        test_user2 = User.objects.create_user(
+            username='jane',
+            password='secret1234567',
+            )
+        test_user1.save()
+        test_user2.save()
 
         Job.objects.create(
             added_by=User.objects.get(username='Tester'),
@@ -419,7 +425,7 @@ class TestPensionDetailsView(TestCase):
             )
 
         Pension.objects.create(
-            added_by=test_user,
+            added_by=test_user1,
             employment=Job.objects.get(id=1),
             scheme_name='Test pension scheme',
             policy_number='12345',
@@ -459,4 +465,15 @@ class TestPensionDetailsView(TestCase):
         """
         self.client.login(username='Tester', password='topsecret1234')
         response = self.client.get('/pensions/view-details/5')
+        self.assertEqual(response.status_code, 404)
+
+    def test_cannot_access_view_details_page_for_other_user_pension(self):
+        """
+        Logged in user who did not create the pension gets 404 response if they
+        try to access the view-details page with pension id not created by them
+        """
+        self.client.login(username='jane', password='secret1234567')
+        response = self.client.get('/pensions/')
+        self.assertEqual(str(response.context['user']), 'jane')
+        response = self.client.get('/pensions/view-details/1')
         self.assertEqual(response.status_code, 404)
