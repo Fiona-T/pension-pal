@@ -177,6 +177,18 @@ class TestAddPensionView(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'add-pension.html')
 
+    def test_add_pension_form_displayed_for_user_with_job_records(self):
+        """
+        Login the test user who has a job record, go to the add pensions page
+        Confirm the form is displayed (user has job record so can add pension)
+        """
+        self.client.login(username='Tester', password='topsecret1234')
+        response = self.client.get('/pensions/add/')
+        self.assertEqual(str(response.context['user']), 'Tester')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'add-pension.html')
+        self.assertIn('form', response.context)
+
     def test_can_add_pension(self):
         """
         login the test user, get pensions url, check length of pension_list is
