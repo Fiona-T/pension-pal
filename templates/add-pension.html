@@ -19,9 +19,10 @@
             <div class="col-12 col-sm-8 col-lg-6 mx-auto pt-2">
                 <section>
                     <h1 class="mb-4">Add a Pension</h1>
+                    {% if form %}
+                    <!-- If the form is in the context, i.e. user has job records to attach the pension to -->
                     <p>Enter the details of the pension below then press the <strong>Add Pension button</strong> to save
-                        the
-                        changes:</p>
+                        the changes:</p>
                     <p><em>All fields must be completed!</em></p>
                     <!-- Add Pension form -->
                     <form action="" method="POST" class="user-form" enctype="multipart/form-data">
@@ -32,6 +33,14 @@
                             <button class="btn btn-brand btn-icon btn-form" type="submit">Add Pension</button>
                         </div>
                     </form>
+                    {% else %}
+                    <!-- If the form is NOT in the context, i.e. user has no job records, can't add pension -->
+                    <p>You do not currently have any jobs recorded.</p>
+                    <p>A Pension must be attached to a Job record, so you can't add a Pension before you have added the
+                        related Job/Employment!</p>
+                    <p><a href="{% url 'add_job' %}">Get started by adding the Job record now</a>, you will then be
+                        directed to add the Pension record afterwards.</p>
+                    {% endif %}
                 </section>
             </div>
         </div>
