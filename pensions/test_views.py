@@ -132,12 +132,19 @@ class TestAddPensionView(TestCase):
         """
         Create a test user.
         Create job and provider, needed as foreign keys in Pension
+        Create a second test user with no job records, to test that this user
+        cannot add a pension as they do not have any jobs recorded.
         """
-        test_user = User.objects.create_user(
+        test_user1 = User.objects.create_user(
             username='Tester',
             password='topsecret1234',
         )
-        test_user.save()
+        test_user2 = User.objects.create_user(
+            username='jane',
+            password='secret1234567',
+            )
+        test_user1.save()
+        test_user2.save()
 
         Job.objects.create(
             added_by=User.objects.get(username='Tester'),
@@ -197,6 +204,19 @@ class TestAddPensionView(TestCase):
         self.assertRedirects(response, '/pensions/success/')
         response = self.client.get('/pensions/')
         self.assertEqual(len(response.context['pension_list']), 1)
+
+    def test_add_pension_form_not_displayed_if_user_has_no_jobs(self):
+        """
+        Login the test user who has no job records created, go to the add
+        pensions page. Confirm the correct template is used, but that the form
+        is not in the context (user has no jobs so cannot add a pension)
+        """
+        self.client.login(username='jane', password='secret1234567')
+        response = self.client.get('/pensions/add/')
+        self.assertEqual(str(response.context['user']), 'jane')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'add-pension.html')
+        self.assertNotIn('form', response.context)
 
 
 class TestEditPensionView(TestCase):
