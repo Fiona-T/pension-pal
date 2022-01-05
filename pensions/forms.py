@@ -7,7 +7,7 @@ from .models import Pension, Provider
 class PensionForm(forms.ModelForm):
     """
     frontend form for user to add or edit a Pension record
-    Employment field is restricted to Jobs for that user
+    Employment field is restricted to Jobs for that user in the View
     The dropdown lists for <select> element have selected choice set
     """
     employment = forms.ModelChoiceField(
