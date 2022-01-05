@@ -5,11 +5,16 @@ from .models import Pension, Provider
 
 
 class PensionForm(forms.ModelForm):
-    """frontend form for user to add or edit a Pension record"""
-    # set the selected choice at top of list for <select> elements
+    """
+    frontend form for user to add or edit a Pension record
+    Employment field is restricted to Jobs for that user
+    The dropdown lists for <select> element have selected choice set
+    """
     employment = forms.ModelChoiceField(
         queryset=Job.objects.all(),
-        empty_label="Choose Job the pension relates to"
+        empty_label="Choose Job the pension relates to",
+        help_text='If the Job is not in the list, go to My Jobs to add the Job'
+        ' record first.'
         )
     pension_provider = forms.ModelChoiceField(
         queryset=Provider.objects.all(),
