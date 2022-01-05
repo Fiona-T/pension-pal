@@ -32,6 +32,22 @@ class TestPensionForm(TestCase):
             field.widget.__class__.__name__, 'DateInput'
             )
 
+    def test_employment_field_selected_choice(self):
+        """Test Employment field has 'selected' option at top of dropdown """
+        form = PensionForm()
+        self.assertEqual(
+            form.fields['employment'].empty_label,
+            'Choose Job the pension relates to'
+            )
+
+    def test_provider_field_selected_choice(self):
+        """Test Provider field has 'selected' option at top of dropdown """
+        form = PensionForm()
+        self.assertEqual(
+            form.fields['pension_provider'].empty_label,
+            'Choose pension provider'
+            )
+
     def test_explicitly_set_field_labels_exist(self):
         form = PensionForm()
         self.assertTrue(
