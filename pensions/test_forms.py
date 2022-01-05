@@ -15,6 +15,15 @@ class TestPensionForm(TestCase):
             'or any other relevant file.'
             )
 
+    def test_employment_field_help_text(self):
+        """Test that the Employment field has correct associated help text """
+        form = PensionForm()
+        self.assertEqual(
+            form.fields['employment'].help_text,
+            'If the Job is not in the list, go to My Jobs to add the Job'
+            ' record first.'
+            )
+
     def test_widget_exists_on_date_joined_scheme_field_(self):
         """Test that date_joined_scheme field has DateInput widget attached """
         form = PensionForm()
