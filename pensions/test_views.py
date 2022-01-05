@@ -134,6 +134,8 @@ class TestAddPensionView(TestCase):
         Create job and provider, needed as foreign keys in Pension
         Create a second test user with no job records, to test that this user
         cannot add a pension as they do not have any jobs recorded.
+        Create a 3rd test user with a job record, to test that 1st test user
+        does not see this job record in the add pension form
         """
         test_user1 = User.objects.create_user(
             username='Tester',
@@ -143,12 +145,25 @@ class TestAddPensionView(TestCase):
             username='jane',
             password='secret1234567',
             )
+        test_user3 = User.objects.create_user(
+            username='Tester3',
+            password='secret12345678',
+            )
         test_user1.save()
         test_user2.save()
+        test_user3.save()
 
         Job.objects.create(
             added_by=User.objects.get(username='Tester'),
             employer_name='Test Company',
+            start_date='2020-01-01',
+            finish_date='2020-12-01',
+            full_or_part_time=1,
+            )
+
+        Job.objects.create(
+            added_by=User.objects.get(username='Tester3'),
+            employer_name='Tester3 Company',
             start_date='2020-01-01',
             finish_date='2020-12-01',
             full_or_part_time=1,
@@ -229,6 +244,22 @@ class TestAddPensionView(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'add-pension.html')
         self.assertNotIn('form', response.context)
+
+    def test_jobs_in_dropdown_belong_to_that_user(self):
+        """
+        Login test_user1, go to add-pensions page
+        Check that the job added by test_user1 is in the response
+        Check that the job added by test_user3 is NOT in the response
+        Using only the closing option tag in the Contains/NotContains tests,the
+        opening tag would have value="1" etc. so not including this in the test
+        """
+        self.client.login(username='Tester', password='topsecret1234')
+        response = self.client.get('/pensions/add/')
+        self.assertEqual(str(response.context['user']), 'Tester')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'add-pension.html')
+        self.assertContains(response, 'Test Company</option>')
+        self.assertNotContains(response, 'Tester3 Company</option>')
 
 
 class TestEditPensionView(TestCase):
