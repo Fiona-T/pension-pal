@@ -242,12 +242,20 @@ class TestDeleteJobView(TestCase):
     """Tests for the Delete Job View"""
     @classmethod
     def setUp(cls):
-        """Create a test user and a job record"""
+        """
+        Create a test user and a job record
+        Create a second test user with no job record
+        """
         test_user1 = User.objects.create_user(
             username='fred',
             password='secret1234',
         )
+        test_user2 = User.objects.create_user(
+            username='jane',
+            password='secret1234567',
+        )
         test_user1.save()
+        test_user2.save()
 
         Job.objects.create(
             added_by=test_user1,
@@ -257,10 +265,37 @@ class TestDeleteJobView(TestCase):
             full_or_part_time=1,
         )
 
-    def test_can_delete_job(self):
+    def test_redirects_if_not_logged_in(self):
+        """
+        User not logged in and trying to access delete url is redirected to
+        sign in page
+        """
+        response = self.client.get('/jobs/delete/1')
+        self.assertRedirects(response, '/accounts/login/?next=/jobs/delete/1')
+
+    def test_404_raised_for_get_request_on_delete_url(self):
+        """
+        Login test user1, try to access delete url via get request
+        Should get 404 error since the delete view is post only
+        """
+        self.client.login(username='fred', password='secret1234')
+        response = self.client.get('/jobs/delete/1')
+        self.assertEqual(response.status_code, 404)
+
+    def test_cannot_delete_job_record_of_different_user(self):
+        """
+        Login test user2 (no job records), try to access the delete url for job
+        id of test user1, via post request. Should get error 404 since job id
+        does not belong to that user
+        """
+        self.client.login(username='jane', password='secret1234567')
+        response = self.client.post('/jobs/delete/1')
+        self.assertEqual(response.status_code, 404)
+
+    def test_can_delete_own_job(self):
         """
         Login the test user, go to jobs page, job_list length should be 1
-        Post the delete request with the job ide created above
+        Post the delete request with the job id created above
         Check page redirects back to jobs page, and that length of jobs list
         is now 0 since the record created in set up was deleted.
         """
