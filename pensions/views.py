@@ -157,11 +157,23 @@ class EditPension(LoginRequiredMixin, View):
 
 class DeletePension(LoginRequiredMixin, View):
     """Handles deleting a pension from delete pension modal on my-pensions"""
+
+    def get(self, request, pension_id):
+        """
+        Get request added so that user can be redirected to 404 page
+        Without this a 405 error is raised.
+        """
+        raise Http404
+
     def post(self, request, pension_id):
         """
-        Gets pension sent via delete pension form button, deletes the pension
-        Returns to the my-pensions page
+        Gets pension sent via delete pension form button, if the pension was added by
+        that user, deletes the pension and returns to the my-pensions page.
+        Otherwise raises 404 error.
         """
         pension = get_object_or_404(Pension, id=pension_id)
-        pension.delete()
-        return redirect('my_pensions')
+        if request.user == pension.added_by:
+            pension.delete()
+            return redirect('my_pensions')
+        else:
+            raise Http404
