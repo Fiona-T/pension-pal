@@ -398,15 +398,20 @@ class TestDeletePensionView(TestCase):
     @classmethod
     def setUp(cls):
         """
-        Create a test user.
+        Create 2 test users.
         Create provider and job records, needed as foreign keys in Pension
-        Create a pension record.
+        Create a pension record for test user1. No records for test user2.
         """
-        test_user = User.objects.create_user(
+        test_user1 = User.objects.create_user(
             username='Tester',
             password='topsecret1234',
             )
-        test_user.save()
+        test_user2 = User.objects.create_user(
+            username='jane',
+            password='secret1234567',
+            )
+        test_user1.save()
+        test_user2.save()
 
         Job.objects.create(
             added_by=User.objects.get(username='Tester'),
@@ -423,7 +428,7 @@ class TestDeletePensionView(TestCase):
             )
 
         Pension.objects.create(
-            added_by=test_user,
+            added_by=test_user1,
             employment=Job.objects.get(id=1),
             scheme_name='Test pension scheme',
             policy_number='12345',
@@ -436,9 +441,39 @@ class TestDeletePensionView(TestCase):
             value=1000,
             )
 
-    def test_can_delete_pension(self):
+    def test_redirects_if_not_logged_in(self):
         """
-        Login the test user, go to pensions page, pension_list length should
+        User not logged in and trying to access delete pension url is
+        redirected to sign in page
+        """
+        response = self.client.get('/pensions/delete/1')
+        self.assertRedirects(
+            response,
+            '/accounts/login/?next=/pensions/delete/1'
+            )
+
+    def test_404_raised_for_get_request_on_delete_url(self):
+        """
+        Login test user1, try to access delete pension url via get request
+        Should get 404 error since the delete view is post only
+        """
+        self.client.login(username='Tester', password='topsecret1234')
+        response = self.client.get('/pensions/delete/1')
+        self.assertEqual(response.status_code, 404)
+
+    def test_cannot_delete_pension_record_of_different_user(self):
+        """
+        Login test user2 (no pension records), try to access the delete url
+        for pension id of test user1, via post request. Should get error 404
+        since pension id does not belong to that user
+        """
+        self.client.login(username='jane', password='secret1234567')
+        response = self.client.post('/pensions/delete/1')
+        self.assertEqual(response.status_code, 404)
+
+    def test_can_delete_own_pension(self):
+        """
+        Login test user1, go to pensions page, pension_list length should
         be 1. Post the delete request with the pension id created above.
         Check page redirects back to pensions page, and that length of pension
         list is now 0 since the record created in set up was deleted.
