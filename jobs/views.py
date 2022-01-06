@@ -111,11 +111,22 @@ class EditJob(LoginRequiredMixin, View):
 
 class DeleteJob(LoginRequiredMixin, View):
     """Handles deleting a job from delete job modal on my-jobs"""
+    def get(self, request, job_id):
+        """
+        Get request added so that user can be redirected to 404 page
+        Without this a 405 error is raised.
+        """
+        raise Http404
+
     def post(self, request, job_id):
         """
-        Gets job sent via delete job form button, deletes the job
-        Returns to the my-jobs page
+        Gets job sent via delete job form button, if job added by that
+        user, deletes the job. Returns to the my-jobs page
+        Otherwise raise 404 error.
         """
         job = get_object_or_404(Job, id=job_id)
-        job.delete()
-        return redirect('my_jobs')
+        if request.user == job.added_by:
+            job.delete()
+            return redirect('my_jobs')
+        else:
+            raise Http404
