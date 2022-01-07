@@ -54,9 +54,9 @@
                             </p>
                             <p class="card-text"><i class="bi bi-exclamation-triangle card-icon"
                                     aria-hidden="true"></i><span class="card-label"> Pension Adjustment Order
-                                    (PAO)?:</span> {{ pension.pao }}</p>
+                                    (PAO)?:</span> {{ pension.pao|yesno:"Yes,No" }}</p>
                             <p class="card-text"><i class="bi bi-percent card-icon" aria-hidden="true"></i><span
-                                    class="card-label"> 20% director in this employment?:</span> {{ pension.director }}
+                                    class="card-label"> 20% director in this employment?:</span> {{ pension.director|yesno:"Yes,No" }}
                             </p>
                             <p class="card-text"><i class="bi bi-calendar-week card-icon" aria-hidden="true"></i><span
                                     class="card-label"> Full-time or part-time service:</span>
