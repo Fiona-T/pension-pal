@@ -31,8 +31,15 @@
                                 {{ pension.employment }}</p>
                             <p class="card-text"><i class="bi bi-paperclip card-icon" aria-hidden="true"></i><span
                                     class="card-label"> Policy / scheme number:</span> {{ pension.policy_number }}</p>
-                            <p class="card-text"><i class="bi bi-person-fill card-icon" aria-hidden="true"></i><span
-                                    class="card-label"> Member number:</span> {{ pension.member_number }}</p>
+                            <p class="card-text"><i class="bi bi-person-fill card-icon" aria-hidden="true"></i>
+                                <span class="card-label"> Member number:</span>
+                                {% if pension.member_number %}
+                                <span>{{ pension.member_number }}</span>
+                                {% else %}
+                                <span class="fst-italic fw-lighter">Not recorded. Use the Edit button below to
+                                    update.</span>
+                                {% endif %}
+                            </p>
                             <p class="card-text"><i class="bi bi-calculator-fill card-icon" aria-hidden="true"></i><span
                                     class="card-label"> Pension type:</span> {{ pension.get_pension_type_display }}</p>
                             <p class="card-text"><i class="bi bi-calendar-plus-fill card-icon"
@@ -43,7 +50,7 @@
                             <p class="card-text"><i class="bi bi-stop-btn card-icon" aria-hidden="true"></i><span
                                     class="card-label"> Date of leaving service:</span> {{ job.finish_date }}</p>
                             <p class="card-text"><i class="bi bi-cash-coin card-icon" aria-hidden="true"></i><span
-                                    class="card-label"> Salary at date of leaving service:</span> {{ pension.salary }}
+                                    class="card-label"> Salary at date of leaving service:</span> € {{ pension.salary }}
                             </p>
                             <p class="card-text"><i class="bi bi-exclamation-triangle card-icon"
                                     aria-hidden="true"></i><span class="card-label"> Pension Adjustment Order
@@ -67,11 +74,19 @@
                                 {% if pension.file %}
                                 <a href="{{ pension.file.url }}">{{ pension.file }}</a>
                                 {% else %}
-                                <span>No file uploaded</span>
+                                <span class="fst-italic fw-lighter">No file uploaded. Use the Edit button below to add a
+                                    file.</span>
                                 {% endif %}
                             </p>
-                            <p class="card-text"><i class="bi bi-chat-left-text card-icon" aria-hidden="true"></i><span
-                                    class="card-label"> Your notes:</span> {{ pension.notes }}</p>
+                            <p class="card-text"><i class="bi bi-chat-left-text card-icon" aria-hidden="true"></i>
+                                <span class="card-label"> Your notes:</span>
+                                {% if pension.notes %}
+                                <span>{{ pension.notes }}</span>
+                                {% else %}
+                                <span class="fst-italic fw-lighter">No notes recorded. Use the Edit button below to add
+                                    notes.</span>
+                                {% endif %}
+                            </p>
                         </div>
                         <div class="card-footer d-flex justify-content-around mb-4">
                             <a href="{% url 'edit_pension' pension.id %}" class="btn btn-brand btn-icon btn-card"><i
