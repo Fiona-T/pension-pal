@@ -9,9 +9,13 @@
         <div class="row pt-5">
             <h2>How it Works</h2>
             <p>Record the details of a Pension attached to a Job, using the Add Pension button below.</p>
-            <p>Remember to add the Job/Employment first on the <a href="{% url 'my_jobs' %}">My Jobs page</a>, so that
-                you can link the Pension to the Job/Employment.</p>
+            <p>Remember to <a href="{% url 'add_job' %}">add the Job record</a> first, so that you can link the Pension
+                to that Job. You can view your existing Job records on the <a href="{% url 'my_jobs' %}">My Jobs
+                    page.</a></p>
             <p>Any Pensions you have already added are listed below under Your Pensions.</p>
+            <p>Use the View Full Details button to see all details of that Pension and its associated Job.</p>
+            <p>Use the Edit button underneath the Pension record to amend the details, or Delete to remove the record
+                completely.</p>
         </div>
         <div class="row">
             <div class="col-12 col-sm-10 col-md-8 col-lg-4 pt-3">
