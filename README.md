@@ -371,6 +371,25 @@ However, since these are foreign keys I needed to use their id instead of the ac
 'pension_provider': str(1),
 ```
 
+- **Issue: File upload to Cloudinary from `PensionForm` not working**
+
+Adding a file via the optional `file` field on the Add Pension or Edit Pension form did not give any errors and the form could be submitted, but the file did not appear when viewing the pension details on the frontend, nor did it appear in Cloudinary. When viewing the pension record in the Django admin panel, the file did not appear there either.
+> Solution: On investigation with [Code Institute's](https://codeinstitute.net/ie/) tutor support, it transpired that the issue did not arise when adding a pension (with file upload) via the Django admin panel. However for this to work via the front end form, two parts were missing, as explained in the [Django docs](https://docs.djangoproject.com/en/4.0/topics/http/file-uploads/):
+1. The `post` part of the `view` for posting the form needed to include `request.FILES` in the form constructor (see below), in order to record the file data:
+```python
+form = PensionForm(request.POST, request.FILES)
+```
+2. The `form` element in the relevant `html` files needed to include the `enctype` attribute with the value `"multipart/form-data"` as this is required where a file is uploaded through a form 
+
+- **Issue: Using the delete pension or delete job url gives a 405 error instead of the custom 404 page**
+
+Delete Pension url with valid pension id:
+![Delete Pension url bug](docs/bugs/delete-pension-url-bug.png)
+Delete Job url with valid job id:
+![Delete Job url bug](docs/bugs/delete-job-url-bug.png)
+If a user tried to access the delete url (by typing the url into the browser) for a pension or job using a valid job or pension id that belongs to that user, a 405 error is raised instead of 404 (a 404 error would be raised if they used an invalid id in the url, and the custom 404 page would be displayed).
+> Solution: The 405 http error [means method not allowed](https://httpstatuses.com/405), so it is being raised because there was no `get method` on the `DeleteJob` or `DeletePension` views (there was only a `post method` to delete the record, triggered by the Delete button in the modal). Updated both views to include a `get method`, which raises a 404 error so that the user will see the custom 404 page. There is no way to access the delete url from the website, but this update was done in case a user types the url into the browser, so that they are shown the custom 404 page instead of the generic 405 error page. 
+
 ### Supported Screens and Browsers
 
 ## Deployment
