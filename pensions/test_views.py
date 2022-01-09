@@ -373,6 +373,36 @@ class TestEditPensionView(TestCase):
         self.assertEqual(updated_pension.director, False)
         self.assertEqual(updated_pension.value, 36789)
 
+    def test_message_is_displayed_for_successful_edit(self):
+        """
+        Login testuser1, post edit pension request.
+        Check page redirects back to pensions page, get the messages,
+        Check length is 1 and that msg tag and content are correct.
+        """
+        self.client.login(username='Tester', password='topsecret1234')
+        response = self.client.post('/pensions/edit/1', {
+            'added_by': 'Tester',
+            'employment': str(2),
+            'scheme_name': "New Pension Scheme Name",
+            'policy_number': '12345',
+            'pension_type': 1,
+            'date_joined_scheme': '2020-01-01',
+            'salary': 50000,
+            'pao': False,
+            'director': False,
+            'pension_provider': str(1),
+            'value': 36789,
+            })
+        self.assertRedirects(response, '/pensions/')
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(messages[0].tags, 'alert-success')
+        self.assertEqual(
+            messages[0].message,
+            'Edited details for Pension: "New Pension Scheme Name" for '
+            '"Second Test Company" successfully saved.'
+            )
+
     def test_404_returned_logged_in_but_invalid_pension_id(self):
         """
         Logged in user gets 404 response trying to access edit page using
