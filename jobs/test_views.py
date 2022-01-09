@@ -334,12 +334,11 @@ class TestDeleteJobView(TestCase):
 
     def test_message_is_displayed_for_successful_deletion(self):
         """
-        Login testuser1, go to jobs page, post the delete request with
-        job id created above. Check page redirects back to jobs page, get the
-        messages, check length is 1 and that msg tag and content are correct.
+        Login testuser1, post the delete job request with job id created
+        above. Check page redirects back to jobs page, get the messages,
+        check length is 1 and that msg tag and content are correct.
         """
         self.client.login(username='fred', password='secret1234')
-        response = self.client.get('/jobs/')
         response = self.client.post('/jobs/delete/1')
         self.assertRedirects(response, '/jobs/')
         messages = list(get_messages(response.wsgi_request))
