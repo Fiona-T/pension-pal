@@ -179,8 +179,8 @@ class DeletePension(LoginRequiredMixin, View):
             messages.add_message(
                 request,
                 messages.SUCCESS,
-                f'Pension: "{pension.scheme_name}" for "{pension.employment}"\
-                     successfully deleted.'
+                f'Pension: "{pension.scheme_name}" for "{pension.employment}" '
+                'successfully deleted.'
                 )
             return redirect('my_pensions')
         else:
