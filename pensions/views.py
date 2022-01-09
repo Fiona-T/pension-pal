@@ -2,6 +2,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic, View
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
 from django.http import Http404
 from jobs.models import Job
 from .forms import PensionForm
@@ -167,13 +168,20 @@ class DeletePension(LoginRequiredMixin, View):
 
     def post(self, request, pension_id):
         """
-        Gets pension sent via delete pension form button, if the pension was added by
-        that user, deletes the pension and returns to the my-pensions page.
+        Gets pension sent via delete pension form button, if the pension was
+        added by that user, deletes the pension and returns to the my-pensions
+        page with a success flash message.
         Otherwise raises 404 error.
         """
         pension = get_object_or_404(Pension, id=pension_id)
         if request.user == pension.added_by:
             pension.delete()
+            messages.add_message(
+                request,
+                messages.SUCCESS,
+                f'Pension: "{pension.scheme_name}" for "{pension.employment}"\
+                     successfully deleted.'
+                )
             return redirect('my_pensions')
         else:
             raise Http404
