@@ -1,6 +1,7 @@
 """Unit tests for Views for 'pensions' app"""
 from django.test import TestCase
 from django.contrib.auth.models import User
+from django.contrib.messages import get_messages
 from jobs.models import Job
 from .models import Pension, Provider
 
@@ -485,6 +486,24 @@ class TestDeletePensionView(TestCase):
         self.assertRedirects(response, '/pensions/')
         response = self.client.get('/pensions/')
         self.assertEqual(len(response.context['pension_list']), 0)
+
+    def test_message_is_displayed_for_successful_deletion(self):
+        """
+        Login testuser1, post the delete pension request with pension id
+        created above. Check page redirects to pensions page, get the messages,
+        check length is 1 and that msg tag and content are correct.
+        """
+        self.client.login(username='Tester', password='topsecret1234')
+        response = self.client.post('/pensions/delete/1')
+        self.assertRedirects(response, '/pensions/')
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(messages[0].tags, 'alert-success')
+        self.assertEqual(
+            messages[0].message,
+            'Pension: "Test pension scheme" for "Test Company" successfully'
+            ' deleted.'
+            )
 
 
 class TestPensionDetailsView(TestCase):
