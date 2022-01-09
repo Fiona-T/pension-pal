@@ -2,6 +2,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic, View
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
 from django.http import Http404
 from .models import Job
 from .forms import AddJobForm
@@ -121,12 +122,17 @@ class DeleteJob(LoginRequiredMixin, View):
     def post(self, request, job_id):
         """
         Gets job sent via delete job form button, if job added by that
-        user, deletes the job. Returns to the my-jobs page
+        user, deletes the job. Returns to the my-jobs page with success msg
         Otherwise raise 404 error.
         """
         job = get_object_or_404(Job, id=job_id)
         if request.user == job.added_by:
             job.delete()
+            messages.add_message(
+                request,
+                messages.SUCCESS,
+                f'Job: "{job.employer_name}" successfully deleted.'
+                )
             return redirect('my_jobs')
         else:
             raise Http404
