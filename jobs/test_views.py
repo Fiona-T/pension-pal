@@ -1,6 +1,7 @@
 """Unit tests for Views for 'jobs' app"""
 from django.test import TestCase
 from django.contrib.auth.models import User
+from django.contrib.messages import get_messages
 from .models import Job
 
 
@@ -294,7 +295,7 @@ class TestDeleteJobView(TestCase):
 
     def test_can_delete_own_job(self):
         """
-        Login the test user, go to jobs page, job_list length should be 1
+        Login testuser1, go to jobs page, job_list length should be 1
         Post the delete request with the job id created above
         Check page redirects back to jobs page, and that length of jobs list
         is now 0 since the record created in set up was deleted.
@@ -306,3 +307,21 @@ class TestDeleteJobView(TestCase):
         self.assertRedirects(response, '/jobs/')
         response = self.client.get('/jobs/')
         self.assertEqual(len(response.context['job_list']), 0)
+
+    def test_message_is_displayed_for_successful_deletion(self):
+        """
+        Login testuser1, go to jobs page, post the delete request with
+        job id created above. Check page redirects back to jobs page, get the
+        messages, check length is 1 and that msg tag and content are correct.
+        """
+        self.client.login(username='fred', password='secret1234')
+        response = self.client.get('/jobs/')
+        response = self.client.post('/jobs/delete/1')
+        self.assertRedirects(response, '/jobs/')
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(messages[0].tags, 'alert-success')
+        self.assertEqual(
+            messages[0].message,
+            'Job: "Test Company to delete" successfully deleted.'
+            )
