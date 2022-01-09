@@ -218,6 +218,30 @@ class TestEditJobView(TestCase):
             )
         self.assertEqual(updated_job.full_or_part_time, 0)
 
+    def test_message_is_displayed_for_successful_edit(self):
+        """
+        Login testuser1, post edit job request.
+        Check page redirects back to jobs page, get the messages,
+        Check length is 1 and that msg tag and content are correct.
+        """
+        self.client.login(username='fred', password='secret1234')
+        response = self.client.post('/jobs/edit/1', {
+            'added_by': 'user',
+            'employer_name': 'Test Company New Name',
+            'start_date': '2020-01-01',
+            'finish_date': '2020-12-01',
+            'full_or_part_time': 1,
+            })
+        self.assertRedirects(response, '/jobs/')
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(messages[0].tags, 'alert-success')
+        self.assertEqual(
+            messages[0].message,
+            'Edited details for Job: "Test Company New Name" successfully'
+            ' saved.'
+            )
+
     def test_404_returned_logged_in_but_invalid_job_id(self):
         """
         Logged in user gets 404 response trying to access edit page using
