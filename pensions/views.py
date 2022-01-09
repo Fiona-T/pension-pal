@@ -134,13 +134,19 @@ class EditPension(LoginRequiredMixin, View):
     def post(self, request, pension_id):
         """
         Gets the pension by the id (passed in via the url)
-        Submit form data, redirect to my-pensions page if valid,
+        Submit form data, redirect to my-pensions page with msg if valid,
         else display the form again on edit-pension page
         """
         pension = get_object_or_404(Pension, id=pension_id)
         form = PensionForm(request.POST, request.FILES, instance=pension)
         if form.is_valid():
             form.save()
+            messages.add_message(
+                request,
+                messages.SUCCESS,
+                f'Edited details for Pension: "{pension.scheme_name}" for '
+                f'"{pension.employment}" successfully saved.'
+                )
             return redirect('my_pensions')
         else:
             form = PensionForm(instance=pension)
