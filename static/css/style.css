@@ -88,6 +88,14 @@ h1 {
     font-weight: 700;
 }
 
+/* amend default bootstrap styles for element displaying flash messages */
+.alert {
+    background-color: #fff;
+    color: #131967;
+    border-radius: 0.05rem;
+    border: 1px solid #FF00FF;
+}
+
 /* ---------------------------------------- Header */
 .navbar {
     background-color: #131967;
