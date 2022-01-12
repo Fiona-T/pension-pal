@@ -81,12 +81,19 @@ class TestAddJobView(TestCase):
     """ To test the AddJob view """
     @classmethod
     def setUpTestData(cls):
-        """ Create a test user """
+        """ Create a test user and one Job record """
         test_user = User.objects.create_user(
             username='fred',
             password='secret1234',
         )
         test_user.save()
+        Job.objects.create(
+            added_by=test_user,
+            employer_name='Same Name',
+            start_date='2020-01-01',
+            finish_date='2020-12-01',
+            full_or_part_time=1,
+        )
 
     def test_redirects_if_not_logged_in(self):
         """ Test that user is redirected to correct page if not logged in """
@@ -108,13 +115,13 @@ class TestAddJobView(TestCase):
     def test_can_add_job(self):
         """
         login the test user, get jobs url and check length of job_list is
-        zero initially. Then do POST request on add job url, with test job
-        check redirects to the correct success url after adding
-        check that length of job_list is now 1
+        one initially (existing job created in setup). Then do POST request on
+        add job url, with test job. Check redirects to the correct success url
+        after adding. Check that length of job_list is now 2
         """
         self.client.login(username='fred', password='secret1234')
         response = self.client.get('/jobs/')
-        self.assertEqual(len(response.context['job_list']), 0)
+        self.assertEqual(len(response.context['job_list']), 1)
         response = self.client.post('/jobs/add/', {
             'added_by': 'user',
             'employer_name': 'Test Company',
@@ -124,7 +131,7 @@ class TestAddJobView(TestCase):
         })
         self.assertRedirects(response, '/jobs/success/')
         response = self.client.get('/jobs/')
-        self.assertEqual(len(response.context['job_list']), 1)
+        self.assertEqual(len(response.context['job_list']), 2)
 
 
 class TestAddJobSuccessView(TestCase):
