@@ -153,7 +153,8 @@ class TestAddJobView(TestCase):
             response,
             'form',
             None,
-            'Job with this Added by and Employer name already exists.'
+            'You already have a Job with this Employer name. Choose a '
+            'different name for this new Job record.'
             )
 
 
@@ -304,7 +305,8 @@ class TestEditJobView(TestCase):
             response,
             'form',
             None,
-            'Job with this Added by and Employer name already exists.'
+            'You already have a Job with this Employer name. Choose a '
+            'different name for this new Job record.'
             )
 
     def test_404_returned_logged_in_but_invalid_job_id(self):
