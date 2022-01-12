@@ -46,14 +46,7 @@ class AddJob(LoginRequiredMixin, View):
             form.save()
             return redirect('add_job_success')
         else:
-            form = AddJobForm()
-            return render(
-                request,
-                'add-job.html',
-                {
-                    'form': form
-                }
-            )
+            return render(request, 'add-job.html', {'form': form})
 
 
 class AddJobSuccess(LoginRequiredMixin, generic.TemplateView):
@@ -106,14 +99,7 @@ class EditJob(LoginRequiredMixin, View):
                 )
             return redirect('my_jobs')
         else:
-            form = AddJobForm()
-            return render(
-                request,
-                'edit-job.html',
-                {
-                    'form': AddJobForm(instance=job)
-                }
-            )
+            return render(request, 'edit-job.html', {'form': form})
 
 
 class DeleteJob(LoginRequiredMixin, View):
