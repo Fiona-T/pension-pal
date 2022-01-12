@@ -15,8 +15,17 @@ class Job(models.Model):
     full_or_part_time = models.IntegerField(choices=FULL_OR_PART, default=0)
 
     class Meta:
-        """order the records by employment start date in descending order"""
+        """
+        Order the records by employment start date in descending order
+        Set constraint on employer_name to be unique per user (added_by)
+        """
         ordering = ['-start_date']
+        constraints = [
+            models.UniqueConstraint(
+                fields=['added_by', 'employer_name'],
+                name='unique_employer_name_per_user'
+                )
+        ]
 
     def __str__(self):
         return self.employer_name
