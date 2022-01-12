@@ -1,5 +1,6 @@
 """Unit tests for Models for 'jobs' app"""
 from django.test import TestCase
+from django.db import IntegrityError
 from django.contrib.auth.models import User
 from .models import Job
 
@@ -43,3 +44,25 @@ class TestModels(TestCase):
             full_or_part_time=1,
             )
         self.assertEqual(str(job), 'Test Company')
+
+    def test_unique_constraint_exists_on_employer_name_per_user(self):
+        """
+        Create a job record, then check that creating another record with the
+        same employer_name for the same user raises an error
+        """
+        Job.objects.create(
+            added_by=User.objects.get(username='fred'),
+            employer_name='Test Company',
+            start_date='2020-01-01',
+            finish_date='2020-12-01',
+            full_or_part_time=1,
+            )
+
+        with self.assertRaises(IntegrityError):
+            Job.objects.create(
+                added_by=User.objects.get(username='fred'),
+                employer_name='Test Company',
+                start_date='2021-01-01',
+                finish_date='2022-12-01',
+                full_or_part_time=1,
+            )
