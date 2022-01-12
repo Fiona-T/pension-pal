@@ -41,8 +41,8 @@ class AddJob(LoginRequiredMixin, View):
         else display the form again
         """
         form = AddJobForm(data=request.POST)
+        form.instance.added_by = request.user
         if form.is_valid():
-            form.instance.added_by = request.user
             form.save()
             return redirect('add_job_success')
         else:
@@ -51,7 +51,7 @@ class AddJob(LoginRequiredMixin, View):
                 request,
                 'add-job.html',
                 {
-                    'form': AddJobForm()
+                    'form': form
                 }
             )
 
