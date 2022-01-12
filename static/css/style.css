@@ -357,6 +357,29 @@ label[for="id_pao"], label[for="id_director"] {
     display: inline;
 }
 
+/* styles for ul containing Django form error messages */
+.errorlist {
+    list-style-type: none;
+    padding: 0;
+    font-weight: bold;
+    color: #ff00ff;
+}
+
+/* set list items as flex container so can center it with ::before content below */
+.errorlist li {
+    display: flex;
+    align-items: center;
+}
+
+/* add warning symbol before each error list item */
+.errorlist li::before {
+    content: "\26A0";
+    color: #131967;
+    padding-right: 0.2rem;
+    font-weight: lighter;
+    font-size: 150%;
+}
+
 /* ----------- Delete Job/Pension modal */
 
 /* amend Bootstrap default border radius */
