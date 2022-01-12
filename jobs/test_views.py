@@ -13,6 +13,8 @@ class TestMyJobsListView(TestCase):
         Create two test users. Create test job records, half added_by user1 and
         half added by user2. So that listview filtered by user can be tested
         10 jobs per user to check the pagination
+        When creating job records, add job index number to company name, to avoid
+        failing the unique constraint test on employer_name per user
         """
         test_user1 = User.objects.create_user(
             username='fred',
@@ -30,7 +32,7 @@ class TestMyJobsListView(TestCase):
             added_by_user = test_user1 if job % 2 else test_user2
             Job.objects.create(
                 added_by=added_by_user,
-                employer_name='Test Company',
+                employer_name=f'Test Company {job}',
                 start_date='2020-01-01',
                 finish_date='2020-12-01',
                 full_or_part_time=1,
