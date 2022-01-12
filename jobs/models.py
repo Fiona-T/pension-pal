@@ -27,5 +27,16 @@ class Job(models.Model):
                 )
         ]
 
+    def clean_fields(self, exclude=None):
+        """
+        Validation on unique constraint for 'added_by' and 'employer name'
+        is not done as part of .is_valid() in the view, because 'added_by'
+        field is not on the form. Therefore need to call the validate_unique
+        method here. Need to use clean_fields and not clean, so can specify
+        not to exclude any fields, so that 'added_by' is included in the check
+        """
+        super().clean_fields(exclude=exclude)
+        self.validate_unique()
+
     def __str__(self):
         return self.employer_name
