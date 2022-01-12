@@ -133,6 +133,29 @@ class TestAddJobView(TestCase):
         response = self.client.get('/jobs/')
         self.assertEqual(len(response.context['job_list']), 2)
 
+    def test_error_raised_on_employer_name_unique_constraint(self):
+        """
+        login the test user, Do POST request on add job url, with same
+        employer_name as existing job record for that user.
+        Check it does not redirect (i.e. status code is 200, not 302)
+        Check the form error text is present (non_field_error)
+        """
+        self.client.login(username='fred', password='secret1234')
+        response = self.client.post('/jobs/add/', {
+            'added_by': 'fred',
+            'employer_name': 'Same Name',
+            'start_date': '2021-01-01',
+            'finish_date': '2022-12-01',
+            'full_or_part_time': 1,
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertFormError(
+            response,
+            'form',
+            None,
+            'Job with this Added by and Employer name already exists.'
+            )
+
 
 class TestAddJobSuccessView(TestCase):
     """ To test the AddJobSuccess view """
@@ -167,7 +190,10 @@ class TestEditJobView(TestCase):
     """Tests for the EditJob view"""
     @classmethod
     def setUp(cls):
-        """Create a test user and a job record"""
+        """
+        Create a test user and two job records
+        Create a second test user with no job records
+        """
         test_user1 = User.objects.create_user(
             username='fred',
             password='secret1234',
@@ -182,6 +208,13 @@ class TestEditJobView(TestCase):
         Job.objects.create(
             added_by=test_user1,
             employer_name='Test Company',
+            start_date='2020-01-01',
+            finish_date='2020-12-01',
+            full_or_part_time=1,
+        )
+        Job.objects.create(
+            added_by=test_user1,
+            employer_name='Same Name',
             start_date='2020-01-01',
             finish_date='2020-12-01',
             full_or_part_time=1,
@@ -249,6 +282,29 @@ class TestEditJobView(TestCase):
             messages[0].message,
             'Edited details for Job: "Test Company New Name" successfully'
             ' saved.'
+            )
+
+    def test_unique_constraint_for_employer_name_per_user_on_edit(self):
+        """
+        login the test user, Do POST request on edit job url for job id 1,
+        amending employer_name to same as job id 2 for that user.
+        Check it does not redirect (i.e. status code is 200, not 302)
+        Check the form error text is present (non_field_error)
+        """
+        self.client.login(username='fred', password='secret1234')
+        response = self.client.post('/jobs/edit/1', {
+            'added_by': 'fred',
+            'employer_name': 'Same Name',
+            'start_date': '2020-01-01',
+            'finish_date': '2020-12-01',
+            'full_or_part_time': 0,
+            })
+        self.assertEqual(response.status_code, 200)
+        self.assertFormError(
+            response,
+            'form',
+            None,
+            'Job with this Added by and Employer name already exists.'
             )
 
     def test_404_returned_logged_in_but_invalid_job_id(self):
