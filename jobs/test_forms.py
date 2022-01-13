@@ -62,6 +62,31 @@ class TestAddJobForm(TestCase):
         form = AddJobForm()
         self.assertEqual(form['full_or_part_time'].initial, 0)
 
+    def test_finish_date_before_start_date_raises_error_message(self):
+        """
+        Create form instance with finish date earlier than start date, check
+        it is not valid. Check that the two fields (finish and start date) are
+        in the keys of the form errors dict. Check that the error returned for
+        each of the two fields is correct.
+        """
+        form = AddJobForm({
+            'added_by': 'Me',
+            'employer_name': 'My Employer',
+            'start_date': '2022-10-01',
+            'finish_date': '2022-09-01',
+            'full_or_part_time': '1',
+        })
+        
+        self.assertFalse(form.is_valid())
+        self.assertIn('finish_date', form.errors.keys())
+        self.assertIn('start_date', form.errors.keys())
+        self.assertEqual(
+            form.errors['start_date'][0], 'Start date must be before finish date'
+            )
+        self.assertEqual(
+            form.errors['finish_date'][0], 'Finish date must be after start date'
+            )
+
     def test_fields_are_explicit_in_form_metaclass(self):
         """
         Check the Meta fields attribute is equal to the list of fields
