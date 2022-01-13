@@ -76,15 +76,16 @@ class TestAddJobForm(TestCase):
             'finish_date': '2022-09-01',
             'full_or_part_time': '1',
         })
-        
         self.assertFalse(form.is_valid())
         self.assertIn('finish_date', form.errors.keys())
         self.assertIn('start_date', form.errors.keys())
         self.assertEqual(
-            form.errors['start_date'][0], 'Start date must be before finish date'
+            form.errors['start_date'][0],
+            'Start date must be before finish date'
             )
         self.assertEqual(
-            form.errors['finish_date'][0], 'Finish date must be after start date'
+            form.errors['finish_date'][0],
+            'Finish date must be after start date'
             )
 
     def test_fields_are_explicit_in_form_metaclass(self):
