@@ -1,11 +1,11 @@
 """Forms for the 'jobs' app - add job and edit job """
 from django import forms
-from django.core.exceptions import NON_FIELD_ERRORS
+from django.core.exceptions import NON_FIELD_ERRORS, ValidationError
 from .models import Job
 
 
 class AddJobForm(forms.ModelForm):
-    """ Form for user to add a job from, Add Job button from My Jobs page """
+    """ Form for user to add or edit a job from My Jobs page """
     class Meta:
         """
         Based on Job model, all fields except added by.Helptext for finish date
@@ -34,3 +34,24 @@ class AddJobForm(forms.ModelForm):
                 ' name. Choose a different name for this new Job record.'
             }
         }
+
+    def clean(self):
+        """
+        Override the clean method on the form to include a check that finish
+        date is not before the start date (if both fields first have data).
+        Raise errors on the two fields if it is.
+        """
+        cleaned_data = super().clean()
+        start_date = cleaned_data.get('start_date')
+        finish_date = cleaned_data.get('finish_date')
+
+        if finish_date and start_date:
+            if finish_date < start_date:
+                self.add_error(
+                    'finish_date',
+                    ValidationError('Finish date must be after start date')
+                    )
+                self.add_error(
+                    'start_date',
+                    ValidationError('Start date must be before finish date')
+                    )
