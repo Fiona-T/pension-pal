@@ -110,12 +110,14 @@ class EditPension(LoginRequiredMixin, View):
     def get(self, request, pension_id):
         """
         Gets the pension by the id (passed in via the url)
+        Get the associated job (so edit job link has the job id)
         Check if the user matches the user who added the pension
         Returns the template with the form, populated with existing data
         and the Jobs added by user (for 'employment' field)
         Or raises Http404 error if the user doesn't match
         """
         pension = get_object_or_404(Pension, id=pension_id)
+        job = get_object_or_404(Job, id=pension.employment_id)
         if request.user == pension.added_by:
             form = PensionForm(instance=pension)
             form.fields['employment'].queryset = Job.objects.filter(
@@ -125,7 +127,8 @@ class EditPension(LoginRequiredMixin, View):
                 request,
                 'edit-pension.html',
                 {
-                    'form': form
+                    'form': form,
+                    'job': job,
                 }
             )
         else:
@@ -134,10 +137,12 @@ class EditPension(LoginRequiredMixin, View):
     def post(self, request, pension_id):
         """
         Gets the pension by the id (passed in via the url)
+        Get the associated job (so edit job link has the job id)
         Submit form data, redirect to my-pensions page with msg if valid,
         else display the form again on edit-pension page
         """
         pension = get_object_or_404(Pension, id=pension_id)
+        job = get_object_or_404(Job, id=pension.employment_id)
         form = PensionForm(request.POST, request.FILES, instance=pension)
         if form.is_valid():
             form.save()
@@ -157,7 +162,8 @@ class EditPension(LoginRequiredMixin, View):
                 request,
                 'edit-pension.html',
                 {
-                    'form': form
+                    'form': form,
+                    'job': job,
                 }
             )
 
