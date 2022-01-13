@@ -23,8 +23,9 @@
                 <!-- Pension details section -->
                 <h1 class="mb-4">Pension Details</h1>
                 <p>You can amend any of Pension details using the Edit button at the bottom of this page.</p>
-                <p>To amend the associated Job details (Employer name, date of joining service, date of leaving
-                    service, full or part time service), use the Edit button on that Job record on <a
+                <p>If you need to amend any of the associated Job details (Employer name, date of joining service, date
+                    of leaving service, full or part time service), <a href="{% url 'edit_job' job.id %}">you can edit
+                        the job details here</a>, or go to the Edit button on that Job record on <a
                         href="{% url 'my_jobs' %}">the My Jobs page</a>.</p>
                 <div class="col-12 px-2 px-md-4">
                     <div class="card mb-4 mx-md-3 mx-lg-5">
