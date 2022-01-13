@@ -23,8 +23,11 @@
                     <!-- Edit Pension section and form -->
                     <h1 class="mb-4">Edit Pension Details</h1>
                     <p>Make the changes to the pension details below, then press the <strong>Confirm Changes
-                            button</strong> to save the
-                        changes:</p>
+                            button</strong> to save the changes.</p>
+                    <p>To make changes to the associated Job details (Employer name, date of joining service,
+                        date of leaving service, full or part time service), <a href="{% url 'edit_job' job.id %}">edit
+                            the job details here</a>, or go to the Edit button on that Job record on <a
+                            href="{% url 'my_jobs' %}">the My Jobs page</a>.</p>
                     <form action="" method="POST" class="user-form" enctype="multipart/form-data">
                         {% csrf_token %}
                         {{ form.as_p }}
