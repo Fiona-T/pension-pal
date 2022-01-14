@@ -44,7 +44,7 @@ class Pension(models.Model):
     pension_provider = models.ForeignKey(
         Provider, on_delete=models.CASCADE, related_name='recorded_pensions')
     value = models.DecimalField(max_digits=10, decimal_places=2)
-    file = CloudinaryField(blank=True)
+    file = CloudinaryField('image', blank=True,)
     notes = models.TextField(blank=True)
 
     class Meta:
