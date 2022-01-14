@@ -1,5 +1,6 @@
 """Form for 'pensions' app to create/edit a Pension"""
 from django import forms
+from django.core.exceptions import ValidationError
 from jobs.models import Job
 from .models import Pension, Provider
 
@@ -62,3 +63,19 @@ class PensionForm(forms.ModelForm):
             'or any other relevant file.<br><strong>Note: only .jpg or .png '
             'files allowed</strong>',
             }
+
+    def clean_file(self):
+        """
+        Override clean method on file field, if there is data in the field,
+        check extension and raise an error for those other than png or jpg
+        (as Cloudinary throws server error)
+        """
+        data = self.cleaned_data['file']
+        if data:
+            filename = data.name
+            if not filename.endswith(('.jpg', '.png', '.jpeg')):
+                raise ValidationError(
+                    'File type must be .png or .jpg. Choose a different file '
+                    'of the correct type'
+                    )
+        return data
