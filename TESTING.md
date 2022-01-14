@@ -114,4 +114,36 @@ for job in range(number_of_jobs):
 in the name, as shown below, so that each name will be different:
 ![jobs app test_views employer_name unique constraint fix](docs/bugs/jobs-test-views-unique-constraint-fix.png)
 
+- **Issue: File name not retained for file upload on Pension form**
+![Filename bug on Pension Form](docs/bugs/pension-file-name-bug.png)
+The name of the file uploaded by the user was not retained when saved in Cloudinary.
+> Solution: The reason for this is [Cloudinary by default sets a random public ID for the uploaded file name](https://support.cloudinary.com/hc/en-us/articles/202520762-How-to-upload-images-while-keeping-their-original-filenames-), however this can be changed either by setting parameters on `CloudinaryFileField` in the form, or by setting an `Upload Preset` in the Cloudinary settings. Example of setting the parameters in the form (including the folder to upload the image to):
+```python
+file = CloudinaryFileField(
+        options={
+            'folder': 'media',
+            'use_filename': 'true',
+            'unique_filename': 'true',
+        }
+    )
+```
+I opted to use the `Upload Preset` instead of the above, setting `use_filename` to `true`, but kept the `unique_filename` parameter as `true`, so that files with the same name do not get overwritten (setting `unique_filename` to false means the filename stays as is, but then files with the same name would be overwritten). This means the file uploaded by the user retains their filename, but has randomly generated characters at the end of the filename, which is an acceptable solution to avoid any files being overwritten.
+
+- **Issue: Error on file upload of type not accepted by Cloudinary image**
+![Filetype Cloudinary error bug](docs/bugs/cloudinary-file-type-error-msg-bug.png)
+When trying to upload a file type of .doc, a Server Error (500) is generated (when `Debug=False`), see above for the error message when `Debug=True`. The error is arising because the `resource_type` for the Cloudinary file is by default `'image'` (which is fine for the purposes of this project), so a .doc file is not accepted. However an error message is not generating for the user, only the server error.
+> Solution: On researching this, I could not find how to override the Cloudinary error checking, in order to present an error message on the form instead of having the Server Error. So I therefore added a `.clean()` method to this field in the form, to check for the extension on the file name, and raise a ValidationError that way - so that it is displayed on the form for the user:
+```python
+def clean_file(self):
+    data = self.cleaned_data['file']
+    if data:
+        filename = data.name
+        if not filename.endswith(('.jpg', '.png', '.jpeg')):
+            raise ValidationError(
+                'File type must be .png or .jpg. Choose a different file '
+                'of the correct type'
+                )
+    return data
+```
+
 ### Supported Screens and Browsers
