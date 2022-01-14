@@ -390,6 +390,52 @@ Delete Job url with valid job id:
 If a user tried to access the delete url (by typing the url into the browser) for a pension or job using a valid job or pension id that belongs to that user, a 405 error is raised instead of 404 (a 404 error would be raised if they used an invalid id in the url, and the custom 404 page would be displayed).
 > Solution: The 405 http error [means method not allowed](https://httpstatuses.com/405), so it is being raised because there was no `get method` on the `DeleteJob` or `DeletePension` views (there was only a `post method` to delete the record, triggered by the Delete button in the modal). Updated both views to include a `get method`, which raises a 404 error so that the user will see the custom 404 page. There is no way to access the delete url from the website, but this update was done in case a user types the url into the browser, so that they are shown the custom 404 page instead of the generic 405 error page. 
 
+- **Issue: Unique validation for `employer_name` giving Integrity Error**
+![Add Job unique constraint bug](docs/bugs/add-job-unique-check-bug.png)
+In the Job model, a unique constraint was added so that [users cannot add a job record with a duplicate employer name](https://github.com/Fiona-T/pension-pal/issues/42) - this is to avoid confusion when they add a pension record, as the pension record is linked to a job and that job details, so each job record must be unique for that user. During manual testing of this change, attempting to add a duplicate job record via the Add Job page raised an Integrity Error as shown above after the form was submitted.
+> Solution: On reading [the Django Forms documentation](https://docs.djangoproject.com/en/3.1/ref/forms/validation/), the problem was that the `form.is_valid()` check called in the view was passing, but the `form.save()` method was failing because the model instance failed the unique constraint check. The reason for this is because the `'added_by'` field on the model (i.e the user) is excluded in the `AddJobForm` fields (because this is automatically set and doesn't need to be completed by the user on the form) and therefore the `is_valid()` method called on the form cannot do the unique validation because one of the fields in the unique constraint is not present on the form. The `.is_valid()` check on a `ModelForm` performs `.clean_fields()`, `.clean()` and `.validate_unique()` for all fields that are included in the form. In order to raise an error on a field that is not on the form, [the Django model instances validation documentation](https://docs.djangoproject.com/en/4.0/ref/models/instances/#validating-objects) recommends overriding the `Model.clean_fields()` method. Including the `.validate_unique()` method will then validate the unique constraints on the model (instead of just on individual fields). Therefore the Job model was updated to include the below method:
+```python
+def clean_fields(self, exclude=None):
+        super().clean_fields(exclude=exclude)
+        self.validate_unique()
+``` 
+- **Issue: Unique validation for `employer_name` and `added_by` giving Integrity Error**
+![Add Job unique constraint, 'added_by' bug](docs/bugs/add-job-unique-check-added-by-bug.png)
+Following on from the above bug, even after adding the `clean_fields` method with `validate_unique`, an Integrity Error was still being raised.
+> Solution: The `added_by` field was being set (`form.instance.added_by = request.user`) inside the `.is_valid()` method and was causing this issue. Moved this to be set before the `.is_valid` check is performed. 
+
+- **Issue: AddJob form not displaying error messages or previously entered data**
+
+After entering invalid data on the AddJob form, the record was correctly not added, but the form was returned to the user blank and without any error messages.
+> Solution: The `else` part of the `if form.is_valid()` check was incorrectly creating a new instance of the AddJob form and including this with the context. Therefore a blank new form was being returned to the user. Updated the context to include the original form instance, as shown below:
+![AddJob form instance bug fix](docs/bugs/add-job-new-instance-bug-fix.png)
+
+
+- **Issue: JobForm unique constraint error message is generic**
+![Add Job generic error message bug](docs/bugs/add-job-generic-error-msg-bug.png)
+The error message displayed pulls in the name of the fields, but 'Added by' is not a field that the user would be familiar with, since this is set in the background based on the request user. A more helpful error message is needed.
+> Solution: The error message is a `NON_FIELD_ERROR` set automatically by Django, however as advised in the [Django modelforms documentation](https://docs.djangoproject.com/en/4.0/topics/forms/modelforms/), the error message can be overridden in the form `Meta` class by adding the `NON_FIELD_ERRORS key` to the `error_messages dictionary` like below (and importing `NON_FIELD_ERRORS` from `django.core.exceptions` at the top of the `forms.py` file)
+```python
+error_messages = {
+    NON_FIELD_ERRORS: {
+        'unique_together': 'You already have a Job with this Employer'
+        ' name. Choose a different name for this new Job record.'
+    }
+}
+```
+
+- **Issue: `jobs` app `test_views` failing after unique constraint added to `Job` model**
+![jobs app test_views fail after unique constraint added](docs/bugs/jobs-test-views-after-unique-constraint-bug.png)
+After the `UniqueConstraint` on `'employer_name'` per user was added to the `Job` model, the `test_views.py` file for jobs app was failing, on the `setUpClass` for the `TestMyJobsListView`
+> Solution: The reason it was failing was because the `setUpClass` created 20 job records, 10 for each of 2 test users (in order to test pagination on listview), but it used the same details for each job record. Therefore these records were failing the unique check for employer name, as it would be creating 10 records with same employer name for each test user. 
+Updated `'employer_name'` in `objects.create` to include the job index which we had from the below:
+```python
+number_of_jobs = 20
+for job in range(number_of_jobs):
+```
+in the name, as shown below, so that each name will be different:
+![jobs app test_views employer_name unique constraint fix](docs/bugs/jobs-test-views-unique-constraint-fix.png)
+
 ### Supported Screens and Browsers
 
 ## Deployment
