@@ -59,5 +59,6 @@ class PensionForm(forms.ModelForm):
         }
         help_texts = {
             'file': 'Upload your most recent annual benefit statement, '
-            'or any other relevant file.',
+            'or any other relevant file.<br><strong>Note: only .jpg or .png '
+            'files allowed</strong>',
             }
