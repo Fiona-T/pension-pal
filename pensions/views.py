@@ -81,17 +81,7 @@ class AddPension(LoginRequiredMixin, View):
             form.save()
             return redirect('add_pension_success')
         else:
-            form = PensionForm()
-            form.fields['employment'].queryset = Job.objects.filter(
-                added_by=request.user
-                )
-            return render(
-                request,
-                'add-pension.html',
-                {
-                    'form': form
-                }
-            )
+            return render(request, 'add-pension.html', {'form': form})
 
 
 class AddPensionSuccess(LoginRequiredMixin, generic.TemplateView):
@@ -154,10 +144,6 @@ class EditPension(LoginRequiredMixin, View):
                 )
             return redirect('my_pensions')
         else:
-            form = PensionForm(instance=pension)
-            form.fields['employment'].queryset = Job.objects.filter(
-                added_by=request.user
-                )
             return render(
                 request,
                 'edit-pension.html',
