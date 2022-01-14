@@ -12,7 +12,8 @@ class TestPensionForm(TestCase):
         self.assertEqual(
             form.fields['file'].help_text,
             'Upload your most recent annual benefit statement, '
-            'or any other relevant file.'
+            'or any other relevant file.<br><strong>Note: only .jpg or .png '
+            'files allowed</strong>'
             )
 
     def test_employment_field_help_text(self):
