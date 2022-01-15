@@ -1,5 +1,5 @@
 """Views for the pensions app"""
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.views import generic, View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
@@ -78,20 +78,31 @@ class AddPension(LoginRequiredMixin, View):
         form = PensionForm(request.POST, request.FILES)
         if form.is_valid():
             form.instance.added_by = request.user
-            form.save()
-            return redirect('add_pension_success')
+            pension = form.save()
+            return redirect(reverse('add_pension_success', args=[pension.id]))
         else:
             return render(request, 'add-pension.html', {'form': form})
 
 
-class AddPensionSuccess(LoginRequiredMixin, generic.TemplateView):
+class AddPensionSuccess(LoginRequiredMixin, View):
     """
-    Renders the success page after submitting the PensionForm from add-pension
+    View for success page after adding a pension
     If not logged in, redirects to login page, then to my-jobs page
     after logging in (doesn't redirect back to success page after login)
     """
-    template_name = 'add-pension-success.html'
     redirect_field_name = None
+
+    def get(self, request, pension_id):
+        """
+        Renders the success page after submitting the PensionForm from add-pension.
+        Contains link to view the full pension details just submitted
+        If pension id in url was not added by the user, raise 404 error
+        """
+        pension = get_object_or_404(Pension, id=pension_id)
+        if pension.added_by == request.user:
+            return render(request, 'add-pension-success.html', {'pension': pension})
+        else:
+            raise Http404
 
 
 class EditPension(LoginRequiredMixin, View):
