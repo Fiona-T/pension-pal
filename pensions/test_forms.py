@@ -1,10 +1,43 @@
 """Unit tests for Forms for 'pensions' app"""
+import os
 from django.test import TestCase
+from django.contrib.auth.models import User
+from django.core.files.uploadedfile import SimpleUploadedFile
+from jobs.models import Job
 from .forms import PensionForm
+from .models import Provider
+
+# test files for file field testing located here
+TEST_DIR = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+    'data'
+    )
 
 
 class TestPensionForm(TestCase):
     """Test the Pension form - add/edit pension """
+    @classmethod
+    def setUpTestData(cls):
+        """
+        Create test user, test job and test provider,
+        needed as foreign keys to submit pension form with data
+        """
+        User.objects.create_user(
+            username='Tester',
+            password='topsecret1234',
+        )
+        Job.objects.create(
+            added_by=User.objects.get(username='Tester'),
+            employer_name='Test Company',
+            start_date='2020-01-01',
+            finish_date='2020-12-01',
+            full_or_part_time=1,
+            )
+        Provider.objects.create(
+            provider_name='A Pension Provider',
+            website='wwww.awebsite.ie',
+            status=1,
+        )
 
     def test_file_field_help_text(self):
         """Test that the Upload file field has the associated help text """
@@ -149,6 +182,78 @@ class TestPensionForm(TestCase):
         """Check initial value on full_or_part_time is fulltime (0) """
         form = PensionForm()
         self.assertEqual(form['pension_type'].initial, 0)
+
+    def test_error_raised_on_file_field_for_docx_extension(self):
+        """
+        Create form using a word document .docx file. Confirm there are
+        form errors. Check file is in the form.errors keys dictionary
+        Check the content of the error message is as expected.
+        """
+        data = {
+            'added_by': User.objects.get(username='Tester'),
+            'employment': Job.objects.get(employer_name='Test Company'),
+            'scheme_name': 'My Pension Scheme',
+            'policy_number': '124',
+            'member_number': '123',
+            'pension_type': 1,
+            'date_joined_scheme': '2020-01-01',
+            'salary': '40000',
+            'pao': 'false',
+            'director': 'false',
+            'pension_provider': Provider.objects.get(
+                provider_name='A Pension Provider'
+                ),
+            'value': '3000',
+            'notes': '',
+        }
+
+        test_file = os.path.join(TEST_DIR, 'test-upload-word-file.docx')
+        with open(test_file, 'rb') as file:
+            form = PensionForm(data=data, files={
+                'file': SimpleUploadedFile('file', file.read())
+                })
+        self.assertTrue(form.errors)
+        self.assertIn('file', form.errors.keys())
+        self.assertEqual(
+            form.errors['file'][0],
+            'File type must be .png or .jpg. Choose a different file '
+            'of the correct type'
+            )
+
+    def test_error_raised_on_file_field_for_pdf_extension(self):
+        """
+        Create form using a .pdf file. Confirm there are form errors.
+        Check file is in the form.errors keys dictionary
+        Check the content of the error message is as expected.
+        """
+        data = {
+            'added_by': User.objects.get(username='Tester'),
+            'employment': Job.objects.get(employer_name='Test Company'),
+            'scheme_name': 'My Pension Scheme',
+            'policy_number': '124',
+            'member_number': '123',
+            'pension_type': 1,
+            'date_joined_scheme': '2020-01-01',
+            'salary': '40000',
+            'pao': 'false',
+            'director': 'false',
+            'pension_provider': Provider.objects.get(
+                provider_name='A Pension Provider'
+                ),
+            'value': '3000',
+            'notes': '',
+        }
+        test_file = os.path.join(TEST_DIR, 'test-upload-pdf-file.pdf')
+        with open(test_file, 'rb') as file:
+            form = PensionForm(data=data, files={
+                'file': SimpleUploadedFile('file', file.read())
+                })
+            self.assertIn('file', form.errors.keys())
+        self.assertEqual(
+            form.errors['file'][0],
+            'File type must be .png or .jpg. Choose a different file '
+            'of the correct type'
+            )
 
     def test_fields_are_explicit_in_form_metaclass(self):
         """
