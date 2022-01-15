@@ -101,16 +101,47 @@ class TestAddPensionSuccessView(TestCase):
     """ To test the AddPensionSuccess view """
     @classmethod
     def setUpTestData(cls):
-        """ Create a test user """
+        """
+        Create a test user and test pension (test job and provider
+        records created also, needed as foreign keys in pension)
+        """
         test_user = User.objects.create_user(
             username='Tester',
             password='topsecret1234',
         )
         test_user.save()
 
+        Job.objects.create(
+            added_by=User.objects.get(username='Tester'),
+            employer_name='Test Company',
+            start_date='2020-01-01',
+            finish_date='2020-12-01',
+            full_or_part_time=1,
+            )
+
+        Provider.objects.create(
+            provider_name='A Pension Provider',
+            website='wwww.awebsite.ie',
+            status=1,
+        )
+
+        Pension.objects.create(
+            added_by=User.objects.get(username='Tester'),
+            employment=Job.objects.get(id=1),
+            scheme_name='Test pension scheme',
+            policy_number='12345',
+            pension_type=1,
+            date_joined_scheme='2020-01-01',
+            salary=10000,
+            pao=True,
+            director=True,
+            pension_provider=Provider.objects.get(id=1),
+            value=1000,
+            )
+
     def test_redirects_if_not_logged_in(self):
         """ Test that user is redirected to correct page if not logged in """
-        response = self.client.get('/pensions/success/')
+        response = self.client.get('/pensions/success/1')
         self.assertRedirects(response, '/accounts/login/')
 
     def test_correct_url_and_template_for_logged_in_user(self):
@@ -120,7 +151,7 @@ class TestAddPensionSuccessView(TestCase):
         and check the correct template is used
         """
         self.client.login(username='Tester', password='topsecret1234')
-        response = self.client.get('/pensions/success/')
+        response = self.client.get('/pensions/success/1')
         self.assertEqual(str(response.context['user']), 'Tester')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'add-pension-success.html')
@@ -229,7 +260,7 @@ class TestAddPensionView(TestCase):
             'pension_provider': str(1),
             'value': 36789,
         })
-        self.assertRedirects(response, '/pensions/success/')
+        self.assertRedirects(response, '/pensions/success/1')
         response = self.client.get('/pensions/')
         self.assertEqual(len(response.context['pension_list']), 1)
 
