@@ -76,6 +76,9 @@ class AddPension(LoginRequiredMixin, View):
         else display form again (again with employment dropdown for that user)
         """
         form = PensionForm(request.POST, request.FILES)
+        form.fields['employment'].queryset = Job.objects.filter(
+                added_by=request.user
+                )
         if form.is_valid():
             form.instance.added_by = request.user
             pension = form.save()
@@ -145,6 +148,9 @@ class EditPension(LoginRequiredMixin, View):
         pension = get_object_or_404(Pension, id=pension_id)
         job = get_object_or_404(Job, id=pension.employment_id)
         form = PensionForm(request.POST, request.FILES, instance=pension)
+        form.fields['employment'].queryset = Job.objects.filter(
+                added_by=request.user
+                )
         if form.is_valid():
             form.save()
             messages.add_message(
