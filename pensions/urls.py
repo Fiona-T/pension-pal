@@ -6,7 +6,7 @@ urlpatterns = [
     path('', views.MyPensions.as_view(), name='my_pensions'),
     path('add/', views.AddPension.as_view(), name='add_pension'),
     path(
-        'success/',
+        'success/<pension_id>',
         views.AddPensionSuccess.as_view(),
         name='add_pension_success'
         ),
