@@ -22,9 +22,12 @@
         </div>
         <div class="row py-5">
             <h1 class="mb-4">Pension Added!</h1>
-            <p>The Pension has been successfully added to your <a href="{% url 'my_pensions' %}">My Pensions page</a>
-                and you can view all of your pensions records there.</p>
-            <p>If you need to make any changes to this record, or any of your Pension records, you can do this on <a
+            <p>The Pension <span class="fw-bold">"{{ pension.scheme_name }}"</span> has been successfully added to your
+                <a href="{% url 'my_pensions' %}">My Pensions page</a> and you can view all of your pensions records
+                there.</p>
+            <p>You can <a href="{% url 'view_pension' pension.id %}">view or edit the record you just added at this
+                    link</a>.</p>
+            <p>If you need to make any changes to any of your Pension records, you can do this on <a
                     href="{% url 'my_pensions' %}">the My Pensions page</a> also.</p>
             <p>Or, if you added a record in error you can delete Pension records from <a
                     href="{% url 'my_pensions' %}">the My Pensions page</a>.</p>
