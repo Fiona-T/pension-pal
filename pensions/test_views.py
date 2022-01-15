@@ -103,13 +103,19 @@ class TestAddPensionSuccessView(TestCase):
     def setUpTestData(cls):
         """
         Create a test user and test pension (test job and provider
-        records created also, needed as foreign keys in pension)
+        records created also, needed as foreign keys in pension).
+        Create second test user with no pension records
         """
         test_user = User.objects.create_user(
             username='Tester',
             password='topsecret1234',
         )
         test_user.save()
+        test_user2 = User.objects.create_user(
+            username='jane',
+            password='secret1234567',
+        )
+        test_user2.save()
 
         Job.objects.create(
             added_by=User.objects.get(username='Tester'),
@@ -156,6 +162,25 @@ class TestAddPensionSuccessView(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'add-pension-success.html')
 
+    def test_404_returned_logged_in_but_invalid_pension_id(self):
+        """
+        Logged in user gets 404 response trying to access success page using
+        an invalid pension id, i.e one which does not exist
+        """
+        self.client.login(username='Tester', password='topsecret1234')
+        response = self.client.get('/pensions/success/5')
+        self.assertEqual(response.status_code, 404)
+
+    def test_cannot_access_success_page_for_other_user_pension(self):
+        """
+        Logged in user who did not create the pension gets 404 response when
+        trying to access the success page with pension id not created by them
+        """
+        self.client.login(username='jane', password='secret1234567')
+        response = self.client.get('/pensions/')
+        self.assertEqual(str(response.context['user']), 'jane')
+        response = self.client.get('/pensions/success/1')
+        self.assertEqual(response.status_code, 404)
 
 class TestAddPensionView(TestCase):
     """ To test the AddPension view """
