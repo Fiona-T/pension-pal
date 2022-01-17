@@ -319,6 +319,10 @@ h1 {
 
 /* ----------- Create, Edit forms on Jobs/Pensions pages */
 
+.form-container-no-scroll {
+    scroll-behavior: unset;
+}
+
 /* submit/cancel buttons/links in the forms */
 .btn-form {
     width: 45%;
@@ -355,6 +359,17 @@ h1 {
 /* labels for the above inputs, display inline so checkbox on same line as input */
 label[for="id_pao"], label[for="id_director"] {
     display: inline;
+}
+
+/* add an asterisk after the label for the required input */
+label.required-label::after {
+    content: "*";
+    color: #ff00ff;
+}
+
+/* colour of asterisk that is shown above the form */
+.required-indicator {
+    color: #ff00ff;
 }
 
 /* styles for ul containing Django form error messages */
