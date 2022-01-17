@@ -7,9 +7,10 @@ from .models import Pension, Provider
 
 class PensionForm(forms.ModelForm):
     """
-    frontend form for user to add or edit a Pension record
-    Employment field is restricted to Jobs for that user in the View
-    The dropdown lists for <select> element have selected choice set
+    Frontend form for user to add or edit a Pension record.
+    Employment field is restricted to Jobs for that user in the View.
+    The dropdown lists for <select> element have selected choice set.
+    Define the class to be added to the html label element for required fields
     """
     employment = forms.ModelChoiceField(
         queryset=Job.objects.all(),
@@ -21,6 +22,8 @@ class PensionForm(forms.ModelForm):
         queryset=Provider.objects.all(),
         empty_label="Choose pension provider"
         )
+
+    required_css_class = 'required-label'
 
     class Meta:
         """
