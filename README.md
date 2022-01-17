@@ -384,6 +384,7 @@ You can refer to the [GitHub documentation](https://docs.github.com/en/github/cr
 - Guidance on how to create a link to go back to the previous page (for the Cancel button on the Sign Out page) was found on [Stack Overflow](https://stackoverflow.com/questions/8814472/how-to-make-an-html-back-link) and [W3 Schools](https://www.w3schools.com/jsref/obj_history.asp)
 - Used the guidance in [the Django docs](https://docs.djangoproject.com/en/4.0/ref/forms/fields/#django.forms.ModelChoiceField) to add a note for the user at the top of the `select` dropdown menus on the `PensionForm` 
 - Advice on how to test `messages` in the `views` was taken from [this thread on Stack Overflow](https://stackoverflow.com/questions/2897609/how-can-i-unit-test-django-messages)
+- To test the file upload field on the `PensionForm`, I followed the approach outlined on [this thread on Stack Overflow](https://stackoverflow.com/questions/39485189/how-can-i-test-a-form-with-filefield-in-django) which was to save the test files in a directory in the repo and add them to the test form using `SimpleUploadedFile`
 
 ### Content
 ### Media
