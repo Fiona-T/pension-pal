@@ -25,8 +25,19 @@ function dismissAlert() {
     }
 }
 
-/* initialise the Cancel btn on Sign Out form, and Message Alerts when DOM loaded */
+/**
+ * If title is Add Pension, change scroll-behavior css property on root to auto.
+ * This is because of bug on HTML 'required' form validation when scroll-behavior is smooth
+ */
+function changeScrollToAuto() {
+    if(document.title == "Add Pension") {
+        document.documentElement.style.setProperty('scroll-behavior', 'auto')
+    }
+}
+
+/* initialise the Cancel btn on Sign Out form, Message Alerts, and page title check, when DOM loaded */
 document.addEventListener("DOMContentLoaded", function () {
     initialiseGoBackButton();
     dismissAlert();
+    changeScrollToAuto();
 });
