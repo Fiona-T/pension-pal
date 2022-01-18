@@ -90,9 +90,21 @@
                                     <p><span class="card-label">Start date:</span> {{job.start_date}}</p>
                                     <p><span class="card-label">Finish date:</span> {{job.finish_date}}</p>
                                 </div>
-                                <p>The job will no longer appear in your My Jobs page. Any pension attached to this job will also be deleted.</p>
+                                <p>The job will no longer appear in your My Jobs page.</p>
+                                <!--If there are pensions attached to the job, note that they will be deleted too-->
+                                {% if job.linked_pensions.all %}
+                                <p><strong>The following pension scheme(s) are attached to this job and will also be
+                                        deleted:</strong></p>
+                                <ul>
+                                    {% for pension in job.linked_pensions.all %}
+                                    <li>{{ pension.scheme_name }}</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
                                 <p><strong>This action cannot be undone.</strong></p>
-                                <p>If you are sure you want to delete the job, then press Delete Job below. Otherwise, cancel to go back.</p>
+                                <p>If you are sure you want to delete the job{% if job.linked_pensions.all %} and
+                                    attached pension(s){% endif %}, then press Delete Job below. Otherwise, cancel to go
+                                    back.</p>
                             </div>
                             <!-- Delete Job modal footer, with button to cancel, and form with button to submit deletion request -->
                             <div class="modal-footer d-flex justify-content-around">
