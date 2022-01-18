@@ -19,8 +19,9 @@ class TestPensionForm(TestCase):
     @classmethod
     def setUpTestData(cls):
         """
-        Create test user, test job and test provider,
-        needed as foreign keys to submit pension form with data
+        Create test user, test job and two test providers,
+        needed as foreign keys to submit pension form with data.
+        Test providers - one active and one not active so can test filter
         """
         User.objects.create_user(
             username='Tester',
@@ -37,6 +38,11 @@ class TestPensionForm(TestCase):
             provider_name='A Pension Provider',
             website='wwww.awebsite.ie',
             status=1,
+        )
+        Provider.objects.create(
+            provider_name='An Active Pension Provider',
+            website='wwww.awebsite.ie',
+            status=0,
         )
 
     def test_file_field_help_text(self):
@@ -182,6 +188,50 @@ class TestPensionForm(TestCase):
         """Check initial value on full_or_part_time is fulltime (0) """
         form = PensionForm()
         self.assertEqual(form['pension_type'].initial, 0)
+
+    def test_pension_provider_field_choices_only_include_active(self):
+        """
+        Create form, get the choices from the pension_provider field.
+        Choices should contain the 'Choose pension provider' selected option
+        and the one active pension provider (and not the inactive one), so the
+        length should be 2.
+        """
+        form = PensionForm()
+        choices = list(form.fields['pension_provider'].choices)
+        self.assertEqual(len(choices), 2)
+        self.assertEqual(str(choices[0][1]), 'Choose pension provider')
+        self.assertEqual(str(choices[1][1]), 'An Active Pension Provider')
+
+    def test_cannot_add_form_with_not_active_pension_provider(self):
+        """
+        Create form with pension provider that is not active. Confirm there are
+        form errors and form is not valid, and error msg is as expected.
+        """
+        form = PensionForm({
+            'added_by': User.objects.get(username='Tester'),
+            'employment': Job.objects.get(employer_name='Test Company'),
+            'scheme_name': 'My Pension Scheme',
+            'policy_number': '124',
+            'member_number': '123',
+            'pension_type': 1,
+            'date_joined_scheme': '2020-01-01',
+            'salary': '40000',
+            'pao': 'false',
+            'director': 'false',
+            'pension_provider': Provider.objects.get(
+                provider_name='A Pension Provider'
+                ),
+            'value': '3000',
+            'notes': '',
+        })
+        self.assertFalse(form.is_valid())
+        self.assertTrue(form.errors)
+        self.assertIn('pension_provider', form.errors.keys())
+        self.assertEqual(
+            form.errors['pension_provider'][0],
+            'Select a valid choice. That choice is not one of the '
+            'available choices.'
+            )
 
     def test_error_raised_on_file_field_for_docx_extension(self):
         """
