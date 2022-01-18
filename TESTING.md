@@ -145,5 +145,17 @@ def clean_file(self):
                 )
     return data
 ```
+- **Issue: HTML form validation on Add Pension or Edit Pension not showing the error messages for fields with `required` attribute**
+
+When submitting the form without the `required` fields completed, the form correctly didn't submit, but it did not display the usual error message "Please select an item in the list" or "Please fill in this field" for the first non-completed required field. The issue happens when the first uncompleted `required` field is outside of the viewport when the submit button is pressed. It doesn't happen when the first uncompleted `required` field is visible in the viewport when the form is submitted.
+> Solution: The issue appears to be a bug on Chrome, as explained on [this post on Stack Overflow](https://stackoverflow.com/questions/69015407/html5-form-validation-message-doesnt-show-when-scroll-behaviour-is-set-to-smoo), caused by a combination of having `scroll-behavior: smooth` style set on the `html` element or `:root` pseudo selector, and the form being longer than the viewport window. (This is [also mentioned as a bug for Bootstrap 5](https://github.com/twbs/bootstrap/issues/33757) since `scroll-behavior:smooth` is set on `:root` in Bootstrap 5) Since the `scroll-behavior: smooth` is only affecting the PensionForm and is fine on the other pages, I created a short JavaScript function to change the `scroll-behavior` to `auto` for the Add Pension and Edit Pension pages:
+```javascript
+function changeScrollToAuto() {
+    if(document.title === "Add Pension" || document.title === "Edit Pension") {
+        document.documentElement.style.setProperty('scroll-behavior', 'auto')
+    }
+}
+```
+The HTML form validation error messages now display for non-completed `required` fields, however the scroll to the required field is not seamless. However the built in HTML validation and error messages is sufficient at this point in the project development. Later iterations of the project could include some client side validation of the form using JavaScript, to include a scroll to the field with the error, and/or to provide additonal error messages for the user.
 
 ### Supported Screens and Browsers
