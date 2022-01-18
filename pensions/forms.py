@@ -10,6 +10,7 @@ class PensionForm(forms.ModelForm):
     Frontend form for user to add or edit a Pension record.
     Employment field is restricted to Jobs for that user in the View.
     The dropdown lists for <select> element have selected choice set.
+    Filter Providers in dropdown list to only show those with Active status (0)
     Define the class to be added to the html label element for required fields
     """
     employment = forms.ModelChoiceField(
@@ -19,7 +20,7 @@ class PensionForm(forms.ModelForm):
         ' record first.'
         )
     pension_provider = forms.ModelChoiceField(
-        queryset=Provider.objects.all(),
+        queryset=Provider.objects.filter(status=0),
         empty_label="Choose pension provider"
         )
 
