@@ -44,6 +44,24 @@
                                     class="card-label"> Finish date:</span> {{ job.finish_date }}</p>
                             <p class="card-text"><i class="bi bi-calendar-week card-icon" aria-hidden="true"></i>
                                 {{ job.get_full_or_part_time_display }}</p>
+                            <p class="card-text"><i class="bi bi-piggy-bank card-icon" aria-hidden="true"></i><span
+                                    class="card-label">Pension:</span>
+                                <!--If no pensions linked to job-->
+                                {% if not job.linked_pensions.all %} No pensions attached
+                                <!--If only one pension, then display the scheme name, linked to the view details page for that pension-->
+                                {% elif job.linked_pensions.all|length == 1 %}
+                                {% for pension in job.linked_pensions.all %}
+                                <a href="{% url 'view_pension' pension.id %}">{{ pension.scheme_name }}</a>
+                                {% endfor %}
+                                <!--If more than one linked pension, list them-->
+                                {% else %} Multiple pensions, listed below:
+                            </p>
+                            {% for pension in job.linked_pensions.all %}
+                            <!--for each pension, show the scheme name, linked to the view details page for that pension-->
+                            <p>Pension {{ forloop.counter }}: <a
+                                    href="{% url 'view_pension' pension.id %}">{{ pension.scheme_name }}</a></p>
+                            {% endfor %}
+                            {% endif %}
                         </div>
                         <div class="card-footer d-flex justify-content-around">
                             <a href="{% url 'edit_job' job.id %}" class="btn btn-brand btn-icon btn-card"><i class="bi bi-pencil icon-btn-sm"
