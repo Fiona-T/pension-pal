@@ -26,11 +26,12 @@ function dismissAlert() {
 }
 
 /**
- * If title is Add Pension, change scroll-behavior css property on root to auto.
- * This is because of bug on HTML 'required' form validation when scroll-behavior is smooth
+ * If page title is Add Pension or Edit Pension, change scroll-behavior css property on root to auto.
+ * Doing this because of bug on HTML 'required' form validation when scroll-behavior is smooth 
+ * (happens on Add Pension or Edit Pension forms because of their length)
  */
 function changeScrollToAuto() {
-    if(document.title == "Add Pension") {
+    if(document.title === "Add Pension" || document.title === "Edit Pension") {
         document.documentElement.style.setProperty('scroll-behavior', 'auto')
     }
 }
