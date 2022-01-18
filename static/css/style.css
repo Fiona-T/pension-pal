@@ -3,10 +3,6 @@ html, body {
     height: 100%;
 }
 
-html {
-    scroll-behavior: smooth;
-}
-
 body {
     font-family: 'Montserrat', sans-serif;
     background-color: #fff;
@@ -318,11 +314,6 @@ h1 {
 }
 
 /* ----------- Create, Edit forms on Jobs/Pensions pages */
-
-.form-container-no-scroll {
-    scroll-behavior: unset;
-}
-
 /* submit/cancel buttons/links in the forms */
 .btn-form {
     width: 45%;
