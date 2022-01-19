@@ -87,13 +87,13 @@
                             </div>
                             <div class="mb-2 mb-md-3 d-flex flex-column flex-md-row flex-wrap">
                                 <p class="card-text card-label mb-1 mb-md-0 d-md-inline"><i class="bi bi-exclamation-triangle card-icon"
-                                    aria-hidden="true"></i> Pension Adjustment Order (PAO)?:</p>
+                                    aria-hidden="true"></i> Pension Adjustment Order (PAO)?</p>
                                 <p class="mb-1 mb-md-0 d-md-inline">{{ pension.pao|yesno:"Yes,No" }}</p>
                             </div>
                             <div class="mb-2 mb-md-3 d-flex flex-column flex-md-row flex-wrap">
                                 <p class="card-text card-label mb-1 mb-md-0 d-md-inline"><i
                                         class="bi bi-percent card-icon" aria-hidden="true"></i> 20% director in this
-                                    employment?:</p>
+                                    employment?</p>
                                 <p class="mb-1 mb-md-0 d-md-inline">{{ pension.director|yesno:"Yes,No" }}</p>
                             </div>
                             <div class="mb-2 mb-md-3 d-flex flex-column flex-md-row flex-wrap">
@@ -106,12 +106,24 @@
                                 <p class="card-text card-label mb-1 mb-md-0 d-md-inline"><i class="bi bi-bank card-icon"
                                         aria-hidden="true"></i> Pension provider:</p>
                                 <p class="mb-1 mb-md-0 d-md-inline">{{ provider.provider_name }}</p>
+                                {% if provider.status == 1 %}
+                                <!--Add a note if the pension provider is no longer active-->
+                                <p class="w-100 mb-1 mb-md-0 mt-1 helptext">Note: This provider is no longer active. You
+                                    can update to the new pension provider using the Edit button at the bottom of this
+                                    page.</p>
+                                {% endif %}
                             </div>
                             <div class="mb-2 mb-md-3 d-flex flex-column flex-md-row flex-wrap">
                                 <p class="card-text card-label mb-1 mb-md-0 d-md-inline"><i class="bi bi-link card-icon"
                                         aria-hidden="true"></i> Pension provider website:</p>
                                 <p class="mb-1 mb-md-0 d-md-inline"><a href="{{ provider.website }}" target="_blank"
                                         rel="noopener">{{ provider.website }}</a></p>
+                                {% if provider.status == 1 %}
+                                <!--Add a note if the pension provider is no longer active-->
+                                <p class="w-100 mb-1 mb-md-0 mt-1 helptext">Note: This provider is no longer active, so
+                                    this website address might not be valid. You can update to the new pension provider
+                                    using the Edit button at the bottom of this page.</p>
+                                {% endif %}
                             </div>
                             <div class="mb-2 mb-md-3 d-flex flex-column flex-md-row flex-wrap">
                                 <p class="card-text card-label mb-1 mb-md-0 d-md-inline"><i
@@ -123,7 +135,8 @@
                                         class="bi bi-file-earmark card-icon" aria-hidden="true"></i> View file:</p>
                                 <p class="mb-1 mb-md-0 d-md-inline">
                                     {% if pension.file %}
-                                    <a href="{{ pension.file.url }}">{{ pension.file }}</a>
+                                    <a href="{{ pension.file.url }}" target="_blank"
+                                        rel="noopener">{{ pension.file }}</a> (Opens in a new tab)
                                     {% else %}
                                     <span class="fst-italic fw-lighter">No file uploaded. Use the Edit button below to
                                         add a file.</span>
