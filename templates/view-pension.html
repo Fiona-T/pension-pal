@@ -28,70 +28,118 @@
                         the job details here</a>, or go to the Edit button on that Job record on <a
                         href="{% url 'my_jobs' %}">the My Jobs page</a>.</p>
                 <div class="col-12 px-2 px-md-4">
+                    <!--Card containing the pension details - title plus a div for each item, div is flex container for label and value-->
                     <div class="card mb-4 mx-md-3 mx-lg-5">
                         <div class="card-body px-md-5 my-2">
                             <h4 class="card-title">{{ pension.scheme_name }}</h4>
-                            <p class="card-text"><i class="bi bi-building card-icon" aria-hidden="true"></i><span
-                                    class="card-label"> Employment this pension relates to:</span>
-                                {{ pension.employment }}</p>
-                            <p class="card-text"><i class="bi bi-paperclip card-icon" aria-hidden="true"></i><span
-                                    class="card-label"> Policy / scheme number:</span> {{ pension.policy_number }}</p>
-                            <p class="card-text"><i class="bi bi-person-fill card-icon" aria-hidden="true"></i>
-                                <span class="card-label"> Member number:</span>
-                                {% if pension.member_number %}
-                                <span>{{ pension.member_number }}</span>
-                                {% else %}
-                                <span class="fst-italic fw-lighter">Not recorded. Use the Edit button below to
-                                    update.</span>
-                                {% endif %}
-                            </p>
-                            <p class="card-text"><i class="bi bi-calculator-fill card-icon" aria-hidden="true"></i><span
-                                    class="card-label"> Pension type:</span> {{ pension.get_pension_type_display }}</p>
-                            <p class="card-text"><i class="bi bi-calendar-plus-fill card-icon"
-                                    aria-hidden="true"></i><span class="card-label"> Date joined pension scheme:</span>
-                                {{ pension.date_joined_scheme }}</p>
-                            <p class="card-text"><i class="bi bi-play-btn card-icon" aria-hidden="true"></i><span
-                                    class="card-label"> Date of joining service:</span> {{ job.start_date }}</p>
-                            <p class="card-text"><i class="bi bi-stop-btn card-icon" aria-hidden="true"></i><span
-                                    class="card-label"> Date of leaving service:</span> {{ job.finish_date }}</p>
-                            <p class="card-text"><i class="bi bi-cash-coin card-icon" aria-hidden="true"></i><span
-                                    class="card-label"> Salary at date of leaving service:</span> € {{ pension.salary }}
-                            </p>
-                            <p class="card-text"><i class="bi bi-exclamation-triangle card-icon"
-                                    aria-hidden="true"></i><span class="card-label"> Pension Adjustment Order
-                                    (PAO)?:</span> {{ pension.pao|yesno:"Yes,No" }}</p>
-                            <p class="card-text"><i class="bi bi-percent card-icon" aria-hidden="true"></i><span
-                                    class="card-label"> 20% director in this employment?:</span> {{ pension.director|yesno:"Yes,No" }}
-                            </p>
-                            <p class="card-text"><i class="bi bi-calendar-week card-icon" aria-hidden="true"></i><span
-                                    class="card-label"> Full-time or part-time service:</span>
-                                {{ job.get_full_or_part_time_display }}</p>
-                            <p class="card-text"><i class="bi bi-bank card-icon" aria-hidden="true"></i><span
-                                    class="card-label"> Pension provider:</span> {{ provider.provider_name }}</p>
-                            <p class="card-text"><i class="bi bi-link card-icon" aria-hidden="true"></i><span
-                                    class="card-label"> Pension provider website:</span> <a
-                                    href="{{ provider.website }}" target="_blank"
-                                    rel="noopener">{{ provider.website }}</a></p>
-                            <p class="card-text"><i class="bi bi-piggy-bank card-icon" aria-hidden="true"></i><span
-                                    class="card-label"> Pension value:</span> € {{ pension.value }}</p>
-                            <p class="card-text"><i class="bi bi-file-earmark card-icon" aria-hidden="true"></i>
-                                <span class="card-label"> View file:</span>
-                                {% if pension.file %}
-                                <a href="{{ pension.file.url }}">{{ pension.file }}</a>
-                                {% else %}
-                                <span class="fst-italic fw-lighter">No file uploaded. Use the Edit button below to add a
-                                    file.</span>
-                                {% endif %}
-                            </p>
-                            <p class="card-text"><i class="bi bi-chat-left-text card-icon" aria-hidden="true"></i>
-                                <span class="card-label"> Your notes:</span>
-                                {% if pension.notes %}
-                                <span>{{ pension.notes }}</span>
-                                {% else %}
-                                <span class="fst-italic fw-lighter">No notes recorded. Use the Edit button below to add
-                                    notes.</span>
-                                {% endif %}
-                            </p>
+                            <div class="mb-2 mb-md-3 d-flex flex-column flex-md-row flex-wrap">
+                                <p class="card-text card-label mb-1 mb-md-0 d-md-inline"><i class="bi bi-building card-icon"
+                                        aria-hidden="true"></i> Employment this pension relates to:</p>
+                                <p class="mb-1 mb-md-0 d-md-inline"> {{ pension.employment }}</p>
+                            </div>
+                            <div class="mb-2 mb-md-3 d-flex flex-column flex-md-row flex-wrap">
+                                <p class="card-text card-label mb-1 mb-md-0 d-md-inline"><i class="bi bi-paperclip card-icon"
+                                        aria-hidden="true"></i> Policy / scheme number:</p>
+                                <p class="mb-1 mb-md-0 d-md-inline"> {{ pension.policy_number }}</p>
+                            </div>
+                            <div class="mb-2 mb-md-3 d-flex flex-column flex-md-row flex-wrap">
+                                <p class="card-text card-label mb-1 mb-md-0 d-md-inline"><i
+                                        class="bi bi-person-fill card-icon" aria-hidden="true"></i> Member number:</p>
+                                <p class="mb-1 mb-md-0 d-md-inline">
+                                    {% if pension.member_number %}
+                                    <span>{{ pension.member_number }}</span>
+                                    {% else %}
+                                    <span class="fst-italic fw-lighter">Not recorded. Use the Edit button below to
+                                        update.</span>
+                                    {% endif %}
+                                </p>
+                            </div>
+                            <div class="mb-2 mb-md-3 d-flex flex-column flex-md-row flex-wrap">
+                                <p class="card-text card-label mb-1 mb-md-0 d-md-inline"><i
+                                        class="bi bi-calculator-fill card-icon" aria-hidden="true"></i> Pension type:
+                                </p>
+                                <p class="mb-1 mb-md-0 d-md-inline">{{ pension.get_pension_type_display }}</p>
+                            </div>
+                            <div class="mb-2 mb-md-3 d-flex flex-column flex-md-row flex-wrap">
+                                <p class="card-text card-label mb-1 mb-md-0 d-md-inline"><i class="bi bi-calendar-plus-fill card-icon"
+                                    aria-hidden="true"></i> Date joined pension scheme:</p>
+                                <p class="mb-1 mb-md-0 d-md-inline">{{ pension.date_joined_scheme }}</p>
+                            </div>
+                            <div class="mb-2 mb-md-3 d-flex flex-column flex-md-row flex-wrap">
+                                <p class="card-text card-label mb-1 mb-md-0 d-md-inline"><i
+                                        class="bi bi-play-btn card-icon" aria-hidden="true"></i> Date of joining
+                                    service:</p>
+                                <p class="mb-1 mb-md-0 d-md-inline">{{ job.start_date }}</p>
+                            </div>
+                            <div class="mb-2 mb-md-3 d-flex flex-column flex-md-row flex-wrap">
+                                <p class="card-text card-label mb-1 mb-md-0 d-md-inline"><i
+                                        class="bi bi-stop-btn card-icon" aria-hidden="true"></i> Date of leaving
+                                    service:</p>
+                                <p class="mb-1 mb-md-0 d-md-inline">{{ job.finish_date }}</p>
+                            </div>
+                            <div class="mb-2 mb-md-3 d-flex flex-column flex-md-row flex-wrap">
+                                <p class="card-text card-label mb-1 mb-md-0 d-md-inline"><i
+                                        class="bi bi-cash-coin card-icon" aria-hidden="true"></i> Salary at date of
+                                    leaving service:</p>
+                                <p class="mb-1 mb-md-0 d-md-inline">€ {{ pension.salary }}</p>
+                            </div>
+                            <div class="mb-2 mb-md-3 d-flex flex-column flex-md-row flex-wrap">
+                                <p class="card-text card-label mb-1 mb-md-0 d-md-inline"><i class="bi bi-exclamation-triangle card-icon"
+                                    aria-hidden="true"></i> Pension Adjustment Order (PAO)?:</p>
+                                <p class="mb-1 mb-md-0 d-md-inline">{{ pension.pao|yesno:"Yes,No" }}</p>
+                            </div>
+                            <div class="mb-2 mb-md-3 d-flex flex-column flex-md-row flex-wrap">
+                                <p class="card-text card-label mb-1 mb-md-0 d-md-inline"><i
+                                        class="bi bi-percent card-icon" aria-hidden="true"></i> 20% director in this
+                                    employment?:</p>
+                                <p class="mb-1 mb-md-0 d-md-inline">{{ pension.director|yesno:"Yes,No" }}</p>
+                            </div>
+                            <div class="mb-2 mb-md-3 d-flex flex-column flex-md-row flex-wrap">
+                                <p class="card-text card-label mb-1 mb-md-0 d-md-inline"><i
+                                        class="bi bi-calendar-week card-icon" aria-hidden="true"></i>Full-time or
+                                    part-time service:</p>
+                                <p class="mb-1 mb-md-0 d-md-inline">{{ job.get_full_or_part_time_display }}</p>
+                            </div>
+                            <div class="mb-2 mb-md-3 d-flex flex-column flex-md-row flex-wrap">
+                                <p class="card-text card-label mb-1 mb-md-0 d-md-inline"><i class="bi bi-bank card-icon"
+                                        aria-hidden="true"></i> Pension provider:</p>
+                                <p class="mb-1 mb-md-0 d-md-inline">{{ provider.provider_name }}</p>
+                            </div>
+                            <div class="mb-2 mb-md-3 d-flex flex-column flex-md-row flex-wrap">
+                                <p class="card-text card-label mb-1 mb-md-0 d-md-inline"><i class="bi bi-link card-icon"
+                                        aria-hidden="true"></i> Pension provider website:</p>
+                                <p class="mb-1 mb-md-0 d-md-inline"><a href="{{ provider.website }}" target="_blank"
+                                        rel="noopener">{{ provider.website }}</a></p>
+                            </div>
+                            <div class="mb-2 mb-md-3 d-flex flex-column flex-md-row flex-wrap">
+                                <p class="card-text card-label mb-1 mb-md-0 d-md-inline"><i
+                                        class="bi bi-piggy-bank card-icon" aria-hidden="true"></i> Pension value:</p>
+                                <p class="mb-1 mb-md-0 d-md-inline">€ {{ pension.value }}</p>
+                            </div>
+                            <div class="mb-2 mb-md-3 d-flex flex-column flex-md-row flex-wrap">
+                                <p class="card-text card-label mb-1 mb-md-0 d-md-inline"><i
+                                        class="bi bi-file-earmark card-icon" aria-hidden="true"></i> View file:</p>
+                                <p class="mb-1 mb-md-0 d-md-inline">
+                                    {% if pension.file %}
+                                    <a href="{{ pension.file.url }}">{{ pension.file }}</a>
+                                    {% else %}
+                                    <span class="fst-italic fw-lighter">No file uploaded. Use the Edit button below to
+                                        add a file.</span>
+                                    {% endif %}
+                                </p>
+                            </div>
+                            <div class="mb-2 mb-md-3 d-flex flex-column flex-md-row flex-wrap">
+                                <p class="card-text card-label mb-1 mb-md-0 d-md-inline"><i
+                                        class="bi bi-chat-left-text card-icon" aria-hidden="true"></i>Your notes:</p>
+                                <p class="mb-1 mb-md-0 d-md-inline">
+                                    {% if pension.notes %}
+                                    <span>{{ pension.notes }}</span>
+                                    {% else %}
+                                    <span class="fst-italic fw-lighter">No notes recorded. Use the Edit button below to
+                                        add notes.</span>
+                                    {% endif %}
+                                </p>
+                            </div>
                         </div>
                         <div class="card-footer d-flex justify-content-around mb-4">
                             <a href="{% url 'edit_pension' pension.id %}" class="btn btn-brand btn-icon btn-card"><i
