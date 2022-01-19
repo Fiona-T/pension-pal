@@ -42,7 +42,7 @@ class Pension(models.Model):
     pao = models.BooleanField(default=False)
     director = models.BooleanField(default=False)
     pension_provider = models.ForeignKey(
-        Provider, on_delete=models.CASCADE, related_name='recorded_pensions')
+        Provider, on_delete=models.PROTECT, related_name='recorded_pensions')
     value = models.DecimalField(max_digits=10, decimal_places=2)
     file = CloudinaryField('image', blank=True,)
     notes = models.TextField(blank=True)
