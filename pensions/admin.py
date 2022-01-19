@@ -17,4 +17,18 @@ class ProviderAdmin(admin.ModelAdmin):
     search_fields = ['provider_name', 'website']
 
 
-admin.site.register(Pension)
+@admin.register(Pension)
+class PensionAdmin(admin.ModelAdmin):
+    """
+    Pension model - admin set up:
+    Show all user, scheme name, employment and value in list display,
+    Allow filtering by user who added the record, or by pension provider.
+    Allow search by employment (foreign key) or by scheme_name.
+    Scehme name is a link to view the record.
+    Id field shown as readonly field for information purposes.
+    """
+    readonly_fields = ('id',)
+    list_display = ('added_by', 'scheme_name', 'employment', 'value')
+    list_filter = ('added_by', 'pension_provider')
+    list_display_links = ('scheme_name',)
+    search_fields = ['employment__employer_name', 'scheme_name']
