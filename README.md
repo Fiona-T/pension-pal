@@ -386,9 +386,11 @@ You can refer to the [GitHub documentation](https://docs.github.com/en/github/cr
 - Advice on how to test `messages` in the `views` was taken from [this thread on Stack Overflow](https://stackoverflow.com/questions/2897609/how-can-i-unit-test-django-messages)
 - To test the file upload field on the `PensionForm`, I followed the approach outlined on [this thread on Stack Overflow](https://stackoverflow.com/questions/39485189/how-can-i-test-a-form-with-filefield-in-django) which was to save the test files in a directory in the repo and add them to the test form using `SimpleUploadedFile`
 
-### Content
 ### Media
 - The background hero image for the home page was sourced from [Vecteezy](https://www.vecteezy.com/vector-art/1428520-online-training-woman-using-laptop-for-cloud-computing) and edited slightly by the developer. The image is credited in the website footer, in line with Vecteezy attribution requirements.
 
 ## Acknowledgements
 ---
+I would like to thank the following:
+- my mentor Rohit Sharma for feedback and guidance throughout this project.
+- the Code Institute Slack community for advice and support along the way
