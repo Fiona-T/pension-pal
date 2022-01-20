@@ -23,8 +23,10 @@
         <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
         {% endif %}
         <div class="d-flex justify-content-between mt-5">
-          <a class="btn btn-brand mb-2 btn-form btn-secondary" id="go-back">Cancel</a>
-          <button class="btn btn-brand mb-2 btn-form" type="submit">{% trans 'Yes, Sign Out' %}</button>
+          <a class="btn btn-brand mb-2 btn-form btn-secondary" id="go-back"><i class="bi bi-x-circle icon-btn-sm"
+              aria-hidden="true"></i>Cancel</a>
+          <button class="btn btn-brand mb-2 btn-form" type="submit"><i class="bi bi-check-circle icon-btn-sm"
+              aria-hidden="true"></i>{% trans 'Sign Out' %}</button>
         </div>
       </form>
     </div>

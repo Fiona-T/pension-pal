@@ -33,8 +33,11 @@
                         {% csrf_token %}
                         {{ form.as_p }}
                         <div class="d-flex justify-content-between mt-5">
-                            <a class="btn btn-brand btn-icon btn-form" id="go-back">Cancel</a>
-                            <button class="btn btn-brand btn-icon btn-form" type="submit">Confirm Changes</button>
+                            <a class="btn btn-brand btn-icon btn-form" id="go-back"><i
+                                    class="bi bi-x-circle icon-btn-sm" aria-hidden="true"></i>Cancel</a>
+                            <button class="btn btn-brand btn-icon btn-form" type="submit"><i
+                                    class="bi bi-check-circle icon-btn-sm" aria-hidden="true"></i>Confirm
+                                Changes</button>
                         </div>
                     </form>
                 </section>
