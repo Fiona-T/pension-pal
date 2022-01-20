@@ -9,7 +9,7 @@
         <!--Breadcrumb navigation-->
         <div class="row pt-5">
             <nav aria-label="Breadcrumb navigation">
-                <ul class="breadcrumb">
+                <ul class="breadcrumb pt-3">
                     <li class="breadcrumb-item">
                         <a href="{% url 'my_pensions' %}">My Pensions</a>
                     </li>
@@ -20,7 +20,7 @@
                 </ul>
             </nav>
         </div>
-        <div class="row py-5">
+        <div class="row py-3">
             <h1 class="mb-4">Pension Added!</h1>
             <p>The Pension <span class="fw-bold">"{{ pension.scheme_name }}"</span> has been successfully added to your
                 <a href="{% url 'my_pensions' %}">My Pensions page</a> and you can view all of your pensions records
