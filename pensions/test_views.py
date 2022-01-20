@@ -229,7 +229,7 @@ class TestAddPensionView(TestCase):
         Provider.objects.create(
             provider_name='A Pension Provider',
             website='wwww.awebsite.ie',
-            status=1,
+            status=0,
         )
 
     def test_redirects_if_not_logged_in(self):
@@ -358,7 +358,7 @@ class TestEditPensionView(TestCase):
         Provider.objects.create(
             provider_name='A Pension Provider',
             website='wwww.awebsite.ie',
-            status=1,
+            status=0,
             )
 
         Pension.objects.create(
