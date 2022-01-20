@@ -158,4 +158,14 @@ function changeScrollToAuto() {
 ```
 The HTML form validation error messages now display for non-completed `required` fields, however the scroll to the required field is not seamless. However the built in HTML validation and error messages is sufficient at this point in the project development. Later iterations of the project could include some client side validation of the form using JavaScript, to include a scroll to the field with the error, and/or to provide additonal error messages for the user.
 
+- **Issue: Attribute Error on Edit Pension form file field if the data in the file field is not changed**
+![Edit Pension form when file is not changed bug](docs/bugs/attribute-error-edit-pension-existing-file-bug.png)
+The above error is raised when submitting the PensionForm on the EditPension view, when there is an existing file in the file field and it is not being changed, i.e. not clearing the existing file and not adding a new file.
+> Solution: The error is happening in the `clean_file()` method on the `PensionForm`, because it is checking for the `name` of the file (to check if it doesn't end in .jpg or .png). However because the data in the field is not a new file but is an existing `CloudinaryResource object`, there is no `name` attribute. Added the check on the file name to a `try` block, and added an `except` block that passes on the `AttributeError` as this should only be raised if the file field contains an existing file i.e. a `CloudinaryResource object`. Since this file has already been checked when the file was initially added, and already exists on Cloudinary (the check is in place because Cloudinary gives a server error if the user tries to add a file like pdf, word document etc., so to give the user a proper error message) then in this case it seems reasonable to pass on the `AttributeError`.
+
+- **Issue: Error when searching a foreign key in Django admin site**
+![Admin searching with foreign key bug](docs/bugs/admin-search-foreign-key-bug.png)
+The Django admin site gave the above error for the `Pension` model when trying to search the pensions records.
+> Solution: This issue was caused by `'employment'` being included in the `search_fields` list. This is a `ForeignKey` field (linked to the `Job` model), so it needed to be referenced in the `search_fields` list using the name of the relevant field in the Job model, so in this case: `'employment__employer_name'`. I found the answer to this issue in [this Stack Overflow post](https://stackoverflow.com/questions/11754877/troubleshooting-related-field-has-invalid-lookup-icontains).
+
 ### Supported Screens and Browsers
