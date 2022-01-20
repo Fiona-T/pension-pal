@@ -39,7 +39,6 @@ PensionPal is a website for users in Ireland to record details of their working 
   * [Cloning the GitHub Repository](#cloning-the-github-repository)
 - [Credits](#credits)
   * [Code](#code)
-  * [Content](#content)
   * [Media](#media)
 - [Acknowledgements](#acknowledgements)
 
@@ -332,6 +331,12 @@ The project is developed using the Django framework and will be split into three
 ## Technology
 ---
 ### Languages
+- HTML
+- CSS
+- JavaScript
+- Python (with Django framework)
+- Django templating language
+
 ### Frameworks, Libraries, Programmes and Tools
 
 ## Testing
