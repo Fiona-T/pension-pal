@@ -70,16 +70,24 @@ class PensionForm(forms.ModelForm):
 
     def clean_file(self):
         """
-        Override clean method on file field, if there is data in the field,
+        Override clean method on file field: if there is data in the field,
         check extension and raise an error for those other than png or jpg
         (as Cloudinary throws server error)
+        The above raises an Atrribute Error when the Edit form submitted
+        with an existing Cloudinary file, as it has no name attribute.
+        Except block added to pass on an Atrribute Error. The existing
+        Cloudinary file has already been checked when adding the record so
+        does not need to be checked again. Anything other than this is checked
         """
         data = self.cleaned_data['file']
         if data:
-            filename = data.name
-            if not filename.endswith(('.jpg', '.png', '.jpeg')):
-                raise ValidationError(
-                    'File type must be .png or .jpg. Choose a different file '
-                    'of the correct type'
-                    )
+            try:
+                filename = data.name
+                if not filename.endswith(('.jpg', '.png', '.jpeg')):
+                    raise ValidationError(
+                        'File type must be .png or .jpg. Choose a different '
+                        'file of the correct type'
+                        )
+            except AttributeError:
+                pass
         return data
