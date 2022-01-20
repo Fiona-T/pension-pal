@@ -338,6 +338,28 @@ The project is developed using the Django framework and will be split into three
 - Django templating language
 
 ### Frameworks, Libraries, Programmes and Tools
+ - [Balsamiq](https://balsamiq.com/) to design the wireframes
+ - The fonts used in the project are imported from [Google Fonts](https://fonts.google.com/)
+ - [Eye Dropper](https://eyedropper.org/) extension for Chrome to pick and generate colours for the project
+- [Coolors](https://coolors.co/) to generate a colour palette/see how colours worked beside each other
+- [Webaim Contrast Checker](https://webaim.org/resources/contrastchecker/) to check the contrast for the colour choices 
+- Git for version control, using the [Gitpod](https://www.gitpod.io/) terminal to commit to Git and push to GitHub
+- [GitHub](https://github.com/) to store the project code
+- [GitHub](https://github.com/) Issues, Boards and Milsetones features were used as Agile tools in the planning and implementation of the project through the lifecycle
+- [Heroku](https://www.heroku.com/) to host the live application
+- [Heroku Postgres](https://www.heroku.com/postgres) is the database for the deployed project
+- The project is built using the [Django web framework](https://www.djangoproject.com/) 
+- [Bootstrap v5.0](https://getbootstrap.com/docs/5.0/getting-started/introduction/) for responsiveness, layout, modals, and general styles on the frontend
+- [Cloudinary](https://cloudinary.com/) to host the static files (CSS and JavaScript) and media files (user uploaded files)
+- [django-allauth](https://django-allauth.readthedocs.io/en/latest/index.html) for user registration and authentication
+- [Chrome Dev Tools](https://developer.chrome.com/docs/devtools/) during development and testing to fix issues with the code and check for responsiveness/different device sizes
+- [W3C HTML validator](https://validator.w3.org/) to validate the HTML code
+- [W3C CSS Validator](https://jigsaw.w3.org/css-validator/) to validate the CSS code
+- [JSHint](https://jshint.com/) to check the quality of and check for errors in the JavaScript code
+- [PEP8](http://pep8online.com/) checker to validate the Python code
+- [Coverage.py](https://coverage.readthedocs.io/en/6.2/index.html) for checking the level of coverage for the automated python tests
+- [Formito](https://formito.com/tools/favicon) and [RealFaviconGenerator](https://realfavicongenerator.net/) to make the favicon
+- [Am I Responsive](http://ami.responsivedesign.is/) to generate the mockup image showing the project on different devices
 
 ## Testing
 ---
