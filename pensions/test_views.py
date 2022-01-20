@@ -182,6 +182,7 @@ class TestAddPensionSuccessView(TestCase):
         response = self.client.get('/pensions/success/1')
         self.assertEqual(response.status_code, 404)
 
+
 class TestAddPensionView(TestCase):
     """ To test the AddPension view """
     @classmethod
@@ -193,6 +194,7 @@ class TestAddPensionView(TestCase):
         cannot add a pension as they do not have any jobs recorded.
         Create a 3rd test user with a job record, to test that 1st test user
         does not see this job record in the add pension form
+        Create a 2nd provider with inactive status to check invalid form
         """
         test_user1 = User.objects.create_user(
             username='Tester',
@@ -230,6 +232,12 @@ class TestAddPensionView(TestCase):
             provider_name='A Pension Provider',
             website='wwww.awebsite.ie',
             status=0,
+        )
+
+        Provider.objects.create(
+            provider_name='An Inactive Pension Provider',
+            website='wwww.anotherwebsite.ie',
+            status=1,
         )
 
     def test_redirects_if_not_logged_in(self):
@@ -289,6 +297,39 @@ class TestAddPensionView(TestCase):
         response = self.client.get('/pensions/')
         self.assertEqual(len(response.context['pension_list']), 1)
 
+    def test_add_pension_page_returned_with_error_when_form_is_not_valid(self):
+        """
+        Login test user, post to add-pension url with form with an inactive
+        pension provider, which means form won't be valid.
+        Check add-pension is displayed again after invalid form is submitted.
+        Check form is in the context and that the form error is correct.
+        """
+        self.client.login(username='Tester', password='topsecret1234')
+        response = self.client.post('/pensions/add/', {
+            'added_by': 'Tester',
+            'employment': str(2),
+            'scheme_name': "New Pension Scheme Name",
+            'policy_number': '12345',
+            'pension_type': 1,
+            'date_joined_scheme': '2020-01-01',
+            'salary': 50000,
+            'pao': False,
+            'director': False,
+            'pension_provider': str(2),
+            'value': 36789,
+            })
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'add-pension.html')
+        self.assertIn('form', response.context)
+        form = response.context['form']
+        self.assertTrue(form.errors)
+        self.assertIn('pension_provider', form.errors.keys())
+        self.assertEqual(
+            form.errors['pension_provider'][0],
+            'Select a valid choice. That choice is not one of the '
+            'available choices.'
+            )
+
     def test_add_pension_form_not_displayed_if_user_has_no_jobs(self):
         """
         Login the test user who has no job records created, go to the add
@@ -327,6 +368,7 @@ class TestEditPensionView(TestCase):
         Create two test users.
         Create provider and 2 job records, needed as foreign keys in Pension
         Create a pension record. All records created by test_user1.
+        Create a 2nd provider with inactive status to check invalid form
         """
         test_user1 = User.objects.create_user(
             username='Tester',
@@ -359,6 +401,12 @@ class TestEditPensionView(TestCase):
             provider_name='A Pension Provider',
             website='wwww.awebsite.ie',
             status=0,
+            )
+
+        Provider.objects.create(
+            provider_name='An Inactive Pension Provider',
+            website='wwww.awebsite.ie',
+            status=1,
             )
 
         Pension.objects.create(
@@ -402,7 +450,7 @@ class TestEditPensionView(TestCase):
         Get the pension record, check the fields have the updated details.
         """
         self.client.login(username='Tester', password='topsecret1234')
-        response = self.client.get('/pensions/edit/1')
+        self.client.get('/pensions/edit/1')
         response = self.client.post('/pensions/edit/1', {
             'added_by': 'Tester',
             'employment': str(2),
@@ -457,6 +505,39 @@ class TestEditPensionView(TestCase):
             messages[0].message,
             'Edited details for Pension: "New Pension Scheme Name" for '
             '"Second Test Company" successfully saved.'
+            )
+
+    def test_edit_page_is_returned_with_error_when_form_is_not_valid(self):
+        """
+        Login test user, post to edit url with an inactive pension provider,
+        which means form won't be valid.
+        Check edit-pension is displayed again after invalid form is submitted.
+        Check form is in the context and that the form error is correct.
+        """
+        self.client.login(username='Tester', password='topsecret1234')
+        response = self.client.post('/pensions/edit/1', {
+            'added_by': 'Tester',
+            'employment': str(2),
+            'scheme_name': "New Pension Scheme Name",
+            'policy_number': '12345',
+            'pension_type': 1,
+            'date_joined_scheme': '2020-01-01',
+            'salary': 50000,
+            'pao': False,
+            'director': False,
+            'pension_provider': str(2),
+            'value': 36789,
+            })
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'edit-pension.html')
+        self.assertIn('form', response.context)
+        form = response.context['form']
+        self.assertTrue(form.errors)
+        self.assertIn('pension_provider', form.errors.keys())
+        self.assertEqual(
+            form.errors['pension_provider'][0],
+            'Select a valid choice. That choice is not one of the '
+            'available choices.'
             )
 
     def test_404_returned_logged_in_but_invalid_pension_id(self):
