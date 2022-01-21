@@ -3,51 +3,52 @@
 {% block title %}Add Pension{% endblock %}
 
 {% block content %}
-<!-- container for page contents -->
-    <div class="container py-5 px-4">
-        <!--Breadcrumb navigation-->
-        <div class="row pt-5">
-            <nav aria-label="Breadcrumb navigation">
-                <ul class="breadcrumb pt-3">
-                    <li class="breadcrumb-item">
-                        <a href="{% url 'my_pensions' %}">My Pensions</a>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="page">Add Pension</li>
-                </ul>
-            </nav>
-        </div>
-        <!-- row with one column -->
-        <div class="row py-3">
-            <div class="col-12 col-sm-8 col-lg-6 mx-auto pt-2">
-                <section>
-                    <h1 class="mb-4">Add a Pension</h1>
-                    {% if form %}
-                    <!-- If the form is in the context, i.e. user has job records to attach the pension to -->
-                    <p>Enter the details of the pension below then press the <strong>Add Pension button</strong> to save
-                        the changes:</p>
-                    <p><em>Fields marked with <span class="required-indicator">*</span> must be completed!</em></p>
-                    <!-- Add Pension form -->
-                    <form action="" method="POST" class="user-form" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        <div class="d-flex justify-content-between mt-5">
-                            <a class="btn btn-brand btn-icon btn-form" id="go-back"><i
-                                    class="bi bi-x-circle icon-btn-sm" aria-hidden="true"></i>Cancel</a>
-                            <button class="btn btn-brand btn-icon btn-form" type="submit"><i
-                                    class="bi bi-check-circle icon-btn-sm" aria-hidden="true"></i>Add Pension</button>
-                        </div>
-                    </form>
-                    {% else %}
-                    <!-- If the form is NOT in the context, i.e. user has no job records, can't add pension -->
-                    <p>You do not currently have any jobs recorded.</p>
-                    <p>A Pension must be attached to a Job record, so you can't add a Pension before you have added the
-                        related Job/Employment!</p>
-                    <p><a href="{% url 'add_job' %}">Get started by adding the Job record now</a>, you will then be
-                        directed to add the Pension record afterwards.</p>
-                    {% endif %}
-                </section>
-            </div>
+<!-- container for page contents with two rows - breadcrumb navigation + form -->
+<div class="container py-5 px-4">
+    <!-- 1st row: Breadcrumb navigation -->
+    <div class="row pt-5">
+        <nav aria-label="Breadcrumb navigation">
+            <ul class="breadcrumb pt-3">
+                <li class="breadcrumb-item">
+                    <a href="{% url 'my_pensions' %}">My Pensions</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Add Pension</li>
+            </ul>
+        </nav>
+    </div>
+    <!-- 2nd row with one column, containing the form, or a note if user has no job records -->
+    <div class="row py-3">
+        <div class="col-12 col-sm-8 col-lg-6 mx-auto pt-2">
+            <section>
+                <h1 class="mb-4">Add a Pension</h1>
+                {% if form %}
+                <!-- If the form is in the context, i.e. user has job records to attach the pension to -->
+                <p>Enter the details of the pension below then press the <strong>Add Pension button</strong> to save
+                    the changes:</p>
+                <p><em>Fields marked with <span class="required-indicator">*</span> must be completed!</em></p>
+                <!-- Add Pension form -->
+                <form action="" method="POST" class="user-form" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="d-flex justify-content-between mt-5">
+                        <a class="btn btn-brand btn-icon btn-form" id="go-back"><i class="bi bi-x-circle icon-btn-sm"
+                                aria-hidden="true"></i>Cancel</a>
+                        <button class="btn btn-brand btn-icon btn-form" type="submit"><i
+                                class="bi bi-check-circle icon-btn-sm" aria-hidden="true"></i>Add Pension</button>
+                    </div>
+                </form>
+                {% else %}
+                <!-- If the form is NOT in the context, i.e. user has no job records, can't add pension -->
+                <p>You do not currently have any jobs recorded.</p>
+                <p>A Pension must be attached to a Job record, so you can't add a Pension before you have added the
+                    related Job/Employment!</p>
+                <p><a href="{% url 'add_job' %}">Get started by adding the Job record now</a>, you will then be
+                    directed to add the Pension record afterwards.</p>
+                {% endif %}
+            </section>
         </div>
     </div>
+    <!-- End of second row with form / note re no jobs -->
+</div>
 
 {% endblock %}
