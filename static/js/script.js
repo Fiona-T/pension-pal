@@ -18,7 +18,7 @@ function initialiseGoBackButton() {
 function dismissAlert() {
     if(document.getElementById("msg")){
         setTimeout(() => {
-            let message = document.getElementById("msg")
+            let message = document.getElementById("msg");
             let alert = new bootstrap.Alert(message);
             alert.close();
         }, 3000);
@@ -32,7 +32,7 @@ function dismissAlert() {
  */
 function changeScrollToAuto() {
     if(document.title === "Add Pension" || document.title === "Edit Pension") {
-        document.documentElement.style.setProperty('scroll-behavior', 'auto')
+        document.documentElement.style.setProperty('scroll-behavior', 'auto');
     }
 }
 
