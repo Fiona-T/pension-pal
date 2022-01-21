@@ -3,41 +3,41 @@
 {% block title %}Edit Job{% endblock %}
 
 {% block content %}
-<!-- container for page contents -->
-    <div class="container py-5 px-4">
-        <!--Breadcrumb navigation-->
-        <div class="row pt-5">
-            <nav aria-label="Breadcrumb navigation" class="pt-3">
-                <ul class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <a href="{% url 'my_jobs' %}">My Jobs</a>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="page">Edit Job</li>
-                </ul>
-            </nav>
-        </div>
-        <!-- row with one column -->
-        <div class="row py-3">
-            <div class="col-12 col-sm-8 col-lg-6 mx-auto pt-2">
-                <section>
-                    <!-- Edit Job section and form -->
-                    <h1 class="mb-4">Edit Job Details</h1>
-                    <p>Make the changes to the job details below, then press the <strong>Confirm Changes button</strong>
-                        to save the changes:</p>
-                    <form action="" method="POST" class="user-form">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        <div class="d-flex justify-content-between mt-5">
-                            <a class="btn btn-brand btn-icon btn-form" id="go-back"><i
-                                    class="bi bi-x-circle icon-btn-sm" aria-hidden="true"></i>Cancel</a>
-                            <button class="btn btn-brand btn-icon btn-form" type="submit"><i
-                                    class="bi bi-check-circle icon-btn-sm" aria-hidden="true"></i>Confirm
-                                Changes</button>
-                        </div>
-                    </form>
-                </section>
-            </div>
+<!-- container for page contents with two rows - breadcrumb navigation + form -->
+<div class="container py-5 px-4">
+    <!-- 1st row: Breadcrumb navigation -->
+    <div class="row pt-5">
+        <nav aria-label="Breadcrumb navigation" class="pt-3">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{% url 'my_jobs' %}">My Jobs</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Edit Job</li>
+            </ul>
+        </nav>
+    </div>
+    <!-- 2nd row with one column, containing the form -->
+    <div class="row py-3">
+        <div class="col-12 col-sm-8 col-lg-6 mx-auto pt-2">
+            <section>
+                <!-- Edit Job section and form -->
+                <h1 class="mb-4">Edit Job Details</h1>
+                <p>Make the changes to the job details below, then press the <strong>Confirm Changes button</strong>
+                    to save the changes:</p>
+                <form action="" method="POST" class="user-form">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="d-flex justify-content-between mt-5">
+                        <a class="btn btn-brand btn-icon btn-form" id="go-back"><i class="bi bi-x-circle icon-btn-sm"
+                                aria-hidden="true"></i>Cancel</a>
+                        <button class="btn btn-brand btn-icon btn-form" type="submit"><i
+                                class="bi bi-check-circle icon-btn-sm" aria-hidden="true"></i>Confirm
+                            Changes</button>
+                    </div>
+                </form>
+            </section>
         </div>
     </div>
+</div>
 
 {% endblock %}
