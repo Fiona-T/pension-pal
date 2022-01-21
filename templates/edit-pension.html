@@ -3,46 +3,47 @@
 {% block title %}Edit Pension{% endblock %}
 
 {% block content %}
-<!-- container for page contents -->
-    <div class="container py-5 px-4">
-        <!--Breadcrumb navigation-->
-        <div class="row pt-5">
-            <nav aria-label="Breadcrumb navigation">
-                <ul class="breadcrumb pt-3">
-                    <li class="breadcrumb-item">
-                        <a href="{% url 'my_pensions' %}">My Pensions</a>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="page">Edit Pension</li>
-                </ul>
-            </nav>
-        </div>
-        <!-- row with one column -->
-        <div class="row py-3">
-            <div class="col-12 col-sm-8 col-lg-6 mx-auto pt-2">
-                <section>
-                    <!-- Edit Pension section and form -->
-                    <h1 class="mb-4">Edit Pension Details</h1>
-                    <p>Make the changes to the pension details below, then press the <strong>Confirm Changes
-                            button</strong> to save the changes.</p>
-                    <p><em>Fields marked with <span class="required-indicator">*</span> must be completed!</em></p>
-                    <p>To make changes to the associated Job details (Employer name, date of joining service,
-                        date of leaving service, full or part time service), <a href="{% url 'edit_job' job.id %}">edit
-                            the job details here</a>, or go to the Edit button on that Job record on <a
-                            href="{% url 'my_jobs' %}">the My Jobs page</a>.</p>
-                    <form action="" method="POST" class="user-form" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        <div class="d-flex justify-content-between mt-5">
-                            <a class="btn btn-brand btn-icon btn-form" id="go-back"><i
-                                    class="bi bi-x-circle icon-btn-sm" aria-hidden="true"></i>Cancel</a>
-                            <button class="btn btn-brand btn-icon btn-form" type="submit"><i
-                                    class="bi bi-check-circle icon-btn-sm" aria-hidden="true"></i>Confirm
-                                Changes</button>
-                        </div>
-                    </form>
-                </section>
-            </div>
+<!-- container for page contents with two rows - breadcrumb navigation + form -->
+<div class="container py-5 px-4">
+    <!-- 1st row: Breadcrumb navigation -->
+    <div class="row pt-5">
+        <nav aria-label="Breadcrumb navigation">
+            <ul class="breadcrumb pt-3">
+                <li class="breadcrumb-item">
+                    <a href="{% url 'my_pensions' %}">My Pensions</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Edit Pension</li>
+            </ul>
+        </nav>
+    </div>
+    <!-- 2nd row with one column, containing the form -->
+    <div class="row py-3">
+        <div class="col-12 col-sm-8 col-lg-6 mx-auto pt-2">
+            <section>
+                <!-- Edit Pension section and form -->
+                <h1 class="mb-4">Edit Pension Details</h1>
+                <p>Make the changes to the pension details below, then press the <strong>Confirm Changes
+                        button</strong> to save the changes.</p>
+                <p><em>Fields marked with <span class="required-indicator">*</span> must be completed!</em></p>
+                <p>To make changes to the associated Job details (Employer name, date of joining service,
+                    date of leaving service, full or part time service), <a href="{% url 'edit_job' job.id %}">edit
+                        the job details here</a>, or go to the Edit button on that Job record on <a
+                        href="{% url 'my_jobs' %}">the My Jobs page</a>.</p>
+                <form action="" method="POST" class="user-form" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="d-flex justify-content-between mt-5">
+                        <a class="btn btn-brand btn-icon btn-form" id="go-back"><i class="bi bi-x-circle icon-btn-sm"
+                                aria-hidden="true"></i>Cancel</a>
+                        <button class="btn btn-brand btn-icon btn-form" type="submit"><i
+                                class="bi bi-check-circle icon-btn-sm" aria-hidden="true"></i>Confirm
+                            Changes</button>
+                    </div>
+                </form>
+            </section>
         </div>
     </div>
+    <!-- End of second row containing form -->
+</div>
 
 {% endblock %}
