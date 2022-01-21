@@ -5,8 +5,9 @@
 {% block content %}
 <!-- success page after Adding a Pension via Pension form -->
 <section class="py-5 px-4">
+    <!-- container with two rows: breadcrumb navigation + success msg -->
     <div class="container">
-        <!--Breadcrumb navigation-->
+        <!-- 1st row: Breadcrumb navigation -->
         <div class="row pt-5">
             <nav aria-label="Breadcrumb navigation">
                 <ul class="breadcrumb pt-3">
@@ -20,6 +21,7 @@
                 </ul>
             </nav>
         </div>
+        <!-- 2nd row: success msg -->
         <div class="row py-3">
             <h1 class="mb-4">Pension Added!</h1>
             <p>The Pension <span class="fw-bold">"{{ pension.scheme_name }}"</span> has been successfully added to your
