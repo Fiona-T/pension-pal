@@ -293,7 +293,7 @@ The content requirements for this project mainly consists of deciding what infor
 
 ### Database Schema
 ---
-The dataset for this project consists of the information entered by each registered user on their employments and attached pensions.
+The dataset for this project consists of the information entered by each registered user on their employments and attached pensions; along with the dataset of the pension providers that is maintained by the website owner.
 
 Some of the factors taken into account when creating the data model:
 - a user can only view details of the Job and Pension records they entered, they cannot view records of other users, therefore:
@@ -302,12 +302,13 @@ Some of the factors taken into account when creating the data model:
 - Each Pension record must have an associated employment/job, and can only be linked to one employment/job in this iteration of the project (later iterations may include functionality to add more than one employment to a pension, see [Future Features](#future-features)). An Employment/Job can be linked to more than one pension
   * Job/Employment is a Foreign Key (one to many relationship) in the Pension model.
 - The Pension records will be displayed as a series of cards in the My Pensions page, with summary details on the card. The user can click on View Details to view the complete details. 
-  * Therefore a slug will be used to generate the url when viewing the full detail of a pension record
+  * The automatically generated id (primary key) will be used to generate the url when viewing the full detail of a pension record
 - The user can upload a file as part of a Pension record. Since the live project will be deployed on Heroku which has ephemeral file storage, these files will be hosted on Cloudinary for persistent file storage
   * CloudinaryField will be used in the Pension model to store the url for the hosted file 
 - Pension provider name will be recorded as part of each Pension record. 
   * To ensure consistency, and to allow the pension provider website to be pre-populated instead of the user having to enter it on the Add Pension form, the list of pension providers and their associated website url will be contained in a separate PensionProvider table managed by the website owner
   * Pension provider name will be a Foreign Key (one to many relationship) in the Pension model
+  * Pension provider records will have a status of Active or Not Active, when adding a new pension record or editing an existing one, only the Active pension providers can be seleted. This to cater for pension providers that cease trading, but the book of business will then go to another provider - it is important for the users to keep up to date with this, so that they know who the current provider is when it comes to taking their benefits. 
 * All custom models will use the Django default primary key of auto-incrementing id
 
 The data is organised using the following models:
@@ -323,17 +324,21 @@ The data is organised using the following models:
   * deleted via the Delete record modal accessed using the Delete button
   * records are viewed on the My Jobs page
   * some details from the employment record are used when viewing the Pension details on My Pensions page
+  * Employer name must be unique for that user (so that it is clear which Employment the user is choosing when they select the Employment from the dropdown list when adding the Pension)
 - Pension
 ![diagram for Pension table](docs/erd/pension.png)
   * records are created, edited and deleted by a registered user from the frontend
   * created via the Add Pension button and form from My Pensions page
   * edited via the Edit Pension form accessed using the Edit button
   * deleted via the Delete record modal accessed using the Delete button
+  * deleting a Job record will delete any attached Pension records
+  * a Pension Provider record can't be deleted if there are Pension records attached
   * records are viewed on the My Pensions page
 - PensionProvider
 ![diagram for PensionProvider table](docs/erd/provider.png)
   * records are created, edited and deleted via the Admin panel by the website owner and cannot be edited by a regular user
   * data in this model is viewed as part of the Pension view
+  * when a user edits or adds a pension, they can select from the active Pension Provider records when choosing the Pension Provider for that pension record.
 
 ## Project structure
 ---
@@ -348,7 +353,7 @@ The project is developed using the Django framework and will be split into three
   * To handle creating, viewing, editing and deleting pensions by a registered user. 
   * This app will use the Pension model described above to hold the pension information created by users
   * This app depends on the Jobs app, as it requires information from the Job model for creating/editing of a pension record and for viewing pension details
-  * This app will also use the PensionProvider model
+  * This app will also use the PensionProvider model. The Provider model is maintained via the Django admin site, by the website owner.
 
 ## Technology
 ---
