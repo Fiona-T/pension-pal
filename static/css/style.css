@@ -298,7 +298,6 @@ h1 {
 .page-link:hover {
     color: #020638;
     background-color: #ff00ff;
-    border-color: #ff00ff;
 }
 
 .page-link:focus {
@@ -311,8 +310,10 @@ h1 {
     border-color: #ff00ff;
 }
 
+/* keep same colors on hover as this is current page so doesn't change the page */
 .current-page:hover {
     background-color: #fff;
+    border-color: #ff00ff;
 }
 
 /* ----------- Create, Edit forms on Jobs/Pensions pages */
