@@ -104,6 +104,13 @@ Colour palette:
 
 The colour combinations have all been checked for accessibility using the [WCAG Contrast Checker tool](https://chrome.google.com/webstore/detail/wcag-color-contrast-check/plnahcmalebffmaghcpcmpaciebdhgdf?hl=en) to meet at least level AA. 
 
+The contrast checker extension was used during development to check the contrast as changes were made to the website. A further check was done at the end of the project on each page. Two errors arose at this point:
+1. On the pages that have a breadcrumb navigation, the `active breadcrumb item` was failing contrast check because of using the Fuschia `#ff00ff` colour against the light background with small font size. To rectify this, the colour was changed to the main text colour which passes the contrast check. The active item is still identifiable as being different from the other breadcrumb items because it does not have the underline to indicate that it is a link. 
+2. On the Add Pension and Edit Pension form, the required field indicator `*` was also failing because of the small font size and the Fuschia `#ff00ff` colour against the light background. The font size was increased to 150% to make the  `*` stand out more, and it now passes the contrast check.
+
+All pages now meet at least level AA using the [WCAG Contrast Checker browser extension tool](https://chrome.google.com/webstore/detail/wcag-color-contrast-check/plnahcmalebffmaghcpcmpaciebdhgdf?hl=en).
+
+
 - #### Typography
 Montserrat is used throughout the entire website, with the different weights used to distinguish the headings, body text, etc. This is a clean, sans serif typeface which fits well with the style for this project. It is relatively rounded and is very readable, making it an appropriate choice for the body text. The heavier weights work well for the headings, since the design of this typeface was inspired by old signage and posters. 
 
