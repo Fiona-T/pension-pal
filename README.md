@@ -289,6 +289,7 @@ Montserrat is used throughout the entire website, with the different weights use
 
 ## Content Requirements
 ---
+The content requirements for this project mainly consists of deciding what information needed to be collected from the users and from there deciding on the structure of the database and models. The developer has a background in the pensions industry used this knowledge to decide on the information that would need to be recorded. This information would be the basic information needed at retirement stage, that a user might have to give to their pension provider when drawing down their benefits; or that would be useful for the user's financial planning. As the project develops over future iterations, more information would need to be gathered to enable further features.
 
 ### Database Schema
 ---
