@@ -3,9 +3,9 @@
 {% block title %}Pension Details{% endblock %}
 
 {% block content %}
-<!-- container for page contents -->
+<!-- container for page contents with two rows - breadcrumb navigation + pension details -->
 <div class="container py-5 px-4">
-    <!--Breadcrumb navigation-->
+    <!-- 1st row: Breadcrumb navigation -->
     <div class="row pt-5">
         <nav aria-label="Breadcrumb navigation">
             <ul class="breadcrumb pt-3">
@@ -15,10 +15,11 @@
                 <li class="breadcrumb-item active" aria-current="page">View Pension Details</li>
             </ul>
             <!--No href as link is determined by function in script.js to go back to last page in history-->
-            <a href="#" class="breadcrumb-item d-inline-block mt-2 mt-md-3" id="go-back">&larr; Back to previous page</a>
+            <a href="#" class="breadcrumb-item d-inline-block mt-2 mt-md-3" id="go-back">&larr; Back to previous
+                page</a>
         </nav>
     </div>
-    <!-- row with one column -->
+    <!-- 2nd row with one column, containing the pension details and delete modal -->
     <div class="row py-5">
         <div class="col-12 mx-auto pt-2 px-lg-5">
             <section>
@@ -29,19 +30,22 @@
                     of leaving service, full or part time service), <a href="{% url 'edit_job' job.id %}">you can edit
                         the job details here</a>, or go to the Edit button on that Job record on <a
                         href="{% url 'my_jobs' %}">the My Jobs page</a>.</p>
+                <!-- Column containing card with pension details -->
                 <div class="col-12 px-2 px-md-4">
-                    <!--Card containing the pension details - title plus a div for each item, div is flex container for label and value-->
+                    <!--Card showing pension details: title (scheme name), then a div for each item, div is flex container for label and value-->
                     <div class="card mb-4 mx-md-3 mx-lg-5">
                         <div class="card-body px-md-5 my-2">
                             <h4 class="card-title">{{ pension.scheme_name }}</h4>
                             <div class="mb-2 mb-md-3 d-flex flex-column flex-md-row flex-wrap">
-                                <p class="card-text card-label mb-1 mb-md-0 d-md-inline"><i class="bi bi-building card-icon"
-                                        aria-hidden="true"></i> Employment this pension relates to:</p>
+                                <p class="card-text card-label mb-1 mb-md-0 d-md-inline"><i
+                                        class="bi bi-building card-icon" aria-hidden="true"></i> Employment this pension
+                                    relates to:</p>
                                 <p class="mb-1 mb-md-0 d-md-inline"> {{ pension.employment }}</p>
                             </div>
                             <div class="mb-2 mb-md-3 d-flex flex-column flex-md-row flex-wrap">
-                                <p class="card-text card-label mb-1 mb-md-0 d-md-inline"><i class="bi bi-paperclip card-icon"
-                                        aria-hidden="true"></i> Policy / scheme number:</p>
+                                <p class="card-text card-label mb-1 mb-md-0 d-md-inline"><i
+                                        class="bi bi-paperclip card-icon" aria-hidden="true"></i> Policy / scheme
+                                    number:</p>
                                 <p class="mb-1 mb-md-0 d-md-inline"> {{ pension.policy_number }}</p>
                             </div>
                             <div class="mb-2 mb-md-3 d-flex flex-column flex-md-row flex-wrap">
@@ -63,8 +67,9 @@
                                 <p class="mb-1 mb-md-0 d-md-inline">{{ pension.get_pension_type_display }}</p>
                             </div>
                             <div class="mb-2 mb-md-3 d-flex flex-column flex-md-row flex-wrap">
-                                <p class="card-text card-label mb-1 mb-md-0 d-md-inline"><i class="bi bi-calendar-plus-fill card-icon"
-                                    aria-hidden="true"></i> Date joined pension scheme:</p>
+                                <p class="card-text card-label mb-1 mb-md-0 d-md-inline"><i
+                                        class="bi bi-calendar-plus-fill card-icon" aria-hidden="true"></i> Date joined
+                                    pension scheme:</p>
                                 <p class="mb-1 mb-md-0 d-md-inline">{{ pension.date_joined_scheme }}</p>
                             </div>
                             <div class="mb-2 mb-md-3 d-flex flex-column flex-md-row flex-wrap">
@@ -86,8 +91,9 @@
                                 <p class="mb-1 mb-md-0 d-md-inline">€ {{ pension.salary }}</p>
                             </div>
                             <div class="mb-2 mb-md-3 d-flex flex-column flex-md-row flex-wrap">
-                                <p class="card-text card-label mb-1 mb-md-0 d-md-inline"><i class="bi bi-exclamation-triangle card-icon"
-                                    aria-hidden="true"></i> Pension Adjustment Order (PAO)?</p>
+                                <p class="card-text card-label mb-1 mb-md-0 d-md-inline"><i
+                                        class="bi bi-exclamation-triangle card-icon" aria-hidden="true"></i> Pension
+                                    Adjustment Order (PAO)?</p>
                                 <p class="mb-1 mb-md-0 d-md-inline">{{ pension.pao|yesno:"Yes,No" }}</p>
                             </div>
                             <div class="mb-2 mb-md-3 d-flex flex-column flex-md-row flex-wrap">
@@ -156,6 +162,8 @@
                                 </p>
                             </div>
                         </div>
+                        <!-- End of card body displaying pension details -->
+                        <!-- Card footer with edit and delete buttons -->
                         <div class="card-footer d-flex justify-content-around mb-4">
                             <a href="{% url 'edit_pension' pension.id %}" class="btn btn-brand btn-icon btn-card"><i
                                     class="bi bi-pencil icon-btn-sm" aria-hidden="true"></i> Edit</a>
@@ -163,7 +171,9 @@
                                 class="btn btn-brand btn-icon btn-card"><i class="bi bi-trash icon-btn-sm"
                                     aria-hidden="true"></i> Delete</a>
                         </div>
+                        <!-- end of card footer -->
                     </div>
+                    <!-- End of the card with the pension details -->
                 </div>
                 <!-- Delete Pension modal, with button to confirm deletion and submit form, or Cancel to cancel -->
                 <div class="modal fade" id="deleteModal{{ pension.id }}" tabindex="-1"
@@ -205,13 +215,17 @@
                                             aria-hidden="true"></i>Delete Pension</button>
                                 </form>
                             </div>
+                            <!-- End of footer on delete pension modal -->
                         </div>
+                        <!-- End of modal content div -->
                     </div>
+                    <!-- End of modal dialog div -->
                 </div>
                 <!-- end of Delete Pension modal -->
             </section>
         </div>
     </div>
+    <!-- End of second row with pension details and delete modal-->
 </div>
 
 {% endblock %}
