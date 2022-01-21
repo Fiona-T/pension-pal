@@ -13,8 +13,9 @@
         </div>
     </div>
 </section>
-<!-- overview section -->
-<section class="home-bg py-5" id="learn-more">
+<!-- End of hero image and callout section -->
+<!-- overview section (using div as no heading) -->
+<div class="home-bg py-5" id="learn-more">
     <div class="container py-5">
         <div class="row text-center">
             <div class="col-12 col-md-4 mb-4">
@@ -31,7 +32,8 @@
             </div>
         </div>
     </div>
-</section>
+</div>
+<!-- End of overview section -->
 <!-- explanatory more details section -->
 <section>
     <!-- Container - 3 rows - What, Why, How -->
@@ -43,39 +45,45 @@
                 associated occupational pension scheme. You record the details that will be required when you come to
                 draw down the pension benefits at retirement age.</p>
         </div>
+        <!-- End of What section -->
         <!-- Why section - two rows -->
         <div class="row px-4 px-md-5 py-3">
             <!-- First row -->
             <div class="row">
                 <h2>Why Use PensionPal?</h2>
-                <p>PensionPal makes dealing with your pensions as painless as possible. Simply record the relevant details
-                    when you leave an employment. This is much easier to do while they are fresh in your mind and the documentation is to hand.</p>
-                <p>The records are there when you need them later on, for example at retirement age. No more hunting around for long forgotten documents,
-                    everything is there for you in one place, when you need it.</p>
+                <p>PensionPal makes dealing with your pensions as painless as possible. Simply record the relevant
+                    details when you leave an employment. This is much easier to do while they are fresh in your mind
+                    and the documentation is to hand.</p>
+                <p>The records are there when you need them later on, for example at retirement age. No more hunting
+                    around for long forgotten documents, everything is there for you in one place, when you need it.</p>
             </div>
             <!-- second row has 3 columns - icon plus text -->
             <div class="row">
                 <div class="col-12 col-lg-4">
-                    <p class="details-container"><i class="bi bi-files details-icon pe-3" aria-hidden="true"></i><span>All your
-                            pension details are in one place, linked to the relevant employment</span></p>
+                    <p class="details-container"><i class="bi bi-files details-icon pe-3"
+                            aria-hidden="true"></i><span>All your pension details are in one place, linked to the
+                            relevant employment</span></p>
                 </div>
                 <div class="col-12 col-lg-4">
-                    <p class="details-container"><i class="bi bi-alarm details-icon pe-3" aria-hidden="true"></i><span>You won’t forget
-                            about any of your pension plans once they're on PensionPal</span></p>
+                    <p class="details-container"><i class="bi bi-alarm details-icon pe-3"
+                            aria-hidden="true"></i><span>You won’t forget about any of your pension plans once they're
+                            on PensionPal</span></p>
                 </div>
                 <div class="col-12 col-lg-4">
-                    <p class="details-container"><i class="bi bi-graph-up-arrow details-icon pe-3" aria-hidden="true"></i><span>Easier to
-                            plan for the future since you can see an overview of all your pensions</span></p>
+                    <p class="details-container"><i class="bi bi-graph-up-arrow details-icon pe-3"
+                            aria-hidden="true"></i><span>Easier to plan for the future since you can see an overview of
+                            all your pensions</span></p>
                 </div>
             </div>
         </div>
+        <!-- End of Why section -->
         <!-- How section - 3 rows -->
         <div class="row px-4 px-md-5 py-3">
             <!-- First row -->
             <div class="row">
                 <h2>How to Use PensionPal?</h2>
-                <p>It couldn’t be easier! <a href="{% url 'account_signup' %}">Sign Up for an account</a>, then get started adding your Employments
-                    and associated Pensions.</p>
+                <p>It couldn’t be easier! <a href="{% url 'account_signup' %}">Sign Up for an account</a>, then get
+                    started adding your Employments and associated Pensions.</p>
             </div>
             <!-- second row has 3 columns - icon plus text -->
             <div class="row">
@@ -104,6 +112,9 @@
                     full benefit out of the tool.</p>
             </div>
         </div>
+        <!-- End of How section -->
     </div>
+    <!-- End of What, Why, How container -->
 </section>
+<!-- End of explanatory more details section -->
 {%endblock%}
