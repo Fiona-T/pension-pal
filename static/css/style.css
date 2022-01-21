@@ -225,11 +225,13 @@ h1 {
 
 /* change the Bootstrap default active item colour */
 .breadcrumb-item.active {
-    color: #ff00ff;
+    color: #131967;
 }
 
+/* margin top for when breadcrumb nav gets split over more than one line on smaller screen*/
 .breadcrumb-item {
     font-size: 88%;
+    margin-top: 0.4rem;
 }
 
 /* ----------- cards in Jobs/Pensions list */
