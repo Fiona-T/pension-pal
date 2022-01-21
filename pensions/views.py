@@ -97,13 +97,15 @@ class AddPensionSuccess(LoginRequiredMixin, View):
 
     def get(self, request, pension_id):
         """
-        Renders the success page after submitting the PensionForm from add-pension.
+        Renders success page after submitting the PensionForm from add-pension.
         Contains link to view the full pension details just submitted
         If pension id in url was not added by the user, raise 404 error
         """
         pension = get_object_or_404(Pension, id=pension_id)
         if pension.added_by == request.user:
-            return render(request, 'add-pension-success.html', {'pension': pension})
+            return render(
+                request, 'add-pension-success.html', {'pension': pension}
+                )
         else:
             raise Http404
 

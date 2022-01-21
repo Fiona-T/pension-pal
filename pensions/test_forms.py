@@ -89,6 +89,10 @@ class TestPensionForm(TestCase):
             )
 
     def test_explicitly_set_field_labels_exist(self):
+        """
+        Check labels are present for the fields where a label was explicitly
+        set in the form Meta class
+        """
         form = PensionForm()
         self.assertTrue(
             form.fields['salary'].label is None or
@@ -96,13 +100,13 @@ class TestPensionForm(TestCase):
             )
         self.assertTrue(
             form.fields['pao'].label is None or
-            form.fields['pao'].label
-            == 'Is there a Pension Adjustment Order (PAO) on the pension?'
+            form.fields['pao'].label == 'Is there a Pension Adjustment Order '
+            '(PAO) on the pension?'
             )
         self.assertTrue(
             form.fields['director'].label is None or
-            form.fields['director'].label
-            == 'Were you a 20% director in this employment?'
+            form.fields['director'].label == 'Were you a 20% director in this '
+            'employment?'
             )
         self.assertTrue(
             form.fields['value'].label is None or
@@ -120,8 +124,8 @@ class TestPensionForm(TestCase):
     def test_required_fields_are_required(self):
         """
         Create a form without any details filled in, check that it is not valid
-        Check that each required field name key is in the keys of the form errors dict
-        Check that the error returned for each empty field is correct
+        Check that each required field name key is in the keys of the form
+        errors dict. Check that error returned for each empty field is correct
         """
         form = PensionForm({
             'added_by': '',
