@@ -25,143 +25,151 @@
 </section>
 <!-- 2nd section: Details of the jobs added by the user -->
 <section class="py-5 px-4" id="your-jobs">
+    <!-- container with two rows: 1st row heading, second row cards with job details, or note that there are no jobs -->
     <div class="container">
+        <!-- 1st row -->
         <div class="row py-3">
             <h1 class="mb-4">Your Jobs</h1>
-            <!-- row containing colums, each with cards showing job details -->
-            <div class="row">
-                <!-- if the job list context is not empty -->
-                {% if job_list %}
-                <!-- for each job passed in from MyJobs ListView, display the details in a card, with edit and delete buttons -->
-                {% for job in job_list %}
-                <div class="col-12 col-sm-10 col-md-6 col-lg-4 card-group">
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <h4 class="card-title">{{ job.employer_name }}</h4>
-                            <p class="card-text"><i class="bi bi-play-btn card-icon" aria-hidden="true"></i><span
-                                    class="card-label"> Start date:</span> {{ job.start_date }}</p>
-                            <p class="card-text"><i class="bi bi-stop-btn card-icon" aria-hidden="true"></i><span
-                                    class="card-label"> Finish date:</span> {{ job.finish_date }}</p>
-                            <p class="card-text"><i class="bi bi-calendar-week card-icon" aria-hidden="true"></i>
-                                {{ job.get_full_or_part_time_display }}</p>
-                            <p class="card-text"><i class="bi bi-piggy-bank card-icon" aria-hidden="true"></i><span
-                                    class="card-label">Pension:</span>
-                                <!--If no pensions linked to job-->
-                                {% if not job.linked_pensions.all %} No pensions attached
-                                <!--If only one pension, then display the scheme name, linked to the view details page for that pension-->
-                                {% elif job.linked_pensions.all|length == 1 %}
-                                {% for pension in job.linked_pensions.all %}
-                                <a href="{% url 'view_pension' pension.id %}">{{ pension.scheme_name }}</a>
-                                {% endfor %}
-                                <!--If more than one linked pension, list them-->
-                                {% else %} Multiple pensions, listed below:
-                            </p>
-                            {% for pension in job.linked_pensions.all %}
-                            <!--for each pension, show the scheme name, linked to the view details page for that pension-->
-                            <p>Pension {{ forloop.counter }}: <a
-                                    href="{% url 'view_pension' pension.id %}">{{ pension.scheme_name }}</a></p>
-                            {% endfor %}
-                            {% endif %}
-                        </div>
-                        <div class="card-footer d-flex justify-content-around">
-                            <a href="{% url 'edit_job' job.id %}" class="btn btn-brand btn-icon btn-card"><i class="bi bi-pencil icon-btn-sm"
-                                    aria-hidden="true"></i> Edit</a>
-                            <a href="#deleteModal{{ job.id }}" data-bs-toggle="modal" class="btn btn-brand btn-icon btn-card"><i class="bi bi-trash icon-btn-sm"
-                                    aria-hidden="true"></i> Delete</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Delete Job modal, with button to confirm deletion and submit form, or Cancel to cancel -->
-                <div class="modal fade" id="deleteModal{{ job.id }}" tabindex="-1" aria-labelledby="deleteJobModalJob{{ job.id }}"
-                    aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <!-- Delete Job modal header, with Close button to close the modal -->
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="deleteJobModalJob{{ job.id }}">Delete Job</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close delete job pop up and go back to My Jobs page"></button>
-                            </div>
-                            <!-- Delete Job modal body, with job details that will be deleted -->
-                            <div class="modal-body">
-                                <p><strong>Are you sure you want to permanently delete this job record?</strong></p>
-                                <div class="modal-details">
-                                    <p><span class="card-label">Employer name:</span> {{job.employer_name}}</p>
-                                    <p><span class="card-label">Start date:</span> {{job.start_date}}</p>
-                                    <p><span class="card-label">Finish date:</span> {{job.finish_date}}</p>
-                                </div>
-                                <p>The job will no longer appear in your My Jobs page.</p>
-                                <!--If there are pensions attached to the job, note that they will be deleted too-->
-                                {% if job.linked_pensions.all %}
-                                <p><strong>The following pension scheme(s) are attached to this job and will also be
-                                        deleted:</strong></p>
-                                <ul>
-                                    {% for pension in job.linked_pensions.all %}
-                                    <li>{{ pension.scheme_name }}</li>
-                                    {% endfor %}
-                                </ul>
-                                {% endif %}
-                                <p><strong>This action cannot be undone.</strong></p>
-                                <p>If you are sure you want to delete the job{% if job.linked_pensions.all %} and
-                                    attached pension(s){% endif %}, then press Delete Job below. Otherwise, cancel to go
-                                    back.</p>
-                            </div>
-                            <!-- Delete Job modal footer, with button to cancel, and form with button to submit deletion request -->
-                            <div class="modal-footer d-flex justify-content-around">
-                                <button type="button" class="btn btn-brand btn-icon btn-secondary mb-2 w-50"
-                                    data-bs-dismiss="modal"><i class="bi bi-x-circle icon-btn-sm"
-                                        aria-hidden="true"></i>Cancel</button>
-                                <form class="d-inline" action="{% url 'delete_job' job.id %}" method="POST">
-                                    {% csrf_token %}
-                                    <button type="submit" value="{{ job.id }}" name="job_id"
-                                        class="btn btn-brand btn-icon mb-2"><i class="bi bi-trash icon-btn-sm"
-                                            aria-hidden="true"></i>Delete Job</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- end of Delete Job modal -->
-                {% endfor %}
-                <!-- pagination navigation -->
-                {% if is_paginated %}
-                <nav class="pt-3" aria-label="Page navigation for Your Jobs list">
-                    <ul class="pagination justify-content-center">
-                        <!-- if there are previous pages, arrow to go to first page, arrow to go to previous page -->
-                        {% if page_obj.has_previous %}
-                        <li>
-                            <a href="?page=1#your-jobs" class="page-link m-1" aria-label="Go to first page">&larrb;</a>
-                        </li>
-                        <li>
-                            <a href="?page={{ page_obj.previous_page_number }}#your-jobs" class="page-link m-1"
-                                aria-label="Go to previous page">&lt;</a>
-                        </li>
-                        {% endif %}
-                        <!-- current page number -->
-                        <li class="page-link current-page m-1">{{ page_obj.number }}</li>
-                        <!-- if there is a next page, arrow to go to next page, arrow to go to last page -->
-                        {% if page_obj.has_next %}
-                        <li>
-                            <a href="?page={{ page_obj.next_page_number }}#your-jobs" class="page-link m-1"
-                                aria-label="Go to next page">&gt;</a>
-                        </li>
-                        <li>
-                            <a href="?page={{ page_obj.paginator.num_pages }}#your-jobs" class="page-link m-1"
-                                aria-label="Go to last page">&rarrb;</a>
-                        </li>
-                        {% endif %}
-                    </ul>
-                </nav>
-                {% endif %}
-                <!-- if the job list context is empty, i.e. user does not have any jobs recorded -->
-                {% else %}
-                <p>You do not currently have any jobs recorded.</p>
-                <p><a href="{% url 'add_job' %}">Get started by adding a job now</a>, or use the Add Job button at
-                    the top of this page.</p>
-                {% endif %}
-            </div>
         </div>
+        <!-- 2nd row: containing colums, each with cards showing job details, or else note that there are no jobs -->
+        <div class="row">
+            <!-- if the job list context is not empty -->
+            {% if job_list %}
+            <!-- for each job passed in from MyJobs ListView, display the details in a card, with edit and delete buttons -->
+            {% for job in job_list %}
+            <div class="col-12 col-sm-10 col-md-6 col-lg-4 card-group">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ job.employer_name }}</h4>
+                        <p class="card-text"><i class="bi bi-play-btn card-icon" aria-hidden="true"></i><span
+                                class="card-label"> Start date:</span> {{ job.start_date }}</p>
+                        <p class="card-text"><i class="bi bi-stop-btn card-icon" aria-hidden="true"></i><span
+                                class="card-label"> Finish date:</span> {{ job.finish_date }}</p>
+                        <p class="card-text"><i class="bi bi-calendar-week card-icon" aria-hidden="true"></i>
+                            {{ job.get_full_or_part_time_display }}</p>
+                        <p class="card-text"><i class="bi bi-piggy-bank card-icon" aria-hidden="true"></i><span
+                                class="card-label">Pension:</span>
+                            <!--If no pensions linked to job-->
+                            {% if not job.linked_pensions.all %} No pensions attached
+                            <!--If only one pension, then display the scheme name, linked to the view details page for that pension-->
+                            {% elif job.linked_pensions.all|length == 1 %}
+                            {% for pension in job.linked_pensions.all %}
+                            <a href="{% url 'view_pension' pension.id %}">{{ pension.scheme_name }}</a>
+                            {% endfor %}
+                            <!--If more than one linked pension, list them-->
+                            {% else %} Multiple pensions, listed below:
+                        </p>
+                        {% for pension in job.linked_pensions.all %}
+                        <!--for each pension, show the scheme name, linked to the view details page for that pension-->
+                        <p>Pension {{ forloop.counter }}: <a
+                                href="{% url 'view_pension' pension.id %}">{{ pension.scheme_name }}</a></p>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                    <!--card footer with edit and delete buttons-->
+                    <div class="card-footer d-flex justify-content-around">
+                        <a href="{% url 'edit_job' job.id %}" class="btn btn-brand btn-icon btn-card"><i
+                                class="bi bi-pencil icon-btn-sm" aria-hidden="true"></i> Edit</a>
+                        <a href="#deleteModal{{ job.id }}" data-bs-toggle="modal"
+                            class="btn btn-brand btn-icon btn-card"><i class="bi bi-trash icon-btn-sm"
+                                aria-hidden="true"></i> Delete</a>
+                    </div>
+                </div>
+            </div>
+            <!--end of Job card-->
+            <!-- Delete Job modal, with button to confirm deletion and submit form, or Cancel to cancel -->
+            <div class="modal fade" id="deleteModal{{ job.id }}" tabindex="-1"
+                aria-labelledby="deleteJobModalJob{{ job.id }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- Delete Job modal header, with Close button to close the modal -->
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteJobModalJob{{ job.id }}">Delete Job</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close delete job pop up and go back to My Jobs page"></button>
+                        </div>
+                        <!-- Delete Job modal body, with job details that will be deleted -->
+                        <div class="modal-body">
+                            <p><strong>Are you sure you want to permanently delete this job record?</strong></p>
+                            <div class="modal-details">
+                                <p><span class="card-label">Employer name:</span> {{job.employer_name}}</p>
+                                <p><span class="card-label">Start date:</span> {{job.start_date}}</p>
+                                <p><span class="card-label">Finish date:</span> {{job.finish_date}}</p>
+                            </div>
+                            <p>The job will no longer appear in your My Jobs page.</p>
+                            <!--If there are pensions attached to the job, note that they will be deleted too-->
+                            {% if job.linked_pensions.all %}
+                            <p><strong>The following pension scheme(s) are attached to this job and will also be
+                                    deleted:</strong></p>
+                            <ul>
+                                {% for pension in job.linked_pensions.all %}
+                                <li>{{ pension.scheme_name }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                            <p><strong>This action cannot be undone.</strong></p>
+                            <p>If you are sure you want to delete the job{% if job.linked_pensions.all %} and
+                                attached pension(s){% endif %}, then press Delete Job below. Otherwise, cancel to go
+                                back.</p>
+                        </div>
+                        <!-- Delete Job modal footer, with button to cancel, and form with button to submit deletion request -->
+                        <div class="modal-footer d-flex justify-content-around">
+                            <button type="button" class="btn btn-brand btn-icon btn-secondary mb-2 w-50"
+                                data-bs-dismiss="modal"><i class="bi bi-x-circle icon-btn-sm"
+                                    aria-hidden="true"></i>Cancel</button>
+                            <form class="d-inline" action="{% url 'delete_job' job.id %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit" value="{{ job.id }}" name="job_id"
+                                    class="btn btn-brand btn-icon mb-2"><i class="bi bi-trash icon-btn-sm"
+                                        aria-hidden="true"></i>Delete Job</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end of Delete Job modal -->
+            {% endfor %}
+            <!-- pagination navigation -->
+            {% if is_paginated %}
+            <nav class="pt-3" aria-label="Page navigation for Your Jobs list">
+                <ul class="pagination justify-content-center">
+                    <!-- if there are previous pages, arrow to go to first page, arrow to go to previous page -->
+                    {% if page_obj.has_previous %}
+                    <li>
+                        <a href="?page=1#your-jobs" class="page-link m-1" aria-label="Go to first page">&larrb;</a>
+                    </li>
+                    <li>
+                        <a href="?page={{ page_obj.previous_page_number }}#your-jobs" class="page-link m-1"
+                            aria-label="Go to previous page">&lt;</a>
+                    </li>
+                    {% endif %}
+                    <!-- current page number -->
+                    <li class="page-link current-page m-1">{{ page_obj.number }}</li>
+                    <!-- if there is a next page, arrow to go to next page, arrow to go to last page -->
+                    {% if page_obj.has_next %}
+                    <li>
+                        <a href="?page={{ page_obj.next_page_number }}#your-jobs" class="page-link m-1"
+                            aria-label="Go to next page">&gt;</a>
+                    </li>
+                    <li>
+                        <a href="?page={{ page_obj.paginator.num_pages }}#your-jobs" class="page-link m-1"
+                            aria-label="Go to last page">&rarrb;</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+            {% endif %}
+            <!--end of pagination-->
+            <!-- if the job list context is empty, i.e. user does not have any jobs recorded -->
+            {% else %}
+            <p>You do not currently have any jobs recorded.</p>
+            <p><a href="{% url 'add_job' %}">Get started by adding a job now</a>, or use the Add Job button at
+                the top of this page.</p>
+            {% endif %}
+        </div>
+        <!-- End of second row with job details -->
     </div>
+    <!-- end of container -->
 </section>
 
 {% endblock %}
