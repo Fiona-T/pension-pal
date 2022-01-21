@@ -359,11 +359,13 @@ label[for="id_pao"], label[for="id_director"] {
 label.required-label::after {
     content: "*";
     color: #ff00ff;
+    font-size: 150%;
 }
 
-/* colour of asterisk that is shown above the form */
+/* colour of asterisk that is shown above the form - increased font-size for accessibility */
 .required-indicator {
     color: #ff00ff;
+    font-size: 150%;
 }
 
 /* styles for ul containing Django form error messages */
