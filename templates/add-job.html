@@ -3,41 +3,42 @@
 {% block title %}Add Job{% endblock %}
 
 {% block content %}
-<!-- container for page contents -->
-    <div class="container py-5 px-4">
-        <!--Breadcrumb navigation-->
-        <div class="row pt-5">
-            <nav aria-label="Breadcrumb navigation">
-                <ul class="breadcrumb pt-3">
-                    <li class="breadcrumb-item">
-                        <a href="{% url 'my_jobs' %}">My Jobs</a>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="page">Add Job</li>
-                </ul>
-            </nav>
-        </div>
-        <!-- row with one column -->
-        <div class="row py-3">
-            <div class="col-12 col-sm-8 col-lg-6 mx-auto pt-2">
-                <section>
-                    <h1 class="mb-4">Add a Job</h1>
-                    <p>Enter the details of the job below then press the <strong>Add Job button</strong> to save the
-                        changes:</p>
-                    <p><em>All fields must be completed!</em></p>
-                    <!-- Add Job form -->
-                    <form action="" method="POST" class="user-form">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        <div class="d-flex justify-content-between mt-5">
-                            <a class="btn btn-brand btn-icon btn-form" id="go-back"><i
-                                    class="bi bi-x-circle icon-btn-sm" aria-hidden="true"></i>Cancel</a>
-                            <button class="btn btn-brand btn-icon btn-form" type="submit"><i
-                                    class="bi bi-check-circle icon-btn-sm" aria-hidden="true"></i>Add Job</button>
-                        </div>
-                    </form>
-                </section>
-            </div>
+<!-- container for page contents with two rows - breadcrumb navigation + form -->
+<div class="container py-5 px-4">
+    <!-- 1st row: Breadcrumb navigation-->
+    <div class="row pt-5">
+        <nav aria-label="Breadcrumb navigation">
+            <ul class="breadcrumb pt-3">
+                <li class="breadcrumb-item">
+                    <a href="{% url 'my_jobs' %}">My Jobs</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Add Job</li>
+            </ul>
+        </nav>
+    </div>
+    <!-- 2nd row with one column, containing the form -->
+    <div class="row py-3">
+        <div class="col-12 col-sm-8 col-lg-6 mx-auto pt-2">
+            <section>
+                <h1 class="mb-4">Add a Job</h1>
+                <p>Enter the details of the job below then press the <strong>Add Job button</strong> to save the
+                    changes:</p>
+                <p><em>All fields must be completed!</em></p>
+                <!-- Add Job form -->
+                <form action="" method="POST" class="user-form">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="d-flex justify-content-between mt-5">
+                        <a class="btn btn-brand btn-icon btn-form" id="go-back"><i class="bi bi-x-circle icon-btn-sm"
+                                aria-hidden="true"></i>Cancel</a>
+                        <button class="btn btn-brand btn-icon btn-form" type="submit"><i
+                                class="bi bi-check-circle icon-btn-sm" aria-hidden="true"></i>Add Job</button>
+                    </div>
+                </form>
+                <!-- End of Add Job form -->
+            </section>
         </div>
     </div>
+</div>
 
 {% endblock %}
