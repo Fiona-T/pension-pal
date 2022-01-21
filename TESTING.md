@@ -28,6 +28,17 @@
 ### Features Testing
 ### Other Manual Testing
 ### Automated Testing
+Automated testing was carried out on the Python code in each of the three apps. Tests were written as each feature was developed, in line with the Agile approach used for the project development. The created tests were ran and the feature was not closed until the tests passed. 
+
+On completion of the project, all tests were ran again to ensure they still passed and the results of these are shown below. The tests can be viewed in the relevant `test_forms.py`, `test_views.py` and `test_models.py` files in each app.
+
+- Pages app automated test results - no models or forms, so only view tests
+![Pages app automated test results](docs/automated-testing/pages-app-automated-tests.png)
+- Jobs app automated test results - forms, models, views
+![Jobs app automated test results](docs/automated-testing/jobs-app-automated-tests.png)
+- Pensions app automated test results - forms, models, views
+![Pensions app automated test results](docs/automated-testing/pensions-app-automated-tests.png)
+
 ### Fixed Bugs
 The following bugs were encountered during development and during testing.
 
