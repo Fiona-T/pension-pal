@@ -137,6 +137,18 @@ Montserrat is used throughout the entire website, with the different weights use
 
 [View all wireframes in pdf here.](docs/wireframes/wireframes-all.pdf)
 
+#### Main Changes from Original Wireframe Designs
+- On the My Jobs page, the job records now includes details of the attached pensions, with a link to each pension; or a note that there are no pensions attached to the job
+- The Delete Job modal also lists the attached pensions that would be deleted if the Job was deleted (if there are no pensions attached there is no such message)
+- The Add Job success page includes a direct link to the Add Pension form, instead of just a link to the My Pensions page, where the user would then click on the Add Pension button
+- The My Jobs and My Pensions pages show a message if the user does not have any job records or any pension records respectively
+- The forgot password link on the Sign In page was removed as email service (which would be needed to send the reset password link) has not been implemented due to time constraints. This is a future feature.
+- On the Add Pension page, the form is not displayed if the user does not have any Job records (since they need to attach the Pension to a Job)
+- The Add Pension Success page contains a direct link to view the pension record just added
+- The View Pension and Edit Pension pages both contain a direct link to the Edit Job page for the job record the pension is attached to
+- The View Pension page contains a note underneath the Pension Provider details, if that Pension Provider is no longer active (so that user can edit the record to the new pension provider, as the pension will now be looked after by a different pension provider)
+- The mobile wireframes show a logo in the page header, however this was not implemented and the PensionPal name shows at all sizes. There is enough space in the header and if the user name is long, there is enough clear space at the top of the page content for the header to spill onto two rows
+
 ## Features
 ---
 ### Existing Features
