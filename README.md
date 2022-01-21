@@ -6,7 +6,7 @@ PensionPal is a website for users in Ireland to record details of their working 
 
 [View the live website here](https://pensionpal.herokuapp.com/). *Link opens in same tab, right click to open in a new tab.*
 
-![device mockup - to be added](#)
+![device mockup](docs/device-mockup.png)
 
 ## Table of Contents
 ---
