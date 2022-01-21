@@ -16,6 +16,14 @@
 ## Testing
 ---
 ### Code Validation
+- The [W3C Markup Validation Service](https://validator.w3.org/) was used to validate the HTML on every page of the project. Two small errors were raised in relation to a missing `;` after the copyright entity, and a section without a `heading` element. These were rectified and all pages pass the validation check. The [results of checking each HTML page can be viewed here](docs/code-validation/html-validation.pdf).
+
+- The [W3C CSS Validation Service](https://jigsaw.w3.org/css-validator/) was used to validate the project's custom CSS. [The CSS passes and the results can be viewed here](docs/code-validation/css-validation.png).
+
+- [JSHint](https://jshint.com/) was used to check the quality of the JavaScript code and check for errors. Two `Missing semicolon` errors were rectified and there are no errors. [The results of this check can be viewed here](docs/code-validation/javascript-validation.png).
+
+- The Python code has been validated using [PEP8 online checker](http://pep8online.com/). Errors in relation to `line too long (86 > 79 characters)` were fixed. There are no validation errors in the sumitted code for custom Python code. Django standard files have not been amended in relation to line length errors. The [results of validation each python file can be viewed here](docs/code-validation/python-validation.pdf).
+
 ### Test Cases - user stories
 ### Features Testing
 ### Other Manual Testing
