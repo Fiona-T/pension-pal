@@ -31,9 +31,6 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-# temporarily added so can use device mockup generator for deployed site
-X_FRAME_OPTIONS = 'SAMEORIGIN'
-
 ALLOWED_HOSTS = ['pensionpal.herokuapp.com', 'localhost']
 
 
