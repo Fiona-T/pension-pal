@@ -27,127 +27,132 @@
 </section>
 <!-- 2nd section: Details of the Pensions added by the user -->
 <section class="py-5 px-4" id="your-pensions">
+    <!-- container with two rows: 1st row heading, second row cards with pension details -->
     <div class="container">
+        <!-- 1st row: heading -->
         <div class="row py-3">
             <h1 class="mb-4">Your Pensions</h1>
-            <!-- row containing columns with cards showing pension summary details -->
-            <div class="row">
-                {% if pension_list %}
-                <!-- if the pension list context is not empty -->
-                {% for pension in pension_list %}
-                <!-- for each pension passed in from MyPensions ListView, display summary details in a card, with edit and delete buttons -->
-                <div class="col-12 col-sm-10 col-md-6 col-lg-4 card-group">
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <h4 class="card-title">{{ pension.scheme_name }}</h4>
-                            <p class="card-text"><i class="bi bi-building card-icon" aria-hidden="true"></i><span
-                                    class="card-label"> Job:</span> {{ pension.employment }}</p>
-                            <p class="card-text"><i class="bi bi-piggy-bank card-icon" aria-hidden="true"></i><span
-                                    class="card-label"> Value:</span> € {{ pension.value }}</p>
-                        </div>
-                        <div class="card-footer">
-                            <div class="d-flex justify-content-center mb-3">
-                                <a href="{% url 'view_pension' pension.id %}"
-                                    class="btn btn-brand btn-icon btn-card btn-card-full"><i
-                                        class="bi bi-eyeglasses icon-btn-sm" aria-hidden="true"></i> View Full
-                                    Details</a>
-                            </div>
-                            <div class="d-flex justify-content-between mb-1">
-                                <a href="{% url 'edit_pension' pension.id %}" class="btn btn-brand btn-icon btn-card"><i
-                                        class="bi bi-pencil icon-btn-sm" aria-hidden="true"></i> Edit</a>
-                                <a href="#deleteModal{{ pension.id }}" data-bs-toggle="modal"
-                                    class="btn btn-brand btn-icon btn-card"><i class="bi bi-trash icon-btn-sm"
-                                        aria-hidden="true"></i> Delete</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Delete Pension modal, with button to confirm deletion and submit form, or Cancel to cancel -->
-                <div class="modal fade" id="deleteModal{{ pension.id }}" tabindex="-1"
-                    aria-labelledby="deletePensionModalPension{{ pension.id }}" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <!-- Delete Pension modal header, with Close button to close the modal -->
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="deletePensionModalPension{{ pension.id }}">Delete Pension
-                                </h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close delete pension pop up and go back to My Pensions page"></button>
-                            </div>
-                            <!-- Delete Pension modal body, with pension details that will be deleted -->
-                            <div class="modal-body">
-                                <p><strong>Are you sure you want to permanently delete this pension record?</strong></p>
-                                <div class="modal-details">
-                                    <p><span class="card-label">Scheme name:</span> {{pension.scheme_name}}</p>
-                                    <p><span class="card-label">Policy/scheme number:</span> {{pension.policy_number}}
-                                    </p>
-                                    <p><span class="card-label">Pension type:</span>
-                                        {{pension.get_pension_type_display}}</p>
-                                    <p><span class="card-label">Employment name:</span> {{pension.employment}}</p>
-                                </div>
-                                <p>The pension will no longer appear in your My Pensions page.</p>
-                                <p><strong>This action cannot be undone.</strong></p>
-                                <p>If you are sure you want to delete the pension, then press Delete Pension below.
-                                    Otherwise, Cancel to go back.</p>
-                            </div>
-                            <!-- Delete Pension modal footer, with button to cancel, and form with button to submit deletion request -->
-                            <div class="modal-footer d-flex justify-content-around">
-                                <button type="button" class="btn btn-brand btn-icon btn-secondary mb-2 w-50"
-                                    data-bs-dismiss="modal"><i class="bi bi-x-circle icon-btn-sm"
-                                        aria-hidden="true"></i>Cancel</button>
-                                <form class="d-inline" action="{% url 'delete_pension' pension.id %}" method="POST">
-                                    {% csrf_token %}
-                                    <button type="submit" value="{{ pension.id }}" name="pension_id"
-                                        class="btn btn-brand btn-icon mb-2"><i class="bi bi-trash icon-btn-sm"
-                                            aria-hidden="true"></i>Delete Pension</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- end of Delete Pension modal -->
-                {% endfor %}
-                {% if is_paginated %}
-                <!-- pagination navigation -->
-                <nav class="pt-3" aria-label="Page navigation for Your Pensions list">
-                    <ul class="pagination justify-content-center">
-                        {% if page_obj.has_previous %}
-                        <!-- if there are previous pages, arrow to go to first page, arrow to go to previous page -->
-                        <li>
-                            <a href="?page=1#your-pensions" class="page-link m-1"
-                                aria-label="Go to first page">&larrb;</a>
-                        </li>
-                        <li>
-                            <a href="?page={{ page_obj.previous_page_number }}#your-pensions" class="page-link m-1"
-                                aria-label="Go to previous page">&lt;</a>
-                        </li>
-                        {% endif %}
-                        <!-- current page number -->
-                        <li class="page-link current-page m-1">{{ page_obj.number }}</li>
-                        {% if page_obj.has_next %}
-                        <!-- if there is a next page, arrow to go to next page, arrow to go to last page -->
-                        <li>
-                            <a href="?page={{ page_obj.next_page_number }}#your-pensions" class="page-link m-1"
-                                aria-label="Go to next page">&gt;</a>
-                        </li>
-                        <li>
-                            <a href="?page={{ page_obj.paginator.num_pages }}#your-pensions" class="page-link m-1"
-                                aria-label="Go to last page">&rarrb;</a>
-                        </li>
-                        {% endif %}
-                    </ul>
-                </nav>
-                <!-- end of pagination navigation-->
-                {% endif %}
-                {% else %}
-                <!-- if the pension list context is empty, i.e. user does not have any pensions recorded -->
-                <p>You do not currently have any pensions recorded.</p>
-                <p><a href="{% url 'add_pension' %}">Get started by adding a pension now</a>, or use the Add Pension
-                    button at the top of this page.</p>
-                {% endif %}
-            </div>
         </div>
+        <!-- row containing columns with cards showing pension summary details -->
+        <div class="row">
+            {% if pension_list %}
+            <!-- if the pension list context is not empty -->
+            {% for pension in pension_list %}
+            <!-- for each pension passed in from MyPensions ListView, display summary details in a card, with edit and delete buttons -->
+            <div class="col-12 col-sm-10 col-md-6 col-lg-4 card-group">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ pension.scheme_name }}</h4>
+                        <p class="card-text"><i class="bi bi-building card-icon" aria-hidden="true"></i><span
+                                class="card-label"> Job:</span> {{ pension.employment }}</p>
+                        <p class="card-text"><i class="bi bi-piggy-bank card-icon" aria-hidden="true"></i><span
+                                class="card-label"> Value:</span> € {{ pension.value }}</p>
+                    </div>
+                    <!--card footer with edit and delete buttons-->
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-center mb-3">
+                            <a href="{% url 'view_pension' pension.id %}"
+                                class="btn btn-brand btn-icon btn-card btn-card-full"><i
+                                    class="bi bi-eyeglasses icon-btn-sm" aria-hidden="true"></i> View Full
+                                Details</a>
+                        </div>
+                        <div class="d-flex justify-content-between mb-1">
+                            <a href="{% url 'edit_pension' pension.id %}" class="btn btn-brand btn-icon btn-card"><i
+                                    class="bi bi-pencil icon-btn-sm" aria-hidden="true"></i> Edit</a>
+                            <a href="#deleteModal{{ pension.id }}" data-bs-toggle="modal"
+                                class="btn btn-brand btn-icon btn-card"><i class="bi bi-trash icon-btn-sm"
+                                    aria-hidden="true"></i> Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end of Pension card and column -->
+            <!-- Delete Pension modal, with button to confirm deletion and submit form, or Cancel to cancel -->
+            <div class="modal fade" id="deleteModal{{ pension.id }}" tabindex="-1"
+                aria-labelledby="deletePensionModalPension{{ pension.id }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- Delete Pension modal header, with Close button to close the modal -->
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deletePensionModalPension{{ pension.id }}">Delete Pension
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close delete pension pop up and go back to My Pensions page"></button>
+                        </div>
+                        <!-- Delete Pension modal body, with pension details that will be deleted -->
+                        <div class="modal-body">
+                            <p><strong>Are you sure you want to permanently delete this pension record?</strong></p>
+                            <div class="modal-details">
+                                <p><span class="card-label">Scheme name:</span> {{pension.scheme_name}}</p>
+                                <p><span class="card-label">Policy/scheme number:</span> {{pension.policy_number}}
+                                </p>
+                                <p><span class="card-label">Pension type:</span>
+                                    {{pension.get_pension_type_display}}</p>
+                                <p><span class="card-label">Employment name:</span> {{pension.employment}}</p>
+                            </div>
+                            <p>The pension will no longer appear in your My Pensions page.</p>
+                            <p><strong>This action cannot be undone.</strong></p>
+                            <p>If you are sure you want to delete the pension, then press Delete Pension below.
+                                Otherwise, Cancel to go back.</p>
+                        </div>
+                        <!-- Delete Pension modal footer, with button to cancel, and form with button to submit deletion request -->
+                        <div class="modal-footer d-flex justify-content-around">
+                            <button type="button" class="btn btn-brand btn-icon btn-secondary mb-2 w-50"
+                                data-bs-dismiss="modal"><i class="bi bi-x-circle icon-btn-sm"
+                                    aria-hidden="true"></i>Cancel</button>
+                            <form class="d-inline" action="{% url 'delete_pension' pension.id %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit" value="{{ pension.id }}" name="pension_id"
+                                    class="btn btn-brand btn-icon mb-2"><i class="bi bi-trash icon-btn-sm"
+                                        aria-hidden="true"></i>Delete Pension</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end of Delete Pension modal -->
+            {% endfor %}
+            {% if is_paginated %}
+            <!-- pagination navigation -->
+            <nav class="pt-3" aria-label="Page navigation for Your Pensions list">
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                    <!-- if there are previous pages, arrow to go to first page, arrow to go to previous page -->
+                    <li>
+                        <a href="?page=1#your-pensions" class="page-link m-1" aria-label="Go to first page">&larrb;</a>
+                    </li>
+                    <li>
+                        <a href="?page={{ page_obj.previous_page_number }}#your-pensions" class="page-link m-1"
+                            aria-label="Go to previous page">&lt;</a>
+                    </li>
+                    {% endif %}
+                    <!-- current page number -->
+                    <li class="page-link current-page m-1">{{ page_obj.number }}</li>
+                    {% if page_obj.has_next %}
+                    <!-- if there is a next page, arrow to go to next page, arrow to go to last page -->
+                    <li>
+                        <a href="?page={{ page_obj.next_page_number }}#your-pensions" class="page-link m-1"
+                            aria-label="Go to next page">&gt;</a>
+                    </li>
+                    <li>
+                        <a href="?page={{ page_obj.paginator.num_pages }}#your-pensions" class="page-link m-1"
+                            aria-label="Go to last page">&rarrb;</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+            <!-- end of pagination navigation-->
+            {% endif %}
+            {% else %}
+            <!-- if the pension list context is empty, i.e. user does not have any pensions recorded -->
+            <p>You do not currently have any pensions recorded.</p>
+            <p><a href="{% url 'add_pension' %}">Get started by adding a pension now</a>, or use the Add Pension
+                button at the top of this page.</p>
+            {% endif %}
+        </div>
+        <!-- End of second row with pension details -->
     </div>
+    <!-- end of container -->
 </section>
 
 {% endblock %}
