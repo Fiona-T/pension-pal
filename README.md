@@ -58,6 +58,17 @@ Of particular interest within the target market are women, who traditionally par
 ## User Experience (UX)
 ---
 ### User stories
+- #### Note on User Stories and Project Development:
+  The project was developed using Agile methodology. A list of User Stories were defined at the project outset, when they were refined some of them were Epics so were broken down into smaller User Stories. Also further User Stories were added throughout the project. For each User Story, the process of refinement included defining the Acceptance Criteria to flesh out the expectations. Then the Tasks from the development side were added. At this point the User Story was added to the Product Backlog. The Product Backlog was refined throughout the project and User Stories prioritised for the next iteration. Each User Story was given a story point value and a MoSCoW priority, before then being either added to the next Iteration, or left on the Product Backlog for future iterations. Each Iteration was completed and any user stories not completed in that iteration were moved back to the Product Backlog. 
+  
+  This was managed via GitHub as follows:
+  - User Stories were recorded via Issues (a template was created) and GitHub labels were used for story points and MoSCoW priority level
+  - Product Backlog created using Milestone
+  - Iterations created using Milestone
+  - The work for each Iteration was managed through a kanban board created using GitHub Projects
+  
+  All of the above can be seen in the GitHub repo, where you can see which User Stories or Issues were included in each Iteration. 
+
 - As a visiting user, I can learn what the site is about, so I can decide whether to sign up to the site
 - As a site user, I can navigate the site so that I can find the page I want to go to 
 - As a registered user, I can sign into my account so that I can access my jobs and pension information
