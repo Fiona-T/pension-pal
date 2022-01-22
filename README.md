@@ -402,6 +402,108 @@ Gitpod was used as the development environment, with GitHub for version control 
 -   Commited changes were then pushed to GitHub using the `git push` command.
 
 ### Deployment to Heroku
+The following steps show how to deploy the application to [Heroku](https://www.heroku.com/).
+
+#### Initial set up in workspace:
+Before deploying to Heroku, the initial set up and creation of the project and app need to be completed in the IDE, in this case Gitpod workspace. Do the following in the command line:
+1. Install django and gunicorn: `pip3 install django gunicorn`
+2. Install supporting libraries - for postgres: p`ip3 install dj_database_url pyscopg2`
+3. Install cloudinary: `pip3 install dj3-cloudinary-storage`
+4. Install any other required libraries/tools
+5. Create the requirements.txt file: `pip3 freeze --local > requirements`. This creates the requirements.txt file with the above dependencies. Later on in development, any further dependencies that are installed can be added to the file using `pip3 freeze > requirements.txt`. Heroku will use this file to install the requirements when creating the application on Heroku.
+6. Create the django project: `django-admin startproject projectname .`. The ` .` means create the project in the current directory
+7. Create the app: `python3 manage.py startapp appname`. 
+8. Go to `settings.py` (this is located in the project folder) and add the appname to `INSTALLED_APPS` list
+9. The creation of the app creates initial migrations for the model and these need to be migrated. Back in the commandline: `python3 manage.py migrate`
+
+Repeat steps 7, 8 and 9 throughout development as you create further apps within the project. When models are created or updated during development, the changes also need to be made and migrated using `python3 manage.py makemigration` and `python3 manage.py migrate`. 
+To view the local version of the project before deployment to heroku, use python3 manage.py runserver, and open the port 8000 when it pops up.
+
+#### Create the app on [Heroku](https://www.heroku.com/) and attach the database:
+1. Sign in to/create account on Heroku, and "create app". If you don't have an account, then set one up: Click the Sign up button in the header, fill out the form and Click Create Free Account when done. You will receive an email, click the link to confirm. Then you will be brought to page called SET YOUR PASSWORD. Enter password, click SET PASSWORD AND LOG IN. Will then show welcome page, click on CLICK HERE TO PROCEED, then click Accept to accept the terms of service. Then click on "Create new app". If you do have an account then Sign In to your account and go to the Dashboard. Click on "New" on the top right of the screen and then "Create new app"
+2. Under App name, enter the name of the application. Note: the name must be unique, so you would not be able to name it the same as the already deployed version
+3. Then choose the Region and click "Create app"
+4. Attach the database: go to the Resources tab, Add-ons and then search for 'Heroku Postgres'. Add and choose e.g. Hobby Dev
+5. Back in the workspace, create a new file called `env.py` to store the environment variables. The file should be in the top level directory, and it should also be added to the `.gitignore file` to ensure it does not get pushed to GitHub as it contains sensitive information
+6. In env.py:
+    - `import os`
+    - `os.environ["DATABASE_URL"] = '`paste in the Heroku DATABSE_URL value which you can find under the Settings tab, Config Vars, click Reveal Config Vars`'`
+    - `os.environ["SECRET_KEY"] = '`generate a secret key and paste it here`'`
+7. Back in Heroku, go to Settings tab, Config Vars, click Reveal Config Vars. Add a new one called `SECRET_KEY` and paste in the value from the `env.py` file
+8. In the workspace go to the `settings.py` file and do the following:
+    - add `import os` underneath where it says `from pathlib import Path`
+    - underneath this, `import dj_database_url`
+    - and then add a conditional statement to import the `env.py` when in the development environment. 
+    ```python
+    if os.path.isfile('env.py'): 
+    import env
+    ```
+    This means the environment variables in `env.py` are used while in the development workspace, but if not in the development environment then it will use the ones set in Heroku. 
+    - update the value for `SECRET_KEY` to get it from `env.py` or Heroku: `SECRET_KEY = os.environ.get('SECRET_KEY')`
+    - comment out the existing `DATABSES =` and add a new dictionary so that it will connect to the Heroku Postgres database:
+    ```python
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+    }
+    ```
+9. In the command line, make the migrations to the Heroku Postgres database: `python3 manage.py migrate`
+
+#### To add Cloudinary for hosting static and media files:
+1. If you don't have an account, create one; if you do, log in. Go to the Cloudinary Dashboard copy the API Environment Variable
+2. In env.py, add `os.environ["CLOUDINARY_URL"] = '`paste in the Cloudinary API Environment Variable`'`
+3. Go to Heroku, go to Settings tab, Config Vars, click Reveal Config Vars. Add a new one called `CLOUDINARY_URL` and paste in the value from the `env.py` file. Also add a further Config Var `DISABLE_COLLECTSTATIC` with a value of `1`. This is temporary while there is nothing in the static files, and you will need to remove it later on. 
+4. In the workspace `settings.py`, do the following:
+    - add `'cloudinary'` to `INSTALLED_APPS` list, above your appname added earlier
+    - underneath the Static files comment, add the following so that Django will use Cloudinary to store the static and media files
+    ```python
+    STATIC_URL = '/static/'
+    STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
+    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+    MEDIA_URL = '/media/'
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+    ```
+5. Create folder for `media` and `static`, in the top level directory. These are the folders referenced above. 
+
+#### Set up templates directory:
+1. In the workspace `settings.py`, do the following:
+    - underneath the BASE_DIR, add `TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')`
+    - scroll to the `TEMPLATES` list and update the `'DIRS'` value to `TEMPLATES_DIR` as shown: `'DIRS': [TEMPLATES_DIR],`
+2. Create folder for `templates`, in the top level directory. This is the folder referenced above.   
+
+#### Add allowed hosts and create Procfile:
+1. In `settings.py`, find the `ALLOWED_HOSTS` list and add the heroku appname to it: `ALLOWED_HOSTS = ['yourherokuappname.herokuapp.com', 'localhost']`. This is so that the Heroku hostname is recognised and Django will allow it to run the project
+2. Create a file named `Procfile`, this must be at the top level directory
+3. Inside the `Procfile` add `web: gunicorn projectname.wsgi`. This is so that Heroku knows how to run the project
+
+#### Initial Deployment:
+1. Add all the changes above, commit them and push them to GitHub using `git add`, `git commit -m "commit msg"` and `git push` commands in command line
+2. Go to Heroku and go to the Deploy tab
+3. Go to Deployment method and click GitHub
+    - If have not connected to GitHub previously:
+        - Underneath, it will show a section called Connect to GitHub, with a button at the bottom called “Connect to GitHub”. Press this button.
+        - A pop up will ask you to Authorize Heroku’s access to your GitHub – click to Authorize, then enter your password and Confirm Password
+        - The pop up will close and in the Connect to GitHub section it will show your GitHub username and a box to search for the repository to connect to. 
+    - If have already connected to GitHub you do not need to do the above and it should show your GitHub username and a box to search for the repo name as above
+    - Enter the repo-name in the box and press Search
+    - Underneath, it will display the repo: `yourGitHubUsername/your-github-repo-name`, then press "Connect"
+    - Once connected it will then show: Connected to `yourGitHubUsername/your-github-repo-name` by `yourGitHubUsername`
+4. Underneath the Connect section, there are two options "Automatic deploys" or "Manual deploy"
+    - Automatic – future pushes to GitHub will mean Heroku automatically builds a new version of the app with the pushed changes
+    - Manual – the app is not automatically updated with future pushes to GitHub but these can be manually made if needed.
+    - click Deploy Branch. I deployed using Manual. The logs will show the dependencies and requirements being installed. When done, the page will refresh and say “Your app was successfully deployed” with a View button.
+5. Click the View button to view the app – it opens in a new window. For the initial deployment this will just show the Django page saying install was successful, since the project is empty at this point.
+
+#### Further Deployments during Development and for Final Deployment:
+During development for future deployments:
+1. Ensure `DEBUG` in `settings.py` is set to `False`
+2. Ensure all changes are pushed to GitHub
+3. In Heroku remove the `DISABLE_COLLECTSTATIC` config var once you have static files
+4. Follow steps 4 and 5 above to deploy and view the updated deployed app
+
+There is no difference between the deployed version and the development version of the application.
+
 ### Forking the GitHub Repository
 The repository can be forked on GitHub, this creates a copy of the repository that can be viewed or amended without affecting the original repository. This can be done using the following steps:
 1. Login to [GitHub](https://github.com/) 
