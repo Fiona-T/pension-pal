@@ -25,6 +25,82 @@
 - The Python code has been validated using [PEP8 online checker](http://pep8online.com/). Errors in relation to `line too long (86 > 79 characters)` were fixed. There are no validation errors in the sumitted code for custom Python code. Django standard files have not been amended in relation to line length errors. The [results of validation each python file can be viewed here](docs/code-validation/python-validation.pdf).
 
 ### Test Cases - user stories
+- [#1](https://github.com/Fiona-T/pension-pal/issues/1): As a visiting user, I can learn what the site is about, so I can decide whether to sign up to the site
+    * Acceptance Criteria 1:  The first thing a user should see on entering the website is an image relevant to the topic and a tagline explaining exactly what the website is for
+    * Acceptance Criteria 2: There should be a Learn More button here, which will link to more detailed information
+    * Acceptance Criteria 3: Below the image there should be a section briefly explaining the purpose of the website/the benefits for the user
+  >**Result:** Pass, the above acceptance criteria are met, as shown below:
+![User story - learn about site](docs/user-story-testing/learn-about-site.png)
+
+- [#19](https://github.com/Fiona-T/pension-pal/issues/19): As a visiting user I can find out what I could use the website for if I signed up so that I can understand the benefits of signing up and decide whether to sign up
+    * Acceptance Criteria 1:  Home page has a section "What is PensionPal?" explaining briefly what the website will help the user achieve
+    * Acceptance Criteria 2: Home page has a section "Why Use PensionPal?" explaining the benefits to the user
+    * Acceptance Criteria 3: Home page has a section "How to Use PensionPal?" explaining to the user how to get started and how to use the site if they sign up for an account
+  >**Result:** Pass, the above acceptance criteria are met as shown below:
+![User story - purpose of site](docs/user-story-testing/website-purpose.png)
+
+- [#2](https://github.com/Fiona-T/pension-pal/issues/2): As a site user, I can navigate the site so that I can find the page I want to go to 
+    *  Acceptance Criteria 1:  Header should be at the top of every page
+    *  Acceptance Criteria 2: Logo (site name) should be prominent in the header and it links to the home page
+    *  Acceptance Criteria 3:  Header contains just Sign Up, Sign In links in addition to the logo (since this is not a registered user)
+  >**Result:** Pass, the above acceptance criteria are met, as seen on the screenprints for the previous user stories.
+
+- [#18](https://github.com/Fiona-T/pension-pal/issues/18): As a registered user I can navigate the site so that I can find the page I want to go to
+    * Acceptance Criteria 1:  If a user is not logged in, the header contains the logo (linked to home page) and the links to Sign In and Sign Up
+    * Acceptance Criteria 2: If a user is logged in, the links in the header change: My Jobs, My Pensions, Sign Out are present and Sign Up and Sign In are no longer present.
+    * Acceptance Criteria 3: Header is present on all pages as per above, and fixed to the top of the page
+    * Acceptance Criteria 4: Username should be shown when user is logged in
+  >**Result:** Pass, the above acceptance criteria are met as shown below (and for not signed in user, shown in previous user story).
+![User story - page header naviation](docs/user-story-testing/website-purpose.png)
+
+- [#28](https://github.com/Fiona-T/pension-pal/issues/28): As a registered user I can see which page I am on within the My Jobs pages so that I can locate myself within the pages
+    *  Acceptance Criteria 1:  When a user is on the pages that link from the main My Jobs page, there is a breadcrumb sub-navigation at the top of the page 
+    *  Acceptance Criteria 2: For example, a user on the Add Job page will see a breadcrumb like: My Jobs -> Add Job, with My Jobs linking back to My Jobs page
+    *  Acceptance Criteria 3: The main My Jobs page does not have a breadcrumb (since it is a top level page)
+  >**Result:** Pass, the above acceptance criteria are met as shown below:
+![User story - jobs pages navigation](docs/user-story-testing/jobs-app-navigation.png)
+
+- [#29](https://github.com/Fiona-T/pension-pal/issues/29): As a user I can see which section of the website I am on so that I know which part of the website I went into
+    * Acceptance Criteria 1:  The link, in the main navigation in the header, for the page the user is currently on, is styled differently when it is the active page (except for home page as the logo serves as the home page link)
+    * Acceptance Criteria 2: For pages that have 'sub' pages e.g. My Jobs has add job, success page, etc., the different styling remains in the top navigation, when the user is within these sub pages
+  >**Result:** Pass, the above acceptance criteria are met as shown below:
+![User story - current page in header](docs/user-story-testing/current-page-in-header.png)
+
+- [#52](https://github.com/Fiona-T/pension-pal/issues/52): As a registered I can see the title of the page I am on in the browser window so that I know which page I have open
+    * Acceptance Criteria 1:  The relevant page title is displayed in the browser toolbar
+    * Acceptance Criteria 2:  The title is specific to the page the user is currently on
+  >**Result:** Pass, the above acceptance criteria are met as shown below:
+![User story - page title](docs/user-story-testing/page-title.png)
+
+- [#3](https://github.com/Fiona-T/pension-pal/issues/3): As a registered user, I can sign into my account so that I can access my jobs and pension information
+    * Acceptance Criteria 1:  The page to sign in opens after clicking Sign In from the site header
+    * Acceptance Criteria 2: The sign in page contains the username and password fields to sign in with, and sign in button
+    * Acceptance Criteria 3: After signing in, the user is redirected to the My Jobs page
+    * Acceptance Criteria 4: there is a note on the sign in page directing the user to the Sign Up page if they have not previously created an account
+  >**Result:** Pass, the above acceptance criteria are met as shown below, and page redirects to My Jobs after sign in.
+![User story - sign in page](docs/user-story-testing/sign-in-page.png)
+
+- [#4](https://github.com/Fiona-T/pension-pal/issues/4): As a registered user, I can sign out of my account when finished, so that I know I am signed out securely
+    * Acceptance Criteria 1:  When a user is signed in, the Sign Out link is present in the header
+    * Acceptance Criteria 2: After clicking the Sign Out link, the Sign Out page opens
+    * Acceptance Criteria 3: Sign Out page has text asking user to confirm they want to sign out, and a button
+    * Acceptance Criteria 4: after signing out, the user is redirected to the home page and the header reflects the status of a user who is not logged in, i.e. only contains the Sign In and Sign Up links and not My Jobs/My Pensions/Sign Out
+  >**Result:** Pass, the above acceptance criteria are met as shown below:
+![User story - sign out](docs/user-story-testing/sign-out.png)
+
+- [#25](https://github.com/Fiona-T/pension-pal/issues/25): As a registered user I can cancel my sign out request so that I can easily get back to the page I was previously on 
+    * Acceptance Criteria 1:  After clicking the Sign Out button, there is a button saying Cancel, as well as the Sign Out button
+    * Acceptance Criteria 2: Clicking Cancel will bring the user back to the previous page they were on
+  >**Result:** Pass, the above acceptance criteria are met, Cancel button on Sign Out form as shown above. And this brings the user back to the previous page.
+
+- [#6](https://github.com/Fiona-T/pension-pal/issues/6): As a new user, I can sign up for an account so that I can start recording my jobs and pensions details
+    * Acceptance Criteria 1:  The sign up page opens after clicking the Sign Up link in the header
+    * Acceptance Criteria 2: Sign up page contains contains fields for the user to register with a username, email address and password and a button to submit the form
+    * Acceptance Criteria 3: After submitting the form the user is brought to the My Jobs page (as they are now signed in)
+    * Acceptance Criteria 4: The user can't submit the form unless all the fields have been completed
+  >**Result:** Pass, the above acceptance criteria are met as shown below, and page redirects to My Jobs after sign up:
+![User story - sign up](docs/user-story-testing/sign-up.png)
+
 ### Features Testing
 ### Other Manual Testing
 ### Automated Testing
