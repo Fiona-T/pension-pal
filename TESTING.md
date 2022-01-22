@@ -65,6 +65,9 @@
     5. generate an interactive html version of the report that can be viewed in the browser: `coverage html`
     6. view the report: `python3 -m http.server`. Open the port 8000 when it pops up, click on `htmlcov/` lin the Directory listing and then click on the specific module to see further details.
 
+- #### JavaScript tests
+    Since there is only a small amount of JavaScript code used in the project, the testing carried out for these functions was manual testing only, as part of the User Stories and Features testing described above.
+
 ### Fixed Bugs
 The following bugs were encountered during development and during testing.
 
