@@ -259,13 +259,13 @@ Montserrat is used throughout the entire website, with the different weights use
       * Why Use PensionPal
       * How to Use PensionPal
 - #### Sign Up page
-  * Sign up form for new user with the following fields, all mandatory
-    * Username
-    * Email address
-    * Password
-    * Confirm Password
+  * Sign up form for new user with the following fields:
+    * Username - mandatory
+    * Email address - optional
+    * Password - mandatory
+    * Confirm Password - mandatory
   * Sign up button to submit the form
-  * Redirects to the Sign In page once the form is submitted
+  * Redirects to the My Jobs page once the form is submitted
   * Note at the top of the form directing people who have already registered to the sign in page
 - #### Sign In page
   * Sign in form for existing user with the following fields, all mandatory
@@ -273,7 +273,6 @@ Montserrat is used throughout the entire website, with the different weights use
       * Password
   * Sign In button to submit the form
   * Redirects to the My Jobs page once the form is submitted
-  * Forgot password section with email address field and Send button
   * Note at the top of the form directing people who have not yet registered as a user to the sign up page
 - #### My Jobs page
   * Two sections: Add Job and Your Jobs
@@ -282,6 +281,7 @@ Montserrat is used throughout the entire website, with the different weights use
     * Text underneath explaining to add the job/employment first, then if there is a pension attached to the job, to add this in the My Pensions page
     * Add Job page contains a form with the following mandatory fields: Company name, Date of joining, Date of leaving, Full-time or part-time
     * Add Job button to submit the form
+    * Finish date can't be before start date - helptext confirming this, along with error message if mistake is made
     * Redirect to a success page confirming the employment/job has been added, reminding the user to add the pension details now, and advising where to view/edit/delete the job details 
   * Your Jobs
     * a series of cards displaying the details of all the jobs/employments the user has added to date
@@ -289,15 +289,19 @@ Montserrat is used throughout the entire website, with the different weights use
     * each card contains
       * card header: Company name
       * card body: date of joining and leaving service, full/part-time
+      * card body includes a label for Pensions, with either a note confirming none are attached, or if there are pensions attached then they are listed with links to view the pension details
       * card footer: Edit and Delete buttons
     * Edit Employment page displays when the Edit button is clicked
       * Form containing the following mandatory fields, pre-populated with the existing information: Company name, Date of joining, Date of leaving, Full-time or part-time
+      * helptext and validation same as the Add Job form
       * Confirm changes button to submit the form, redirects to the My Jobs page
-      * Cancel button brings the user back to the My Jobs page
+      * flash message confirms the changes were saved
+      * Cancel button brings the user back to the previous page they were on
     * Delete Employment modal displays when the Delete button is clicked
-      * Warning message to the user, advising that this can't be un-done and will also result in deletion of any Pensions attached to the employment
-      * Cancel button brings the user back to the My Jobs page
+      * Warning message to the user, advising that this can't be un-done and if there are pensions attached, lists the pensions and confirms that this will also result in deletion of these pensions
+      * Cancel button brings the user back to the previous page they were on
       * Delete Job button to confirm deletion of the employment and redirects back to the My Jobs page
+      * flash message confirms the deletion
 - #### My Pensions page
   * Two sections: Add Pension and Your Pensions
   * Add Pension
@@ -313,12 +317,13 @@ Montserrat is used throughout the entire website, with the different weights use
       * Salary at date of leaving service: text, mandatory
       * Is there a Pension Adjustment Order on the pension: tick box, defaults to un-ticked
       * Were you a 20% director in this employment: tick box, defaults to un-ticked
-      * Pension provider: dropdown list, mandatory
+      * Pension provider: dropdown list filtered on active pension providers, mandatory
       * Pension value: text, mandatory
-      * Upload recent statement: file upload, optional
+      * Upload recent statement: file upload, optional. Only .jpg or .png allowed
       * Additonal notes: textarea, optional
       * Add Pension button to submit the form
-      * Redirects to a success page confirming the pension has been added, and advising where to view/edit/delete the pension details
+      * Redirects to a success page confirming the pension has been added, and advising where to view/edit/delete the pension details, and with a link to view the full details of the record just added
+      * If the user doesn't have any job records, then the Add Pension button will bring up a page without the Add Pension form and instead a note confirming they need to add a job first
   * Your Pensions
     * a series of cards displaying the summary details of all the pensions the user has added to date
     * if there are none, then a note confirming this
@@ -328,8 +333,8 @@ Montserrat is used throughout the entire website, with the different weights use
       * card footer: View Details, Edit and Delete buttons
     * Pension Details page displays when the View Details button is clicked
       * Displays the following information, which is from the Employment and the Pension tables:
-        * Pension type and Company name
         * Pension scheme name
+        * Employment name
         * Policy/scheme number
         * Member number (if provided)
         * Date joined pension scheme
@@ -344,16 +349,26 @@ Montserrat is used throughout the entire website, with the different weights use
         * Pension value
         * Link to file that was uploaded by user (if provided)
         * Your notes: the notes from Additional Notes section, if provided
+        * note underneath Pension Provider details, if the provider is no longer active
       * Edit and Delete buttons underneath the pension details
       * Link at the top of the back to go Back to My Pensions
+      * note at the top with a link if the user wants to edit the job details for this pension - link opens edit job page
     * Edit Pension page displays when the Edit button is clicked
+      * note at the top with a link if the user wants to edit the job details for this pension - link opens edit job page
       * Form containing the same fields as the Add Pension form, pre-populated with the existing information
       * Confirm changes button to submit the form, redirects to the My Pensions page
-      * Cancel button brings the user back to the My Pensions page
+      * message displayed confirming changes were saved
+      * Cancel button brings the user back to the previous page they were on
     * Delete Pension modal displays when the Delete button is clicked
       * Warning message to the user, advising that this can't be un-done
-      * Cancel button brings the user back to the My Pensions page
+      * Cancel button brings the user back to the the previous page they were on
       * Delete Pension button to confirm deletion of the pension and redirects back to the My Pensions page
+- #### Admin site - for admin users only
+  * Can add a Pension Provider - fields required are name, website and status (defaults to active)
+  * Can view Providers in a list, and able to edit the website and status from this list. Can go into the full Provider details by clicking on the name. Can filter the list by status also. Can search by provider name or website.
+  * Can delete a Provider but only if there are no pension records attached - if there are then a message confirms it can't be deleted because there are pension records attached.
+  * Can view Job records in a list with all the job details shown on the list. Can filter the list by user. Can view full details by clicking on the employer name. Can search by employer name.
+  * Can view Pension records in a list with user, scheme name, employer name and value. Can filter the list by user or pension provider. Can view full details by clicking on the scheme name. Can search by employer name or scheme name.
 
 ### Future Features 
 - extend Pension model to allow for defined benefit pension schemes, the user would need to record their benefits (e.g. pension per year, lump sum amount, spouse's pension amount) instead of recording the current value of the scheme
