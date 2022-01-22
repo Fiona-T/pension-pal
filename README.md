@@ -69,23 +69,98 @@ Of particular interest within the target market are women, who traditionally par
   
   All of the above can be seen in the GitHub repo, where you can see which User Stories or Issues were included in each Iteration. 
 
-- As a visiting user, I can learn what the site is about, so I can decide whether to sign up to the site
-- As a site user, I can navigate the site so that I can find the page I want to go to 
-- As a registered user, I can sign into my account so that I can access my jobs and pension information
-- As a registered user, I can sign out of my account when finished, so that I know I am signed out securely
-- As a registered user, I can re-set my password so that I can gain access to my account if I forgot my password
-- As a new user, I can sign up for an account so that I can start recording my jobs and pensions details
-- As a registered user, I can record details of a job so that I can build up my employment history records
-- As a registered user, I can see all the jobs I have added so that I can get the overall picture of my work history
-- As a registered user, I can edit a job so that I can correct the previously recorded information
-- As a registered user, I can delete a job so that I can remove it from my records if I added it in error 
-- As a registered user, I can record the details of a pension so that I can have the pension recorded on my account
-- As a registered user, I can view the pensions I have added so that I can see all my pension details in one place
-- As a registered user, I can edit a pension I previously added, so that I can correct or update the previously recorded information
-- As a registered user, I can delete a pension I previously added, so that I can remove it from my records if I added it in error 
-- As a site user, I can access external resources relating to pensions, so that I can find out more information 
-- As a site user, I can find the PensionPal social media accounts, so that I can follow them on social media to keep up to date
+- #### List of User Stories:
+The following are the user stories defined at the beginning of the project, and those added over the course of the project development, some of which are linked to the originally defined user stories. Each User Story below is linked to the relevant Issue on GitHub, where full details (acceptance criteria, tasks, story points, prioritisation and iteration and the history of same) can be seen.
+- [#1](https://github.com/Fiona-T/pension-pal/issues/1): As a visiting user, I can learn what the site is about, so I can decide whether to sign up to the site
+  
+  The below linked user story was added:
+  - [#19](https://github.com/Fiona-T/pension-pal/issues/19): As a visiting user I can find out what I could use the website for if I signed up so that I can understand the benefits of signing up and decide whether to sign up
+- [#2](https://github.com/Fiona-T/pension-pal/issues/2): As a site user, I can navigate the site so that I can find the page I want to go to 
+  
+  The below linked user stories were added:
+  - [#18](https://github.com/Fiona-T/pension-pal/issues/18): As a registered user I can navigate the site so that I can find the page I want to go to
+  - [#28](https://github.com/Fiona-T/pension-pal/issues/28): As a registered user I can see which page I am on within the My Jobs pages so that I can locate myself within the pages
+  - [#29](https://github.com/Fiona-T/pension-pal/issues/29): As a user I can see which section of the website I am on so that I know which part of the website I went into
+  - [#52](https://github.com/Fiona-T/pension-pal/issues/52): As a registered I can see the title of the page I am on in the browser window so that I know which page I have open
+ 
+- [#3](https://github.com/Fiona-T/pension-pal/issues/3): As a registered user, I can sign into my account so that I can access my jobs and pension information
+- [#4](https://github.com/Fiona-T/pension-pal/issues/4): As a registered user, I can sign out of my account when finished, so that I know I am signed out securely
+  
+  The below linked user story was added:
+  - [#25](https://github.com/Fiona-T/pension-pal/issues/25): As a registered user I can cancel my sign out request so that I can easily get back to the page I was previously on 
+- [#6](https://github.com/Fiona-T/pension-pal/issues/6): As a new user, I can sign up for an account so that I can start recording my jobs and pensions details
+- [#7](https://github.com/Fiona-T/pension-pal/issues/7): As a registered user, I can record details of a job so that I can build up my employment history records
+  
+  The below linked user stories were added:
+  - [#21](https://github.com/Fiona-T/pension-pal/issues/21) As a registered user I can see confirmation that my job details were added so that I know the form submitted correctly and there were no errors
+  - [#23](https://github.com/Fiona-T/pension-pal/issues/23): As a registered user I can add the dates to the Add Job form in the order of: day, month, year so that I know I am entering the correct date, since this is the date format used in Ireland
+  - [#24](https://github.com/Fiona-T/pension-pal/issues/24): As a registered user I can easily enter the dates when adding a job so that I can complete the form intuitively and easily
+  - [#42](https://github.com/Fiona-T/pension-pal/issues/42): As a registered user I can not add a new Employment with the same name as another Employment in my Jobs records so that I don't add duplicate records which would cause confusion
+  - [#55](https://github.com/Fiona-T/pension-pal/issues/55): As a registered user I can see a relevant error message if I enter a job finish date that is before the start date so that I can correct the error before the job record is saved
+
+- [#8](https://github.com/Fiona-T/pension-pal/issues/8): As a registered user, I can see all the jobs I have added so that I can get the overall picture of my work history
+  
+  The below linked user stories were added:
+  - [#22](https://github.com/Fiona-T/pension-pal/issues/22): As a registered user I can see confirmation that I have no jobs recorded so that I know I have not previously recorded any jobs and that is why there are no jobs displayed
+  - [#27](https://github.com/Fiona-T/pension-pal/issues/27): As a registered user I can view my jobs listings in shorter pages so that I can click through each page instead of scrolling through a long list of my jobs
+  - [#60](https://github.com/Fiona-T/pension-pal/issues/60): As a registered user I can see the pensions that are attached to a job so that I know whether there are any pensions attached or not, and can access the pensions easily if there are
+- [#9](https://github.com/Fiona-T/pension-pal/issues/9): As a registered user, I can edit a job so that I can correct the previously recorded information
+  
+  The below linked user stories were added:
+  - [#30](https://github.com/Fiona-T/pension-pal/issues/30): As a registered user I can only access the edit page for jobs that were added by me so that I cannot access the jobs of a different user and I know my records can't be accessed by another user 
+  - [#45](https://github.com/Fiona-T/pension-pal/issues/45): As a registered user I can see confirmation the edits to my job record were successful so that I know the changes I made have been saved
+  - [#53](https://github.com/Fiona-T/pension-pal/issues/53): As a registered user I can click a link that brings me to the Edit Job page, from the View or Edit pages of the attached Pension so that I can go directly to the Edit page of the associated Job, instead of having to navigate to it 
+- [#10](https://github.com/Fiona-T/pension-pal/issues/10): As a registered user, I can delete a job so that I can remove it from my records if I added it in error 
+  
+  The below linked user stories were added:
+  - [#43](https://github.com/Fiona-T/pension-pal/issues/43): As a registered user I can see confirmation a Job record was deleted after I press Delete button so that I know the record was definitely deleted
+  - [#50](https://github.com/Fiona-T/pension-pal/issues/50): As a registered user I can only delete my own Job records so that I cannot delete the Job records of a different user and I know my records can't be deleted by another user
+  - [#61](https://github.com/Fiona-T/pension-pal/issues/61): As a registered user I can see what pensions (if any) will be deleted, before I delete a Job record so that I am aware of the consequences before deleting the Job record
+- [#11](https://github.com/Fiona-T/pension-pal/issues/11): As a registered user, I can record the details of a pension so that I can have the pension recorded on my account
+  
+  The below linked user stories were added:
+  - [#36](https://github.com/Fiona-T/pension-pal/issues/36): As a registered user I can see confirmation that my pension details were added so that I know the add Pension form submitted correctly and there were no errors 
+  - [#39](https://github.com/Fiona-T/pension-pal/issues/39): As a registered user I know how to add a job if it does not exist in the Employment dropdown on the Add Pension form so that I can then add the pension linked to that job
+  - [#40](https://github.com/Fiona-T/pension-pal/issues/40): As a registered user I can be notified that I have no recorded Jobs when I try to Add a Pension so that I can then add the Job, since the Job needs to be added before the Pension can be added
+  - [#47](https://github.com/Fiona-T/pension-pal/issues/47): As a registered user I can see which fields on the Add/Edit Pension form are mandatory so that I understand which fields must be completed by me and which are optional
+  - [#56](https://github.com/Fiona-T/pension-pal/issues/56): As a registered user I can know what file types I can upload when adding/editing a pension so that I can avoid uploading a file type that is not allowed
+  - [#59](https://github.com/Fiona-T/pension-pal/issues/59): As a registered user I can choose from a list of only the active Pension Providers on the pension provider field when adding or editing a pension so that I know that the pension provider is a current one
+- [#12](https://github.com/Fiona-T/pension-pal/issues/12): As a registered user, I can view the pensions I have added so that I can see all my pension details in one place
+
+  The below linked user story was added (sse also user story [#37](https://github.com/Fiona-T/pension-pal/issues/37) below):
+  - [#38](https://github.com/Fiona-T/pension-pal/issues/38): As a registered user I can view my pensions listings in shorter pages so that I can click through each page instead of scrolling through a long list of my pensions
+  
+- [#13](https://github.com/Fiona-T/pension-pal/issues/13): As a registered user, I can edit a pension I previously added, so that I can correct or update the previously recorded information
+
+  The below linked user story was added:
+  - [#46](https://github.com/Fiona-T/pension-pal/issues/46): As a registered user I can see confirmation that the edits I made to my pension record were successful, so that I know the changes made have been saved
+- [#14](https://github.com/Fiona-T/pension-pal/issues/14): As a registered user, I can delete a pension I previously added, so that I can remove it from my records if I added it in error 
+
+  The below linked user stories were added:
+  - [#44](https://github.com/Fiona-T/pension-pal/issues/44): As a registered user I can see confirmation that a Pension record was deleted, after I press the Delete button so that I know the record was definitely deleted
+  - [#49](https://github.com/Fiona-T/pension-pal/issues/49): As a registered user I can only delete my own Pension records so that I cannot delete the Pension records of a different user and I know my records can't be deleted by another user
+- [#15](https://github.com/Fiona-T/pension-pal/issues/15): As a site user, I can access external resources relating to pensions, so that I can find out more information 
+- [#16](https://github.com/Fiona-T/pension-pal/issues/16): As a site user, I can find the PensionPal social media accounts, so that I can follow them on social media to keep up to date
 - As the website owner, I can maintain a list of pension providers and their websites, so that users can select the pension provider when adding or editing a pension in My Pensions page
+
+  This was broken into:
+    - [#17](https://github.com/Fiona-T/pension-pal/issues/17): As a website owner/admin I can add pension providers to a table in the admin panel so that users can select the pension provider when adding or editing a pension in My Pensions page
+    - [#32](https://github.com/Fiona-T/pension-pal/issues/32): As a website owner/admin I can edit the details for a Pension Provider so that the correct details for that Pension Provider feed through for the website users when viewing the My Pensions pages
+    - [#33](https://github.com/Fiona-T/pension-pal/issues/33): As a website owner/admin I can view the Pension Providers list and their details in the admin panel so that I can see what Pension Providers are on the list, and find details for a specific provider
+    - [#34](https://github.com/Fiona-T/pension-pal/issues/34) As a website owner/admin I can delete a Pension Provider from the list so that they can be removed, if they were added in error. But cannot delete a Pension Provider if there are Pension records attached to it.
+    - [#26](https://github.com/Fiona-T/pension-pal/issues/26) As a site admin I can view the date formats in the admin panel as dd/mm/yyyy so that the dates are in the format I am used to, living in Ireland
+
+- [#35](https://github.com/Fiona-T/pension-pal/issues/35) As a user I can see a custom 'Page not found" page when I try an access a page in error so that I can find my way back to the website and I know I have not left the website(as the branding is the same as the rest of the website)
+- [#37](https://github.com/Fiona-T/pension-pal/issues/37) As a registered user I can view details of a Pension that I added so that I can see all of the details of the pension in full for information or to check that they are correct
+
+  The below linked user stories were also added:
+  - [#41](https://github.com/Fiona-T/pension-pal/issues/41) As a registered user I can only access the View Full Details page for pensions that were added by me so that I can't access the pension records of another user and I know my records can't be accessed by another user
+  - [#54](https://github.com/Fiona-T/pension-pal/issues/54) As a registered user I can easily view the full details of the pension I just added by clicking a link from the add pension success page so that I can check that I added all the details correctly
+  - [#64](https://github.com/Fiona-T/pension-pal/issues/64): As a registered user I can easily get back to previous page when on the Pension Details page so that I can go back to where I was in one click and not have to navigate through pages when viewing Pension Details and associated Job details
+  - [#65](https://github.com/Fiona-T/pension-pal/issues/65): As a registered user I can see if the pension provider for my existing pension records is no longer active so that I can update the record to the new pension provider
+- [#57](https://github.com/Fiona-T/pension-pal/issues/57): As a registered user I can use the Cancel button on forms to go back to the previous page so that I can go back to the previous page and not a pre-determined page
+- [#62](https://github.com/Fiona-T/pension-pal/issues/62): As an admin user I can view the job details for all users in the admin site so that I have an overview of jobs per user
+- [#63](https://github.com/Fiona-T/pension-pal/issues/63): As an admin user I can view the pension records in the admin site for all users so that I have an overview of the pensions added by the website users
 
 ### Design
 The design deliberately steers clear from the usual look for financial product websites, which typically tend towards using blue or red. Since PensionPal is a new concept that doesn't exist in the Irish market, the branding reflects this and uses colours not normally associated with financial matters or pensions. 
