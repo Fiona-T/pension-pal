@@ -28,16 +28,42 @@
 ### Features Testing
 ### Other Manual Testing
 ### Automated Testing
-Automated testing was carried out on the Python code in each of the three apps. Tests were written as each feature was developed, in line with the Agile approach used for the project development. The created tests were ran and the feature was not closed until the tests passed. 
+- #### Python tests
+    Automated testing was carried out on the Python code in each of the three apps. Tests were written as each feature or user story was developed in each iteration, in line with the Agile approach used for the project development. The created tests were ran and the feature was not closed until the tests passed. Tests were written for the models, views and forms.
 
-On completion of the project, all tests were ran again to ensure they still passed and the results of these are shown below. The tests can be viewed in the relevant `test_forms.py`, `test_views.py` and `test_models.py` files in each app.
+    On completion of the project, all tests were ran again to ensure they still passed and the results of these are shown below. The tests that were written are contained in the relevant `test_forms.py`, `test_views.py` and `test_models.py` files in each app.
 
-- Pages app automated test results - no models or forms, so only view tests
-![Pages app automated test results](docs/automated-testing/pages-app-automated-tests.png)
-- Jobs app automated test results - forms, models, views
-![Jobs app automated test results](docs/automated-testing/jobs-app-automated-tests.png)
-- Pensions app automated test results - forms, models, views
-![Pensions app automated test results](docs/automated-testing/pensions-app-automated-tests.png)
+    - Pages app automated test results - no models or forms, so only view tests
+    ![Pages app automated test results](docs/automated-testing/pages-app-automated-tests.png)
+
+    - Jobs app automated test results - forms, models, views
+    ![Jobs app automated test results](docs/automated-testing/jobs-app-automated-tests.png)
+
+    - Pensions app automated test results - forms, models, views
+    ![Pensions app automated test results](docs/automated-testing/pensions-app-automated-tests.png)
+
+- #### Coverage
+    The [coverage](https://coverage.readthedocs.io/en/6.2/) tool was used to determine the effectiveness of the tests. On the initial run, the pensions app was missing some tests and tests were added for the Add Pension and Edit Pension forms when the form is not valid, to ensure it reloads the page with the form. 
+
+    As shown below, the final coverage report shows the pages and jobs apps both have 100% coverage, and the pensions app has 99% coverage. 
+
+    - Pages app coverage report
+    ![Pages app coverage report](docs/automated-testing/pages-app-coverage-report.png)
+
+    - Jobs app coverage report
+    ![Jobs app coverage report](docs/automated-testing/jobs-app-coverage-report.png)
+
+    - Pensions app coverage report
+    ![Pensions app coverage report](docs/automated-testing/pensions-app-coverage-report.png)
+    There is one test missing for forms.py in the pensions app as shown below, however this has been tested manually and since the overall level of coverage is very close to 100% it felt reasonable to leave the tests as is.
+    ![Pensions app coverage report - forms.py missing test](docs/automated-testing/pensions-forms-coverage-missing-test.png)
+
+    To run the coverage report to see any further details, do the following in the IDE command line:
+    1. install coverage: `pip3 install coverage`
+    2. run coverage on specific app: `coverage run --source=appname manage.py test` e.g. for the jobs app it would be `coverage run --source=jobs manage.py test`
+    4. generate the report (displays report in command line): `coverage report`
+    5. generate an interactive html version of the report that can be viewed in the browser: `coverage html`
+    6. view the report: `python3 -m http.server`. Open the port 8000 when it pops up, click on `htmlcov/` lin the Directory listing and then click on the specific module to see further details.
 
 ### Fixed Bugs
 The following bugs were encountered during development and during testing.
