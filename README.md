@@ -395,6 +395,8 @@ Montserrat is used throughout the entire website, with the different weights use
 - Add Normal Retirement Age (NRA) to the PensionForm. Possibly could add functionality to perform a calculation for max benefits on leaving service
 - Update the user profile to include date of birth - this would then allow further functionality to set up a reminder/flag to the user when they are nearing age 75 if the pension type is PRSA or Personal Pension/RAC as these benefits must be taken by age 75 at the latest or else they are frozen (this could also be extended for other pension types just to remind the user when they are approaching the NRA on the pension)
 - extend the functionality on the Employer name which currently doesn't allow a duplicate for that user. Sometimes people will leave an employer but work for them again at a later date. The user could just add a new Job record with a slightly different Employer name to get around this. But perhaps the website functionality could be tweaked by adding a new field on the Job model of employment record (or something similar) which is a combination of the employer name + start date, and the pensions are attached to this rather than just the employer name. 
+- extend the Cloudinary file upload so that pdf files can be accepted - these are not accepted by default and permission has to be requested from Cloudinary for them to add this to your account
+- extend the file upload functionality on the Pension model to allow multiple files to be recorded, e.g. if the user wanted to upload their benefit statement that they receive each year so they can easily access them all in one place, instead of just uploading the latest one. 
 
 ## Content Requirements
 ---
