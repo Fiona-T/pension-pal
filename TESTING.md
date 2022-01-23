@@ -11,6 +11,7 @@
   * [Other Manual Testing](#other-manual-testing)
   * [Automated Testing](#automated-testing)
   * [Fixed Bugs](#fixed-bugs)
+  * [Known Bugs](#known-bugs)
   * [Supported Screens and Browsers](#supported-screens-and-browsers)
 
 ## Testing
@@ -315,7 +316,115 @@ Note: testing of the user stories was carried out while each user story/feature 
   * Acceptance Criteria 2: The user is redirected to a 404 page
   * Acceptance Criteria 3: Even the user who owns that pension id cannot access the url and is redirected to a 404 page, because the delete pension is done through a modal and not a separate page
   >**Result:** Pass, the above acceptance criteria are met as shown below. User can't access the delete functionality by url. They can only access through the Delete button on their own records, which then posts the deletion to the database from the delete button on the delete modal.
-![User story - delete pension](docs/user-story-testing/delete-pension-url.png) 
+![User story - delete pension can't access by url](docs/user-story-testing/delete-pension-url.png) 
+
+- [#15](https://github.com/Fiona-T/pension-pal/issues/15): As a site user, I can access external resources relating to pensions, so that I can find out more information 
+  * Acceptance Criteria 1:  The links are in the footer on each page
+  * Acceptance Criteria 2:  Links to be included are: The Pensions Authority (https://www.pensionsauthority.ie/en/), Revenue Commissioners (https://www.revenue.ie/en/jobs-and-pensions/pensions/index.aspx) and Citizens Information (https://www.citizensinformation.ie/en/money_and_tax/personal_finance/pensions/)
+  * Acceptance Criteria 3: The links open in a new window
+  >**Result:** Pass, the above acceptance criteria are met as shown below. Links are present in the footer on all pages and the links open to the correct location and in a new tab.
+![User story - footer - external resources](docs/user-story-testing/footer-external-resources.png) 
+
+- [#16](https://github.com/Fiona-T/pension-pal/issues/16): As a site user, I can find the PensionPal social media accounts, so that I can follow them on social media to keep up to date
+  * Acceptance Criteria 1:  The social media icons are in the footer on each page
+  * Acceptance Criteria 2: The links open in a new window
+  * Acceptance Criteria 3: The links/icons are for LinkedIn, Instagram, Facebook and Twitter
+  >**Result:** Pass, the above acceptance criteria are met. Links are present in the footer on all pages and the links open to the correct location and in a new tab (see previous user story for screenprint).
+
+- [#17](https://github.com/Fiona-T/pension-pal/issues/17): As a website owner/admin I can add pension providers to a table in the admin panel so that users can select the pension provider when adding or editing a pension in My Pensions page
+  * Acceptance Criteria 1:  When logged into the admin panel, the user can add a new Pension Provider
+  * Acceptance Criteria 2: The details the admin user can record for the pension provider is: name, website url and status (active or not active)
+  * Acceptance Criteria 3: Only the admin user can access this admin panel and Pension Provider table
+  >**Result:** Pass, the above acceptance criteria are met as shown below. Only admin superuser can access the Django admin site.
+![User story - admin - add provider](docs/user-story-testing/admin-add-provider.png) 
+
+- [#32](https://github.com/Fiona-T/pension-pal/issues/32): As a website owner/admin I can edit the details for a Pension Provider so that the correct details for that Pension Provider feed through for the website users when viewing the My Pensions pages
+  * Acceptance Criteria 1:  In the admin panel, the admin user can click on the Provider Name to bring them to the change form, where they can amend any details (default Django admin functionality)
+  * Acceptance Criteria 2: In the admin panel, the admin user can edit the Status of the provider from the list view and press Save there, without having to go into the change form
+  * Acceptance Criteria 3: In the admin panel, the admin user can edit the Website of the provider from the list view and press Save there, without having to go into the change form
+  >**Result:** Pass, the above acceptance criteria are met as shown below:
+![User story - admin - edit provider](docs/user-story-testing/admin-edit-provider.png) 
+
+- [#33](https://github.com/Fiona-T/pension-pal/issues/33): As a website owner/admin I can view the Pension Providers list and their details in the admin panel so that I can see what Pension Providers are on the list, and find details for a specific provider
+  * Acceptance Criteria 1:  In the admin panel, the admin user can click on Providers and see the pension providers listed, with their name, website and whether they are active or not
+  * Acceptance Criteria 2: In the admin panel the admin user when viewing Providers can filter them by their status i.e. active/not active
+  * Acceptance Criteria 3: In the admin panel, the admin user when viewing Providers can search for a provider by their name or by their website
+  >**Result:** Pass, the above acceptance criteria are met as shown below:
+![User story - admin - view providers](docs/user-story-testing/admin-view-providers.png) 
+
+- [#34](https://github.com/Fiona-T/pension-pal/issues/34) As a website owner/admin I can delete a Pension Provider from the list so that they can be removed, if they were added in error. But cannot delete a Pension Provider if there are Pension records attached to it.
+  * Acceptance Criteria 1:  An admin user in the admin site can delete a Pension Provider, if there are no pension records attached to it
+  * Acceptance Criteria 2: However if there are pension records attached, the deletion is prevented because of the attached pension records
+  >**Result:** Pass, the above acceptance criteria are met as shown below:
+![User story - admin - delete providers](docs/user-story-testing/admin-delete-providers.png) 
+
+- [#26](https://github.com/Fiona-T/pension-pal/issues/26) As a site admin I can view the date formats in the admin panel as dd/mm/yyyy so that the dates are in the format I am used to, living in Ireland
+  * Acceptance Criteria 1:  When the admin user is signed into the admin panel, and views a Job, the dates shown are in the format dd/mm/yyyy and not yyyy/mm/dd
+  * Acceptance Criteria 2: If the admin user goes to the Add Job form in the admin panel and adds start and finish date using the date picker, the date chosen is then displayed in the format dd/mm/yyyy
+  * Acceptance Criteria 3: If the admin user goes to the Add Job form in the admin panel and types in the start and finish date in the format dd/mm/yyyy, the date saves in this same format and does not change into the American format (e.g. 01/05/2021 does not become 5th Jan 2021 
+  >**Result:** Pass, the above acceptance criteria are met as shown below:
+![User story - admin - date format](docs/user-story-testing/admin-date-format.png) 
+
+- [#35](https://github.com/Fiona-T/pension-pal/issues/35) As a user I can see a custom 'Page not found' page when I try an access a page in error so that I can find my way back to the website and I know I have not left the website(as the branding is the same as the rest of the website)
+  * Acceptance Criteria 1:  The 404 page not found displayed to the user is consistent with the branding on the rest of the website
+  * Acceptance Criteria 2:  The page contains the header and footer as per the rest of the webiste
+  * Acceptance Criteria 3: The page contains a note to the user stating the page was not found, and links for them to get back to the website
+  >**Result:** Pass, the above acceptance criteria are met as shown below and the 404 page generates for an invalid url, or for user trying to access records of a different user by url.
+![User story - custom 404 page](docs/user-story-testing/custom-404-page.png) 
+
+- [#37](https://github.com/Fiona-T/pension-pal/issues/37) As a registered user I can view details of a Pension that I added so that I can see all of the details of the pension in full for information or to check that they are correct
+  * Acceptance Criteria 1:  User can click on the View Details button on the pensions list, and this brings up a page showing the full details of that Pension
+  * Acceptance Criteria 2:  All details of the Pension are displayed (except for added by), along with date of joining service, date of leaving service (from the related Job), and pension provider website (from the related Provider)
+  * Acceptance Criteria 3: There are two buttons at the bottom of the page, one to Edit and one to Delete
+  >**Result:** Pass, the above acceptance criteria are met as shown below:
+![User story - view pension details](docs/user-story-testing/view-pension-details.png) 
+
+- [#41](https://github.com/Fiona-T/pension-pal/issues/41) As a registered user I can only access the View Full Details page for pensions that were added by me so that I can't access the pension records of another user and I know my records can't be accessed by another user
+  * Acceptance Criteria 1:  A user who is logged in and tries to access the view pension details page by using a url with an id of a pension they did not create, cannot access the page
+  * Acceptance Criteria 2: The user is redirected to a 404 page
+  * Acceptance Criteria 3: The user can still access the view details page for their own records, using the View Full Details button, or using a url with the pension id in it
+  >**Result:** Pass, the above acceptance criteria are met as shown below:
+![User story - can't view pension details of different user](docs/user-story-testing/cant-view-other-user-pension.png) 
+
+- [#54](https://github.com/Fiona-T/pension-pal/issues/54) As a registered user I can easily view the full details of the pension I just added by clicking a link from the add pension success page so that I can check that I added all the details correctly
+  * Acceptance Criteria 1:  After submitting the Add Pension form, the success page contains a link to view the full details of the pension just added 
+  * Acceptance Criteria 2: The link brings the user to the Pension Details page where they can see all details of that pension, and the associated job 
+  * Acceptance Criteria 3: The success page still contains a link to the My Pensions page, so the user can go here if they don't want to go to the Pension Details page
+  >**Result:** Pass, the above acceptance criteria are met as shown below:
+![User story - view pension details after adding the record](docs/user-story-testing/view-pension-after-adding.png) 
+
+- [#64](https://github.com/Fiona-T/pension-pal/issues/64): As a registered user I can easily get back to previous page when on the Pension Details page so that I can go back to where I was in one click and not have to navigate through pages when viewing Pension Details and associated Job details
+  * Acceptance Criteria 1:  There is a Back to previous page or similar on the Pension Details page, which takes the user back to whatever page they were on previously (e.g. they can come to this page from the My Jobs page and may want to go back to that page instead of to the My Pensions page in the breadcrumb)
+  >**Result:** Pass, the above acceptance criteria are met as shown below, and the link brings user back to the previous page:
+![User story - back to previous link on view pension details page](docs/user-story-testing/view-pension-back-link.png) 
+
+- [#65](https://github.com/Fiona-T/pension-pal/issues/65): As a registered user I can see if the pension provider for my existing pension records is no longer active so that I can update the record to the new pension provider
+  * Acceptance Criteria 1:  If the pension provider for a record is no longer active, then when a user views this record on the Pension Details, there is a note under the Pension provider details stating that the provider is no longer active and therefore the user should edit the record to update to the new active pension provider 
+  * Acceptance Criteria 2: If the pension provider status is active, then there is no note on the record
+  >**Result:** Pass, the above acceptance criteria are met as shown below:
+![User story - view pension details note if provider is inactive](docs/user-story-testing/view-pension-inactive-provider.png) 
+
+- [#57](https://github.com/Fiona-T/pension-pal/issues/57): As a registered user I can use the Cancel button on forms to go back to the previous page so that I can go back to the previous page and not a pre-determined page
+  * Acceptance Criteria 1:  On the Add Job or Edit Job form, if the user presses the cancel button they are brought back to the previous page they were on (currently defaults to go back to My Jobs page, but these forms can be accessed from other pages and user may want to navigate back)
+  * Acceptance Criteria 2: Similarly on the Add Pension or Edit Pension form, if the user presses the Cancel button they are brought back to the previous page they were on, and not necessarily to My Pensions, unless they were previously on My Pensions page
+  >**Result:** Pass, the above acceptance criteria are met, the button is present on the forms and pressing it brings the user back to the previous page. There is a small bug which has just come to light at the end of the project: if the form has an error so the page is therefore reloaded with the error message (i.e. server side error messages), the Cancel button needs to be pressed twice to get back to the previous page. This will be noted in the [Known Bugs](#known-bugs) section, to be rectified in future iterations.
+![User story - cancel button](docs/user-story-testing/cancel-button.png) 
+
+- [#62](https://github.com/Fiona-T/pension-pal/issues/62): As an admin user I can view the job details for all users in the admin site so that I have an overview of jobs per user
+  * Acceptance Criteria 1:  In the admin site, an admin user can go to Jobs and see the job records with all details (added by, employer name, start and finish dates, full/part time) in the list view
+  * Acceptance Criteria 2: The admin user can filter the list by the person who added the job record
+  * Acceptance Criteria 3: Clicking on the Employer Name will bring the admin user to the page showing details for that record
+  * Acceptance Criteria 4: The admin user can search by the employer name in the Jobs list
+  >**Result:** Pass, the above acceptance criteria are met as shown below:
+![User story - admin - view jobs](docs/user-story-testing/admin-view-jobs.png) 
+
+- [#63](https://github.com/Fiona-T/pension-pal/issues/63): As an admin user I can view the pension records in the admin site for all users so that I have an overview of the pensions added by the website users
+ * Acceptance Criteria 1:  In the admin site, an admin user can go to Pensions and see the pension records listed under the headings added by, scheme name, employment and value
+ * Acceptance Criteria 2: They can filter the list by the person who added the pension record, or by the pension provider
+ * Acceptance Criteria 3: Clicking on the scheme name will bring the admin user to the page showing the full details for that pension record, along with the Id of the record for information
+ * Acceptance Criteria 4: The admin user can search the pensions list by employer name and scheme name
+  >**Result:** Pass, the above acceptance criteria are met as shown below:
+![User story - admin - view pensions](docs/user-story-testing/admin-view-pensions.png) 
 
 ### Features Testing
 ### Other Manual Testing
@@ -507,5 +616,7 @@ The above error is raised when submitting the PensionForm on the EditPension vie
 ![Admin searching with foreign key bug](docs/bugs/admin-search-foreign-key-bug.png)
 The Django admin site gave the above error for the `Pension` model when trying to search the pensions records.
 > Solution: This issue was caused by `'employment'` being included in the `search_fields` list. This is a `ForeignKey` field (linked to the `Job` model), so it needed to be referenced in the `search_fields` list using the name of the relevant field in the Job model, so in this case: `'employment__employer_name'`. I found the answer to this issue in [this Stack Overflow post](https://stackoverflow.com/questions/11754877/troubleshooting-related-field-has-invalid-lookup-icontains).
+
+### Known Bugs
 
 ### Supported Screens and Browsers
