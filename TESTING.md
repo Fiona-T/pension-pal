@@ -199,6 +199,124 @@ Note: testing of the user stories was carried out while each user story/feature 
   >**Result:** Pass, the above acceptance criteria are met as shown below:
 ![User story - edit job links from pension details and edit pension pages](docs/user-story-testing/edit-job-links-from-pension-details.png)  
 
+- [#10](https://github.com/Fiona-T/pension-pal/issues/10): As a registered user, I can delete a job so that I can remove it from my records if I added it in error 
+  * Acceptance Criteria 1:  User can click on the Delete button on the jobs list, this brings up a confirmation page asking the user to confirm the deletion
+  * Acceptance Criteria 2:  There is a cancel button (to go back to my-jobs list) and a button to confirm deletion
+  * Acceptance Criteria 3: The job no longer exists in the job list after pressing the delete button
+  * Acceptance Criteria 4: After pressing the delete button, the user is redirected to the my jobs page
+  >**Result:** Pass, the above acceptance criteria are met as shown below:
+![User story - delete job](docs/user-story-testing/delete-job.png) 
+
+- [#43](https://github.com/Fiona-T/pension-pal/issues/43): As a registered user I can see confirmation a Job record was deleted after I press Delete button so that I know the record was definitely deleted
+  * Acceptance Criteria 1:  A logged in user, after pressing the Delete button and then the Delete Job button on the Delete Job modal, is returned to the My Jobs page (existing functionality) A message is displayed on the My Jobs page confirming the Job record was deleted
+  >**Result:** Pass, the above acceptance criteria are met as shown in the previous user story - success message displayed
+
+- [#50](https://github.com/Fiona-T/pension-pal/issues/50): As a registered user I can only delete my own Job records so that I cannot delete the Job records of a different user and I know my records can't be deleted by another user
+  * Acceptance Criteria 1:  A user who is logged in and tries to delete a job they did not create cannot do this
+  * Acceptance Criteria 2:  The user is redirected to a 404 page
+  * Acceptance Criteria 3:  Even the user who owns that job id cannot access the url and is redirected to a 404 page, because the delete job is done through a modal and not a separate page
+  >**Result:** Pass, the above acceptance criteria are met as shown below. User can't access the delete functionality by url. They can only access through the Delete button on their own records, which then posts the deletion to the database from the delete button on the delete modal.
+![User story - delete job can't access url](docs/user-story-testing/delete-job-url.png) 
+
+- [#61](https://github.com/Fiona-T/pension-pal/issues/61): As a registered user I can see what pensions (if any) will be deleted, before I delete a Job record so that I am aware of the consequences before deleting the Job record
+  * Acceptance Criteria 1:  On the delete job modal that pops up before the user presses the button to confirm the Deletion, there is information on whether there are attached pensions which would be deleted when the Job is deleted
+  * Acceptance Criteria 2: If there is no pension attached then the delete job modal confirms this
+  * Acceptance Criteria 3: If there is a pension or pensions attached, the name of the pension scheme is shown for information
+  >**Result:** Pass, the above acceptance criteria are met as shown below:
+![User story - delete job note if pensions attached](docs/user-story-testing/delete-job-warning-re-attached-pensions.png) 
+
+- [#11](https://github.com/Fiona-T/pension-pal/issues/11): As a registered user, I can record the details of a pension so that I can have the pension recorded on my account
+   * Acceptance Criteria 1:  A registered user can go to the My Pensions page, click Add a Pension and a form is displayed for them to complete
+  * Acceptance Criteria 2: The form contains fields for Employment(dropdown list from user's previously created jobs), pension scheme name, policy no., scheme no., type of pension, salary, PAO, 20% director, pension provider, value, file upload field, additional notes.
+  * Acceptance Criteria 3: All fields on the form are mandatory except member number, file upload and additional notes (PAO and Director default to false)
+  * Acceptance Criteria 4: After adding the pension details, the user can see these details in the My Pensions page (this depends on [#12](https://github.com/Fiona-T/pension-pal/issues/12))
+  >**Result:** Pass, the above acceptance criteria are met as shown below:
+![User story - add pension](docs/user-story-testing/add-pension.png) 
+
+- [#36](https://github.com/Fiona-T/pension-pal/issues/36): As a registered user I can see confirmation that my pension details were added so that I know the add Pension form submitted correctly and there were no errors 
+  * Acceptance Criteria 1:  After a registered user submits the Add Pension form successfully, they are redirected to a success page
+  * Acceptance Criteria 2: Success page confirms the pension was added and has links to the My Pensions page if they need to edit/delete the pension
+  >**Result:** Pass, the above acceptance criteria are met as shown below:
+![User story - add pension success page](docs/user-story-testing/add-pension-success.png) 
+
+- [#39](https://github.com/Fiona-T/pension-pal/issues/39): As a registered user I know how to add a job if it does not exist in the Employment dropdown on the Add Pension form so that I can then add the pension linked to that job
+  * Acceptance Criteria 1:  On the Add Pension form there is helptext underneath the 'Employment' dropdown field
+  * Acceptance Criteria 2: The helptext advises the user that if the Job does not exist in the dropdown, they need to add the job
+  >**Result:** Pass, the above acceptance criteria are met as shown below:
+![User story - add pension Employment field helptext](docs/user-story-testing/add-pension-job-helptext.png) 
+
+- [#40](https://github.com/Fiona-T/pension-pal/issues/40): As a registered user I can be notified that I have no recorded Jobs when I try to Add a Pension so that I can then add the Job, since the Job needs to be added before the Pension can be added
+  * Acceptance Criteria 1:  When the user does not have any Jobs recorded and clicks on the Add Pension button, the Add Pension form is not displayed (as they cannot add a pension without linking it to one of their job records)
+  * Acceptance Criteria 2: Instead they are shown a notification that they do not have any jobs recorded yet
+  * Acceptance Criteria 3: The notification reminds them that they need to add the job/employment first before they can add the pension, and provides the link to the add job form/ my-jobs page
+  >**Result:** Pass, the above acceptance criteria are met as shown below:
+![User story - add pension Employment field helptext](docs/user-story-testing/add-pension-no-jobs.png) 
+
+- [#47](https://github.com/Fiona-T/pension-pal/issues/47): As a registered user I can see which fields on the Add/Edit Pension form are mandatory so that I understand which fields must be completed by me and which are optional
+  * Acceptance Criteria 1:  On the Add Pension and Edit Pension pages, there is a note explaining which fields are mandatory and some identifying feature on the fields (e.g. asterisk)
+  * Acceptance Criteria 2:  The form can be submitted if the optional fields are left blank
+  >**Result:** Pass, the above acceptance criteria are met as shown in the user story for adding a new pension record, or editing a pension record. There is a note at top of form stating that required fields are marked with an asterisk, and the asterisk is present on the required field labels. The form can be submitted if the optional fields are left blank.
+
+- [#56](https://github.com/Fiona-T/pension-pal/issues/56): As a registered user I can know what file types I can upload when adding/editing a pension so that I can avoid uploading a file type that is not allowed
+  * Acceptance Criteria 1:  On the Add Pension or Edit Pension forms, there is a note on the file field advising what file types can be uploaded
+  * Acceptance Criteria 2: If the user adds a file that is not one of the allowed file types, an error is displayed on the form when trying to submit the form
+  * Acceptance Criteria 3: The allowed file types are jpg and png
+  >**Result:** Pass, the above acceptance criteria are met as shown below (also tested with uploading a pdf file which gives error, and uploading png file which uploads OK):
+![User story - add pension File field](docs/user-story-testing/add-pension-file-upload-field.png) 
+
+- [#59](https://github.com/Fiona-T/pension-pal/issues/59): As a registered user I can choose from a list of only the active Pension Providers on the pension provider field when adding or editing a pension so that I know that the pension provider is a current one
+  * Acceptance Criteria 1:  When a user is adding a pension record, the 'Pension provider' dropdown list only contains the Pension Providers that have a status of active
+  * Acceptance Criteria 2:  When a user is editing a pension record, the 'Pension provider' dropdown list only contains the Pension Providers that have a status of active
+  >**Result:** Pass, the above acceptance criteria are met as shown below:
+![User story - add or edit pension only shows active providers](docs/user-story-testing/pension-forms-active-providers.png) 
+
+- [#12](https://github.com/Fiona-T/pension-pal/issues/12): As a registered user, I can view the pensions I have added so that I can see all my pension details in one place
+  * Acceptance Criteria 1:  When a user is logged in and on the My Pensions page, all pensions added by that user are listed here
+  * Acceptance Criteria 2: The pensions added to date are shown in a section called Your Pensions, with summary details shown
+  * Acceptance Criteria 3: Each pension has the Scheme name, employer name and value shown, and buttons to View the full details, Edit, and Delete the pension
+  >**Result:** Pass, the above acceptance criteria are met as shown below:
+![User story - view pensions](docs/user-story-testing/view-pensions.png) 
+
+- [#38](https://github.com/Fiona-T/pension-pal/issues/38): As a registered user I can view my pensions listings in shorter pages so that I can click through each page instead of scrolling through a long list of my pensions
+  * Acceptance Criteria 1:  On the My Pensions page, under Your Pensions, the max number of pensions displayed is 6
+  * Acceptance Criteria 2: If there are more than 6 pensions, then there is a pagination feature at the bottom of the page which allows the user to go from one page to the next/previous
+  * Acceptance Criteria 3: If it is the first page of pensions, then there is only a next arrow. If it is the last page of pensions then there is only a previous arrow
+  >**Result:** Pass, the above acceptance criteria are met as shown below:
+![User story - view pensions - pagination](docs/user-story-testing/my-pensions-pagination.png) 
+
+- [#13](https://github.com/Fiona-T/pension-pal/issues/13): As a registered user, I can edit a pension I previously added, so that I can correct or update the previously recorded information
+  * Acceptance Criteria 1:  User can click on the Edit button on the pensions list, and this brings up a form to edit the details
+  * Acceptance Criteria 2: The existing details of the pension are pre-populated on the form so user just needs to update the fields that are changing
+  * Acceptance Criteria 3: The form contains the same fields as the Add Pension form, along with a confirmation button to Confirm, or a cancel button to go back
+  * Acceptance Criteria 4: After submitting the form, the user is redirected to the my pensions page
+  * Acceptance Criteria 5: The pension in the pensions list now shows the amended details
+  >**Result:** Pass, the above acceptance criteria are met as shown below, and the page redirects to My Pensions after the form is submitted:
+![User story - edit pension](docs/user-story-testing/edit-pension.png) 
+
+- [#46](https://github.com/Fiona-T/pension-pal/issues/46): As a registered user I can see confirmation that the edits I made to my pension record were successful, so that I know the changes made have been saved
+  * Acceptance Criteria 1:  A logged in user, after pressing the Confirm Changes button on the Edit Pension form is returned to the My Pensions page if the form was submitted successfully (existing functionality). A message is then displayed on the My Pensions page confirming the Pension record was successfully updated with the changes
+  >**Result:** Pass, the above acceptance criteria are met as shown below, after submitting the changes in the previous user story:
+![User story - edit pension success message](docs/user-story-testing/edit-pension-success-msg.png) 
+
+- [#14](https://github.com/Fiona-T/pension-pal/issues/14): As a registered user, I can delete a pension I previously added, so that I can remove it from my records if I added it in error 
+  * Acceptance Criteria 1:  User can click on the Delete button on the pensions list, this brings up a confirmation page asking the user to confirm the deletion
+  * Acceptance Criteria 2: There is a cancel button (to go back to my-pensions list) and a button to confirm deletion
+  * Acceptance Criteria 3: The pension no longer exists in the pension list after pressing the delete button
+  * Acceptance Criteria 4: After pressing the delete button, the user is redirected to the my pensions page
+  >**Result:** Pass, the above acceptance criteria are met as shown below:
+![User story - delete pension](docs/user-story-testing/delete-pension.png) 
+
+- [#44](https://github.com/Fiona-T/pension-pal/issues/44): As a registered user I can see confirmation that a Pension record was deleted, after I press the Delete button so that I know the record was definitely deleted
+  * Acceptance Criteria 1:  A logged in user, after pressing the Delete button and then the Delete Pension button on the Delete Pension modal, is returned to the My Pensions page (existing functionality) A message is then displayed on the My Pensions page confirming the Pension record was deleted 
+  >**Result:** Pass, the above acceptance criteria are met as shown in the previous user story - success message displayed
+
+- [#49](https://github.com/Fiona-T/pension-pal/issues/49): As a registered user I can only delete my own Pension records so that I cannot delete the Pension records of a different user and I know my records can't be deleted by another user
+  * Acceptance Criteria 1:  A user who is logged in and tries to delete a pension they did not create cannot do this
+  * Acceptance Criteria 2: The user is redirected to a 404 page
+  * Acceptance Criteria 3: Even the user who owns that pension id cannot access the url and is redirected to a 404 page, because the delete pension is done through a modal and not a separate page
+  >**Result:** Pass, the above acceptance criteria are met as shown below. User can't access the delete functionality by url. They can only access through the Delete button on their own records, which then posts the deletion to the database from the delete button on the delete modal.
+![User story - delete pension](docs/user-story-testing/delete-pension-url.png) 
+
 ### Features Testing
 ### Other Manual Testing
 ### Automated Testing
