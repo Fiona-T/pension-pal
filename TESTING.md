@@ -629,3 +629,18 @@ The Django admin site gave the above error for the `Pension` model when trying t
 As noted in the [Test Cases - user stories](#test-cases---user-stories) section, a small bug was noticed with the Cancel button on the Add Job, Edit Job, Add Pension or Edit Pension forms. Originally the Cancel button was linked to bring the user back to the My Jobs page or My Pension page respectively. As the project progressed and there were more links to the Add/Edit forms from different locations (for easier user access), the Cancel button was amended to then bring the user back to the previous page, which would be in line with their expectations, instead of a hardcoded page. This functions correctly. However if the form is returned back to the user with errors (from the server side checking, before the details are commited to the database), then since the page with the form was refreshed, the user needs to press the Cancel button twice to get back to the previous page. The JavaScript function that handles this would need to be updated to check if the current page matches the previous window history, and if it does then go back one more. There is no scope to fix this in the current iteration of the project since it only came to light after completion. But it is a relatively small bug that will not affect all users and the level of errors completing the forms should be low since there are helptexts on the fields that might generate errors. 
 
 ### Supported Screens and Browsers
+The project was developed using Chrome as the baseline browser.  
+
+The website and the game functionality has been tested on my personal mobile device Galaxy A40 and a 15 inch MacBook Pro.
+
+Using the [Chrome Dev Tools](https://developer.chrome.com/docs/devtools/) simulator, the website has been tested on the following screen sizes (px) equating to the phone models listed. *Note these have been tested on the simulator only and not the actual devices*:
+- Moto G4, Galaxy S5:  360 x 640
+- Pixel 2: 411 x 731
+- Pixel 2 XL: 411 x 823
+- iPhone 5/SE: 320 x 568
+- iPhone 6/7/8: 375 x 667
+- iPhone 6/7/8 Plus: 414 x 736
+- iPhone X: 375 x 812
+- iPad: 768 x 1024
+- iPad Pro: 1024 x 1366
+- Surface Duo: 540 x 720
