@@ -427,7 +427,15 @@ Note: testing of the user stories was carried out while each user story/feature 
 ![User story - admin - view pensions](docs/user-story-testing/admin-view-pensions.png) 
 
 ### Features Testing
+Features were tested while testing the User Story test cases outlined in the preceding [Test Cases - user stories](#test-cases---user-stories) section. All relevant screenprints can be found there.
+
 ### Other Manual Testing
+During development extensive manual testing was carried out. Manually tested adding, editing, deleting and viewing jobs and pension records via the frontend; and admin functions of adding, editing and deleting pension providers in the admin site. This was carried out while manually testing each user story/feature as it when it was developed. 
+
+Verified that all links work and external links open in a new page so as not to direct user away from the site. 
+
+**Note in relation to website addresses for Pension providers:** The pension providers that have been added during development are dummy fictional pension providers, so their websites are not actual websites and clicking on these links would result in a page not found. This would not be the case in a real life scenario, as the actual current pension providers present in Ireland would be added to the Provider table by the website owner. In addition the website owner would be responsible for maintaining the correct website address (along with the other provider details) for each provider as part of the role of maintainting the Pension Providers list.
+
 ### Automated Testing
 - #### Python tests
     Automated testing was carried out on the Python code in each of the three apps. Tests were written as each feature or user story was developed in each iteration, in line with the Agile approach used for the project development. The created tests were ran and the feature was not closed until the tests passed. Tests were written for the models, views and forms.
