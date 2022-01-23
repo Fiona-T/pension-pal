@@ -37,7 +37,7 @@ PensionPal is a website for users in Ireland to record details of their working 
 
 ## Purpose
 ---
-The purpose of PensionPal is to allow users to record the details of their working life and private pensions in one single location. The aim is for users to record these details at the time, e.g. when finishing up in a job, while the information is to hand and fresh in their minds, rather than having to find this information years later at retirement age. When they get to retirement age, then all the information is easily accessible, making the process of drawing down the retirement benefits much simpler.
+The purpose of PensionPal is to allow users to record the details of their working life and private pensions in one single location. The aim is for users to record these details at the time, e.g. when finishing up in a job, while the information is to hand and fresh in their minds, rather than having to find this information years later at retirement age. When they get to retirement age, then all the information is easily accessible, making the process of drawing down the retirement benefits much simpler. In addition it means that the individual is less likely to forget about the pension scheme once they have recorded it here - over a working life of approximately 40 years or more, people can easily lose track of what pension schemes they have where, and can even forget about some of them completely. Using this website would prevent that happening.
 
 The point of recording the information at the stage of leaving a job (and not before then) is that some pension benefits are calculated based on the length of service and final salary with the employer. However future iterations could include a feature to allow an active employment to be recorded (i.e. without finish date) and a pension to be attached to this record. 
 
@@ -380,6 +380,21 @@ Montserrat is used throughout the entire website, with the different weights use
 - Create a calculator that would calculate best "final remuneration" from the salary details (this might be quite complex to do)
 - Add functionality to record the number of "insurable weeks" in each year of an employment, along with PRSI class. This would be helpful for determining eligibility for SPC at retirement and how much SPC might be paid
 - Add functionality so that a user could consent to their financial advisor accessing their records on the website (perhaps for a limited time period), and the financial advisor can login and view the user's records on a read-only basis. This would be useful for the financial advisor to get an overview before a financial review meeting etc.
+- add integration with email so that new user account verification can be done using email address; and user can reset their password by requesting a reset password link to be emailed to them
+- add a Profile section where the user can update their details e.g. change their email address, change their password
+- add a Contact form for users to contact the website owners with questions or suggestions for improvements
+- add a Useful Information page with common questions on pensions or explanations of common terminology etc., which the admin user would be able to add to via the admin site
+- add a Blog page where the admin user could write blog posts via the admin site, with useful articles on pensions for the website users. Include functionality for users to like and/or comment on posts. 
+- following on from the above, create a separate level of user access for users who only want to comment/like a blog post but don't have a full level of access to record their jobs and pensions. They could upgrade their access at a later point if they want to access this functionality.
+- When the user has added a job, pass back the job id to the add-job-success page, then add the pension from there, setting the employer name on the add pension form to the job just added
+- add further client side validations on the forms above what currently exists via the HTML validations
+- When a user submits an Edit Job or Edit Pension, check first if any changes were actually made to the details, if there weren't then flag this to the user
+- Add the Pension Provider administration to the front end, so that the admin users can add, edit, view, delete via the front end and don't need to log in to the admin site. Access to these pages would need to be restricted to admin only
+- Add further validations to the PensionForm before saving the record to the database, for example check that the date of joining pension scheme is not before the date of joining service on the Job record.
+- Add a search function to the My Jobs and My Pensions pages to allow user to search by employer name, scheme name.
+- Add Normal Retirement Age (NRA) to the PensionForm. Possibly could add functionality to perform a calculation for max benefits on leaving service
+- Update the user profile to include date of birth - this would then allow further functionality to set up a reminder/flag to the user when they are nearing age 75 if the pension type is PRSA or Personal Pension/RAC as these benefits must be taken by age 75 at the latest or else they are frozen (this could also be extended for other pension types just to remind the user when they are approaching the NRA on the pension)
+- extend the functionality on the Employer name which currently doesn't allow a duplicate for that user. Sometimes people will leave an employer but work for them again at a later date. The user could just add a new Job record with a slightly different Employer name to get around this. But perhaps the website functionality could be tweaked by adding a new field on the Job model of employment record (or something similar) which is a combination of the employer name + start date, and the pensions are attached to this rather than just the employer name. 
 
 ## Content Requirements
 ---
