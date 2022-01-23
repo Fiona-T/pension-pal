@@ -25,6 +25,7 @@
 - The Python code has been validated using [PEP8 online checker](http://pep8online.com/). Errors in relation to `line too long (86 > 79 characters)` were fixed. There are no validation errors in the sumitted code for custom Python code. Django standard files have not been amended in relation to line length errors. The [results of validation each python file can be viewed here](docs/code-validation/python-validation.pdf).
 
 ### Test Cases - user stories
+Note: testing of the user stories was carried out while each user story/feature was developed, to ensure acceptance criteria were met before the issue was closed. The below documents the user story testing that was completed at the end of the project.
 - [#1](https://github.com/Fiona-T/pension-pal/issues/1): As a visiting user, I can learn what the site is about, so I can decide whether to sign up to the site
     * Acceptance Criteria 1:  The first thing a user should see on entering the website is an image relevant to the topic and a tagline explaining exactly what the website is for
     * Acceptance Criteria 2: There should be a Learn More button here, which will link to more detailed information
@@ -100,6 +101,103 @@
     * Acceptance Criteria 4: The user can't submit the form unless all the fields have been completed
   >**Result:** Pass, the above acceptance criteria are met as shown below, and page redirects to My Jobs after sign up:
 ![User story - sign up](docs/user-story-testing/sign-up.png)
+
+- [#7](https://github.com/Fiona-T/pension-pal/issues/7): As a registered user, I can record details of a job so that I can build up my employment history records
+  * Acceptance Criteria 1:  A registered user can go to the My Jobs page, click Add a Job and a form is displayed for them to complete
+  * Acceptance Criteria 2: The form contains fields for Employer name, date of joining, date of leaving, and whether the employment was full or part time.
+  * Acceptance Criteria 3: All fields on the form are mandatory
+  * Acceptance Criteria 4: After adding the employment details, the user can see these details in the My Jobs page
+  >**Result:** Pass, the above acceptance criteria are met as shown below:
+![User story - add job](docs/user-story-testing/add-job.png)
+
+- [#21](https://github.com/Fiona-T/pension-pal/issues/21) As a registered user I can see confirmation that my job details were added so that I know the form submitted correctly and there were no errors
+  * Acceptance Criteria 1:  After a registered user submits the Add Job form successfully, they are redirected to a success page
+  * Acceptance Criteria 2: Success page confirms the employment was added and reminds the user to now add a pension if there was a pension attached to the job
+  * Acceptance Criteria 3: Success page has links to the My Jobs page where the user can view the jobs they added
+  >**Result:** Pass, the above acceptance criteria are met as shown below:
+![User story - add job success](docs/user-story-testing/add-job-success.png)
+
+- [#23](https://github.com/Fiona-T/pension-pal/issues/23): As a registered user I can add the dates to the Add Job form in the order of: day, month, year so that I know I am entering the correct date, since this is the date format used in Ireland
+* Acceptance Criteria 1:  The date fields on the Add Job form accept the format in the order of d, m, y. 
+* Acceptance Criteria 2: E.g. if a user enters a date of 01/05/2021, this means a date of 1st May 2021 and not 5th Jan 2021
+  >**Result:** Pass, the above acceptance criteria are met as shown below:
+![User story - add job date format](docs/user-story-testing/add-job-date-format.png)
+
+- [#24](https://github.com/Fiona-T/pension-pal/issues/24): As a registered user I can easily enter the dates when adding a job so that I can complete the form intuitively and easily
+  * Acceptance Criteria 1:  The Add Job form has placeholders/helptext in the Start date and Finish date inputs
+  * Acceptance Criteria 2: The placeholder/helptext shows the format of the date to use 
+  *  cceptance Criteria 3: If possible a date picker is also included on these inputs so that the user can select the date more easily
+  >**Result:** Pass, the above acceptance criteria are met as shown below; and user can either use the date picker to enter a date, or type into the placeholder text. It is clear to the user the date format that is being used and easy to enter a date.
+![User story - add job date fields datepicker and placeholder](docs/user-story-testing/add-job-date-inputs-widget.png)
+
+- [#42](https://github.com/Fiona-T/pension-pal/issues/42): As a registered user I can not add a new Employment with the same name as another Employment in my Jobs records so that I don't add duplicate records which would cause confusion
+  * Acceptance Criteria 1:  A logged in user on the Add Job form, cannot add an Employer Name that matches the employer name of one of their existing Job records
+  * Acceptance Criteria 2: If they try to do this, an error is displayed on the Add Job form explaining that the employer name already exists and to edit or delete the existing Job record, or add a different Employer name for the new record
+  * Acceptance Criteria 3: The Add Job form cannot be submitted until the Employer name differs to any of that user's existing job records
+  >**Result:** Pass, the above acceptance criteria are met as shown below:
+![User story - add job prevent duplicate employer name](docs/user-story-testing/add-job-duplicate-employment-check.png) 
+
+- [#55](https://github.com/Fiona-T/pension-pal/issues/55): As a registered user I can see a relevant error message if I enter a job finish date that is before the start date so that I can correct the error before the job record is saved
+  * Acceptance Criteria 1:  When adding or editing a job, if the user enters a finish date that is before the start date on the form, the job is not added
+  * Acceptance Criteria 2: The form is displayed again to the user, with an error message stating what the issue is, along with the data they previously entered into the form
+  * Acceptance Criteria 3: When the user corrects the error and submits the form, the job is added/edited successfully
+  >**Result:** Pass, the above acceptance criteria are met as shown below:
+![User story - add job error if finish before start date](docs/user-story-testing/add-job-dates-dates-validation.png) 
+
+- [#8](https://github.com/Fiona-T/pension-pal/issues/8): As a registered user, I can see all the jobs I have added so that I can get the overall picture of my work history
+  * Acceptance Criteria 1:  When a user is logged in and on the My Jobs page, all jobs added by that user are listed here
+  * Acceptance Criteria 2: The jobs added to date are shown in a section called Your Jobs
+  * Acceptance Criteria 3: Each job has the Employer name (prominently), the start and end date, and whether it was full or part time
+  >**Result:** Pass, the above acceptance criteria are met as shown below:
+![User story - view jobs added](docs/user-story-testing/view-jobs.png) 
+
+- [#22](https://github.com/Fiona-T/pension-pal/issues/22): As a registered user I can see confirmation that I have no jobs recorded so that I know I have not previously recorded any jobs and that is why there are no jobs displayed
+  * Acceptance Criteria 1:  On the My Jobs page there is a note underneath Your Jobs heading confirming that the user does not have any jobs added, if that user has not previously added any jobs, or has added jobs but deleted them
+  * Acceptance Criteria 2: If the user does have jobs in their records, then these are displayed and the note is not displayed
+  >**Result:** Pass, the above acceptance criteria are met as shown below (and see above for when there are jobs added):
+![User story - no jobs](docs/user-story-testing/view-jobs-no-jobs.png) 
+
+- [#27](https://github.com/Fiona-T/pension-pal/issues/27): As a registered user I can view my jobs listings in shorter pages so that I can click through each page instead of scrolling through a long list of my jobs
+  * Acceptance Criteria 1:  On the My Jobs page, under Your Jobs, the max number of jobs displayed is 6
+  * Acceptance Criteria 2: If there are more than 6 jobs, then there is a pagination feature at the bottom of the page which allows the user to go from one page to the next/previous
+  * Acceptance Criteria 3: If it is the first page of jobs, then there is only a next arrow. If it is the last page of jobs then there is only a previous arrow
+  >**Result:** Pass, the above acceptance criteria are met as shown below:
+![User story - view jobs pagination](docs/user-story-testing/view-jobs-pagination.png) 
+
+- [#60](https://github.com/Fiona-T/pension-pal/issues/60): As a registered user I can see the pensions that are attached to a job so that I know whether there are any pensions attached or not, and can access the pensions easily if there are
+  * Acceptance Criteria 1:  In the My Jobs page, the card for each job has information on whether there is a pension or pensions attached to the job
+  * Acceptance Criteria 2: If there is no pension attached then a note on that job card confirms this
+  * Acceptance Criteria 3: If there is a pension or pensions attached, the name of the pension scheme is shown and this is linked to the details page for that pension
+  >**Result:** Pass, the above acceptance criteria are met as shown below - no pension attached, one pension attached or multiple pensions attached. Attached pensions are linked to the view full details page for each pension.
+![User story - job details includes pension](docs/user-story-testing/job-card-shows-attached-pensions.png) 
+
+- [#9](https://github.com/Fiona-T/pension-pal/issues/9): As a registered user, I can edit a job so that I can correct the previously recorded information
+   * Acceptance Criteria 1:  User can click on the Edit button on the jobs list, and this brings up a form to edit the details
+  * Acceptance Criteria 2: The existing details of the job are pre-populated on the form so user just needs to update the fields that are changing
+  * Acceptance Criteria 3: The form contains the same fields as the Add Job form, along with a confirmation button to Confirm, or a cancel button to go back
+  * Acceptance Criteria 4: After submitting the form, the user is redirected to the my jobs page
+  * Acceptance Criteria 5: The job in the jobs list now shows the amended details
+  >**Result:** Pass, the above acceptance criteria are met as shown below:
+![User story - edit job](docs/user-story-testing/edit-job.png) 
+
+- [#30](https://github.com/Fiona-T/pension-pal/issues/30): As a registered user I can only access the edit page for jobs that were added by me so that I cannot access the jobs of a different user and I know my records can't be accessed by another user 
+  * Acceptance Criteria 1:  A user who is logged in and tries to access an edit job form by using a url with an id of a job they did not create, cannot access the page
+  * Acceptance Criteria 2: The user is redirected to a 404 page
+  * Acceptance Criteria 3: The user can still access the edit job form for their own records, using either the Edit button from the My Jobs list, or using a url with the job id in it
+  >**Result:** Pass, the above acceptance criteria are met as shown below:
+![User story - cannot access edit job page of different user](docs/user-story-testing/edit-job-other-user-job-id.png) 
+
+- [#45](https://github.com/Fiona-T/pension-pal/issues/45): As a registered user I can see confirmation the edits to my job record were successful so that I know the changes I made have been saved
+  * Acceptance Criteria 1:  A logged in user, after pressing the Confirm Changes button on the Edit Job form is returned to the My Jobs page if the form was submitted successfully (existing functionality). A message is then displayed on the My Jobs page confirming the Job record was successfully updated with the changes
+  >**Result:** Pass, the above acceptance criteria are met as shown below:
+![User story - edit job success message](docs/user-story-testing/edit-job-success-msg.png)  
+
+- [#53](https://github.com/Fiona-T/pension-pal/issues/53): As a registered user I can click a link that brings me to the Edit Job page, from the View or Edit pages of the attached Pension so that I can go directly to the Edit page of the associated Job, instead of having to navigate to it 
+  * Acceptance Criteria 1:  There is a link directly to the Edit Job page from the View Full Details page for a pension
+  * Acceptance Criteria 2: There is a link directly to the Edit Job page from the Edit Pension page
+  * Acceptance Criteria 3: The linked Edit Job page is to edit the job that the pension is attached to 
+  >**Result:** Pass, the above acceptance criteria are met as shown below:
+![User story - edit job links from pension details and edit pension pages](docs/user-story-testing/edit-job-links-from-pension-details.png)  
 
 ### Features Testing
 ### Other Manual Testing
